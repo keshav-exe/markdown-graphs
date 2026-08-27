@@ -1,0 +1,699 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "markdown-graphs",
+  "homepage": "https://github.com/keshav-exe/markdown-graphs",
+  "items": [
+    {
+      "name": "graph-frame",
+      "type": "registry:ui",
+      "title": "Frame",
+      "description": "Dashed ASCII frame, title, corners, and motion helpers.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-arrow.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      },
+      "docs": "Primitive used by every graph. Install this, or skip it \u2014 every other item includes it."
+    },
+    {
+      "name": "graph-table",
+      "type": "registry:component",
+      "title": "Table",
+      "description": "Framed data table with optional footer totals.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-table/graph-table.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "graph-flow",
+      "type": "registry:component",
+      "title": "Flow",
+      "description": "Typed process diagram with dashed arrows.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-arrow.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-flow/graph-flow.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "graph-bars",
+      "type": "registry:component",
+      "title": "Bars",
+      "description": "Before/after bar comparison with a processor in the middle.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-arrow.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-bars/graph-bars.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "graph-cells",
+      "type": "registry:component",
+      "title": "Cells",
+      "description": "Filled and empty cell grids for comparing density.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-cells/graph-cells.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "graph-scale",
+      "type": "registry:component",
+      "title": "Scale",
+      "description": "Contrast or type scale as a labeled list.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-scale/graph-scale.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "graph-radii",
+      "type": "registry:component",
+      "title": "Radii",
+      "description": "Nested radii diagram. Inner equals outer minus inset.",
+      "dependencies": [],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-radii/graph-radii.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "graph-meter",
+      "type": "registry:component",
+      "title": "Meter",
+      "description": "Percentage meter drawn with characters, not a progress bar.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-meter/graph-meter.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "graph-spark",
+      "type": "registry:component",
+      "title": "Spark",
+      "description": "Sparkline made of block glyphs.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-spark/graph-spark.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "all",
+      "type": "registry:block",
+      "title": "All graphs",
+      "description": "Every markdown graph component, plus the frame primitives.",
+      "dependencies": ["motion"],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-arrow.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-table/graph-table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/graph-flow/graph-flow.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/graph-bars/graph-bars.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/graph-cells/graph-cells.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/graph-scale/graph-scale.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/graph-radii/graph-radii.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/graph-meter/graph-meter.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/graph-spark/graph-spark.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/index.ts",
+          "type": "registry:lib"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      },
+      "docs": "Installs the full library into registry/default."
+    }
+  ]
+}

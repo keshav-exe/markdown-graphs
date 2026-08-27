@@ -2,8 +2,8 @@
 
 import { motion, useReducedMotion } from "motion/react"
 
-import { Graph, GraphBody } from "@/components/graphs/frame"
-import { graphTransition } from "@/components/graphs/motion"
+import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
+import { graphTransition } from "@/registry/default/graph-frame/graph-motion"
 
 type GraphMeterProps = {
   title: string

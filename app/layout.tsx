@@ -5,6 +5,8 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { SiteFooter } from "@/components/site/footer"
 import { SiteHeader } from "@/components/site/header"
 import { ThemeProvider } from "@/components/theme-provider"
+import { accentBlockingScript, DEFAULT_ACCENT_ID } from "@/lib/accent"
+import { getGithubStars } from "@/lib/github"
 import { cn } from "@/lib/utils"
 
 import "./globals.css"
@@ -27,25 +29,31 @@ export const metadata: Metadata = {
     template: "%s · Markdown Graphs",
   },
   description:
-    "Motion-friendly charts, tables, and diagrams for MDX. One accent color. Typed, not drawn.",
+    "Copy-paste graphs for MDX. Dashed frames, one accent, source in your repo.",
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: ReactNode
 }>) {
+  const stars = await getGithubStars()
+
   return (
     <html
       lang="en"
       suppressHydrationWarning
+      data-accent={DEFAULT_ACCENT_ID}
       className={cn(
         "dark antialiased",
         geistSans.variable,
         geistMono.variable,
-        "font-mono"
+        "font-sans"
       )}
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: accentBlockingScript() }} />
+      </head>
       <body>
         <ThemeProvider>
           <a
@@ -55,7 +63,7 @@ export default function RootLayout({
             Skip to content
           </a>
           <div className="isolate flex min-h-dvh flex-col">
-            <SiteHeader />
+            <SiteHeader stars={stars} />
             <div className="flex-1">{children}</div>
             <SiteFooter />
           </div>

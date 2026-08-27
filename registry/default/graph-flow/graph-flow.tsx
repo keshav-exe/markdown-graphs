@@ -2,9 +2,12 @@
 
 import { motion, useReducedMotion } from "motion/react"
 
-import { GraphArrow } from "@/components/graphs/arrow"
-import { Graph, GraphBody } from "@/components/graphs/frame"
-import { fadeUp, staggerList } from "@/components/graphs/motion"
+import { GraphArrow } from "@/registry/default/graph-frame/graph-arrow"
+import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
+import {
+  fadeUp,
+  staggerList,
+} from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
 type FlowTone = "default" | "accent" | "muted"

@@ -7,7 +7,7 @@ const principles = [
   },
   {
     title: "One accent",
-    body: "A single blue. Everything else recedes. Hierarchy is subtraction, not decoration.",
+    body: "Pick a color. Everything else recedes. Hierarchy is subtraction, not decoration.",
   },
   {
     title: "Motion as information",
@@ -18,11 +18,11 @@ const principles = [
 function Principles() {
   return (
     <section className="py-12 sm:py-16">
-      <SiteContainer>
+      <SiteContainer className="flex flex-col gap-10">
         <h2 className="max-w-[35ch] text-2xl font-semibold tracking-tight text-balance">
           How they work
         </h2>
-        <dl className="mt-10 grid gap-8 lg:grid-cols-3">
+        <dl className="grid gap-8 lg:grid-cols-3">
           {principles.map((item) => (
             <div key={item.title} className="flex flex-col gap-3">
               <dt className="font-medium text-foreground">{item.title}</dt>

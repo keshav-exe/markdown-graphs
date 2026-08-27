@@ -2,6 +2,7 @@ import Link from "next/link"
 
 import { SiteContainer } from "@/components/site/container"
 import { LogoMark } from "@/components/site/logo"
+import { GITHUB_URL } from "@/lib/github"
 
 function SiteFooter() {
   return (
@@ -20,26 +21,35 @@ function SiteFooter() {
           <nav aria-label="Footer">
             <ul className="flex flex-wrap gap-6" role="list">
               <li>
-                <a
+                <Link
                   className="font-normal text-muted-foreground hover:text-foreground"
-                  href="#library"
+                  href="/docs"
                 >
-                  Library
-                </a>
+                  Docs
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="font-normal text-muted-foreground hover:text-foreground"
+                  href="/docs/installation"
+                >
+                  Installation
+                </Link>
               </li>
               <li>
                 <a
                   className="font-normal text-muted-foreground hover:text-foreground"
-                  href="#usage"
+                  href={GITHUB_URL}
+                  rel="noreferrer"
                 >
-                  Usage
+                  Source
                 </a>
               </li>
             </ul>
           </nav>
         </div>
         <p className="max-w-[56ch] text-pretty text-muted-foreground">
-          Built for MDX. One accent. Typed, not drawn.
+          Open source. Copy the files. One accent.
         </p>
       </SiteContainer>
     </footer>

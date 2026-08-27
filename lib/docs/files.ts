@@ -1,0 +1,98 @@
+export const GITHUB_REPO = "keshav-exe/markdown-graphs"
+
+export const registryFiles: Record<string, string[]> = {
+  "graph-frame": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-frame/graph-arrow.tsx",
+  ],
+  "graph-table": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-table/graph-table.tsx",
+  ],
+  "graph-flow": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-frame/graph-arrow.tsx",
+    "registry/default/graph-flow/graph-flow.tsx",
+  ],
+  "graph-bars": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-frame/graph-arrow.tsx",
+    "registry/default/graph-bars/graph-bars.tsx",
+  ],
+  "graph-cells": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-cells/graph-cells.tsx",
+  ],
+  "graph-scale": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-scale/graph-scale.tsx",
+  ],
+  "graph-radii": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-radii/graph-radii.tsx",
+  ],
+  "graph-meter": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-meter/graph-meter.tsx",
+  ],
+  "graph-spark": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-spark/graph-spark.tsx",
+  ],
+  all: ["registry/default"],
+}
+
+export const graphUtilitiesCss = `@theme inline {
+  --color-graph-accent: var(--graph-accent);
+  --color-graph-frame: var(--graph-frame);
+  --color-graph-muted: var(--graph-muted);
+  --color-graph-faint: var(--graph-faint);
+  --color-contrast-14: var(--contrast-14);
+  --color-contrast-23: var(--contrast-23);
+  --color-contrast-45: var(--contrast-45);
+  --color-contrast-70: var(--contrast-70);
+}
+
+@utility graph-frame {
+  background-image:
+    repeating-linear-gradient(
+      to right,
+      var(--graph-frame) 0 2px,
+      transparent 2px 7px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--graph-frame) 0 2px,
+      transparent 2px 7px
+    ),
+    repeating-linear-gradient(
+      to right,
+      var(--graph-frame) 0 2px,
+      transparent 2px 7px
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      var(--graph-frame) 0 2px,
+      transparent 2px 7px
+    );
+  background-repeat: repeat-x, repeat-y, repeat-x, repeat-y;
+  background-position: 0 0, 100% 0, 0 100%, 0 0;
+  background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%;
+}
+
+@utility graph-rule {
+  height: 1px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--graph-frame) 0 2px,
+    transparent 2px 7px
+  );
+}`

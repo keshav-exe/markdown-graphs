@@ -5,16 +5,12 @@ import { Dialog } from "@base-ui/react/dialog"
 import { Cancel01Icon, MenuIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
+import { GithubStarLink } from "@/components/site/github-star"
 import { LogoMark } from "@/components/site/logo"
 import { SiteContainer } from "@/components/site/container"
 import { cn } from "@/lib/utils"
 
-const links = [
-  { href: "#library", label: "Library" },
-  { href: "#usage", label: "Usage" },
-]
-
-function SiteHeader() {
+function SiteHeader({ stars }: { stars: number | null }) {
   return (
     <header className="pt-4 sm:pt-6">
       <SiteContainer>
@@ -28,24 +24,25 @@ function SiteHeader() {
             <span>markdown graphs</span>
           </Link>
 
-          <nav aria-label="Primary" className="hidden lg:flex">
+          <nav aria-label="Primary" className="max-lg:hidden">
             <ul className="flex items-center gap-6" role="list">
-              {links.map((link) => (
-                <li key={link.href}>
-                  <a
-                    className="text-muted-foreground hover:text-foreground"
-                    href={link.href}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
+              <li>
+                <Link
+                  className="text-muted-foreground hover:text-foreground"
+                  href="/docs"
+                >
+                  Docs
+                </Link>
+              </li>
             </ul>
           </nav>
 
-          <p className="ml-auto hidden text-muted-foreground lg:block">
-            Press <kbd className="text-foreground">d</kbd> for theme
-          </p>
+          <div className="ml-auto flex items-center gap-6 max-lg:hidden">
+            <GithubStarLink stars={stars} />
+            <p className="text-muted-foreground">
+              Press <kbd className="text-foreground">d</kbd> for theme
+            </p>
+          </div>
 
           <Dialog.Root>
             <Dialog.Trigger
@@ -91,21 +88,24 @@ function SiteHeader() {
                   </Dialog.Close>
                 </div>
                 <ul className="flex flex-col gap-6" role="list">
-                  {links.map((link) => (
-                    <li key={link.href}>
-                      <Dialog.Close
-                        nativeButton={false}
-                        render={
-                          <a
-                            className="block text-2xl text-foreground"
-                            href={link.href}
-                          />
-                        }
-                      >
-                        {link.label}
-                      </Dialog.Close>
-                    </li>
-                  ))}
+                  <li>
+                    <Dialog.Close
+                      nativeButton={false}
+                      render={
+                        <Link
+                          className="text-2xl text-foreground"
+                          href="/docs"
+                        />
+                      }
+                    >
+                      Docs
+                    </Dialog.Close>
+                  </li>
+                  <li>
+                    <div className="text-2xl">
+                      <GithubStarLink stars={stars} />
+                    </div>
+                  </li>
                 </ul>
               </Dialog.Popup>
             </Dialog.Portal>

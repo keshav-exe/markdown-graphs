@@ -4,8 +4,15 @@ import type { ReactNode } from "react"
 
 import { motion, useReducedMotion } from "motion/react"
 
-import { Graph, GraphBody, GraphRule } from "@/components/graphs/frame"
-import { fadeUp, staggerList } from "@/components/graphs/motion"
+import {
+  Graph,
+  GraphBody,
+  GraphRule,
+} from "@/registry/default/graph-frame/graph-frame"
+import {
+  fadeUp,
+  staggerList,
+} from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
 type GraphAlign = "left" | "right"

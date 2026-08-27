@@ -2,7 +2,7 @@
 
 import type { CSSProperties } from "react"
 
-import { Graph, GraphBody } from "@/components/graphs/frame"
+import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import { cn } from "@/lib/utils"
 
 const OUTER = 16

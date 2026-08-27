@@ -1,0 +1,71 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "graph-scale",
+  "title": "Scale",
+  "description": "Contrast or type scale as a labeled list.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/default/graph-frame/graph-frame.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction GraphCorners() {\n  return (\n    <>\n      <span\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute top-0 left-0 z-10 block -translate-x-1/2 -translate-y-1/2 bg-background px-0.5 text-graph-frame\"\n      >\n        +\n      </span>\n      <span\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute top-0 right-0 z-10 block translate-x-1/2 -translate-y-1/2 bg-background px-0.5 text-graph-frame\"\n      >\n        +\n      </span>\n      <span\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute bottom-0 left-0 z-10 block -translate-x-1/2 translate-y-1/2 bg-background px-0.5 text-graph-frame\"\n      >\n        +\n      </span>\n      <span\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute right-0 bottom-0 z-10 block translate-x-1/2 translate-y-1/2 bg-background px-0.5 text-graph-frame\"\n      >\n        +\n      </span>\n    </>\n  )\n}\n\nfunction GraphTitle({\n  className,\n  children,\n  ...props\n}: React.ComponentProps<\"figcaption\">) {\n  return (\n    <figcaption\n      className={cn(\n        \"absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 bg-background px-2.5 tracking-wide whitespace-nowrap text-graph-accent uppercase\",\n        className\n      )}\n      {...props}\n    >\n      [ {children} ]\n    </figcaption>\n  )\n}\n\nfunction GraphBody({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div className={cn(\"px-5 py-7 sm:px-8 sm:py-8\", className)} {...props} />\n  )\n}\n\nfunction GraphRule({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      aria-hidden=\"true\"\n      className={cn(\"graph-rule w-full\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction Graph({\n  title,\n  className,\n  children,\n  ...props\n}: React.ComponentProps<\"figure\"> & {\n  title?: string\n}) {\n  const captionId = React.useId()\n\n  return (\n    <figure\n      aria-labelledby={title ? captionId : undefined}\n      className={cn(\n        \"relative min-w-0 graph-frame font-mono text-sm text-foreground\",\n        className\n      )}\n      {...props}\n    >\n      {title ? <GraphTitle id={captionId}>{title}</GraphTitle> : null}\n      <GraphCorners />\n      {children}\n    </figure>\n  )\n}\n\nexport { Graph, GraphBody, GraphCorners, GraphRule, GraphTitle }\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/default/graph-frame/graph-motion.ts",
+      "content": "import type { Transition, Variants } from \"motion/react\"\n\nexport const easeOutCubic = [0.215, 0.61, 0.355, 1] as const\n\nexport function graphTransition(\n  reduce: boolean | null,\n  extras?: Transition\n): Transition {\n  if (reduce) {\n    return { duration: 0 }\n  }\n\n  return {\n    duration: 0.22,\n    ease: easeOutCubic,\n    ...extras,\n  }\n}\n\nexport function fadeUp(reduce: boolean | null): Variants {\n  if (reduce) {\n    return {\n      hidden: { opacity: 1, transform: \"translateY(0px)\" },\n      show: { opacity: 1, transform: \"translateY(0px)\" },\n    }\n  }\n\n  return {\n    hidden: { opacity: 0, transform: \"translateY(8px)\" },\n    show: {\n      opacity: 1,\n      transform: \"translateY(0px)\",\n      transition: graphTransition(false),\n    },\n  }\n}\n\nexport function staggerList(reduce: boolean | null, stagger = 0.04): Variants {\n  return {\n    hidden: {},\n    show: {\n      transition: reduce ? { duration: 0 } : { staggerChildren: stagger },\n    },\n  }\n}\n",
+      "type": "registry:lib"
+    },
+    {
+      "path": "registry/default/graph-scale/graph-scale.tsx",
+      "content": "\"use client\"\n\nimport { motion, useReducedMotion } from \"motion/react\"\n\nimport { Graph, GraphBody } from \"@/registry/default/graph-frame/graph-frame\"\nimport {\n  fadeUp,\n  staggerList,\n} from \"@/registry/default/graph-frame/graph-motion\"\nimport { cn } from \"@/lib/utils\"\n\ntype ScaleItem = {\n  ratio: string\n  label: string\n  token: \"14\" | \"23\" | \"45\" | \"70\"\n  accent?: boolean\n}\n\ntype GraphScaleProps = {\n  title: string\n  items: ScaleItem[]\n  className?: string\n}\n\nconst tokenClass: Record<ScaleItem[\"token\"], string> = {\n  \"14\": \"text-contrast-14\",\n  \"23\": \"text-contrast-23\",\n  \"45\": \"text-contrast-45\",\n  \"70\": \"text-contrast-70\",\n}\n\nfunction GraphScale({ title, items, className }: GraphScaleProps) {\n  const reduce = useReducedMotion()\n  const item = fadeUp(reduce)\n  const list = staggerList(reduce, 0.05)\n\n  return (\n    <Graph title={title} className={className}>\n      <GraphBody>\n        <motion.ul\n          role=\"list\"\n          className=\"flex flex-col gap-3\"\n          initial={reduce ? false : \"hidden\"}\n          variants={list}\n          viewport={{ once: true, amount: 0.5 }}\n          whileInView=\"show\"\n        >\n          {items.map((entry) => (\n            <motion.li\n              key={entry.ratio}\n              className=\"grid grid-cols-[5.5rem_1fr] items-baseline gap-6\"\n              variants={item}\n            >\n              <span\n                className={cn(\n                  \"tabular-nums\",\n                  entry.accent ? \"text-graph-accent\" : tokenClass[entry.token]\n                )}\n              >\n                {entry.ratio}\n              </span>\n              <span className={tokenClass[entry.token]}>{entry.label}</span>\n            </motion.li>\n          ))}\n        </motion.ul>\n      </GraphBody>\n    </Graph>\n  )\n}\n\nexport { GraphScale }\nexport type { GraphScaleProps, ScaleItem }\n",
+      "type": "registry:component"
+    }
+  ],
+  "cssVars": {
+    "theme": {
+      "color-graph-accent": "var(--graph-accent)",
+      "color-graph-frame": "var(--graph-frame)",
+      "color-graph-muted": "var(--graph-muted)",
+      "color-graph-faint": "var(--graph-faint)",
+      "color-contrast-14": "var(--contrast-14)",
+      "color-contrast-23": "var(--contrast-23)",
+      "color-contrast-45": "var(--contrast-45)",
+      "color-contrast-70": "var(--contrast-70)"
+    },
+    "light": {
+      "graph-accent": "oklch(0.5 0.18 255)",
+      "graph-frame": "oklch(0.205 0 0 / 0.28)",
+      "graph-muted": "oklch(0.52 0 0)",
+      "graph-faint": "oklch(0.82 0 0)",
+      "contrast-14": "oklch(0.88 0 0)",
+      "contrast-23": "oklch(0.76 0 0)",
+      "contrast-45": "oklch(0.48 0 0)",
+      "contrast-70": "oklch(0.28 0 0)"
+    },
+    "dark": {
+      "graph-accent": "oklch(0.7 0.12 255)",
+      "graph-frame": "oklch(0.48 0 0)",
+      "graph-muted": "oklch(0.52 0 0)",
+      "graph-faint": "oklch(0.28 0 0)",
+      "contrast-14": "oklch(0.22 0 0)",
+      "contrast-23": "oklch(0.34 0 0)",
+      "contrast-45": "oklch(0.62 0 0)",
+      "contrast-70": "oklch(0.84 0 0)"
+    }
+  },
+  "css": {
+    "@utility graph-frame": {
+      "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+      "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+      "background-position": "0 0, 100% 0, 0 100%, 0 0",
+      "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+    },
+    "@utility graph-rule": {
+      "height": "1px",
+      "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+    }
+  },
+  "type": "registry:component"
+}
