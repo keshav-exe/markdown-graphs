@@ -28,6 +28,14 @@ function SiteHeader({ stars }: { stars: number | null }) {
                   Docs
                 </Link>
               </li>
+              <li>
+                <Link
+                  className="text-muted-foreground hover:text-foreground"
+                  href="/docs/installation"
+                >
+                  Install
+                </Link>
+              </li>
             </ul>
           </nav>
 
@@ -93,6 +101,19 @@ function SiteHeader({ stars }: { stars: number | null }) {
                       }
                     >
                       Docs
+                    </Dialog.Close>
+                  </li>
+                  <li>
+                    <Dialog.Close
+                      nativeButton={false}
+                      render={
+                        <Link
+                          className="text-2xl text-foreground"
+                          href="/docs/installation"
+                        />
+                      }
+                    >
+                      Install
                     </Dialog.Close>
                   </li>
                   <li>

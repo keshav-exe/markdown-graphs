@@ -5,7 +5,9 @@ import { CopyPage } from "@/components/docs/copy-page"
 import { Examples, examplesBySlug } from "@/components/docs/examples"
 import { InstallCommand } from "@/components/docs/install"
 import { PropsTable } from "@/components/docs/props-table"
+import { JsonLd } from "@/components/seo/json-ld"
 import { components, getComponent } from "@/lib/docs/catalog"
+import { componentJsonLd, pageMeta } from "@/lib/seo"
 
 type PageProps = {
   params: Promise<{ slug: string }>
@@ -27,10 +29,11 @@ export async function generateMetadata({
     return {}
   }
 
-  return {
+  return pageMeta({
     title: item.title,
     description: item.description,
-  }
+    path: `/docs/${slug}`,
+  })
 }
 
 export default async function ComponentDocPage({ params }: PageProps) {
@@ -50,6 +53,7 @@ export default async function ComponentDocPage({ params }: PageProps) {
 
   return (
     <div className="flex flex-col gap-12">
+      <JsonLd data={componentJsonLd(item)} />
       <div className="flex flex-col gap-3">
         <div className="flex items-start justify-between gap-6">
           <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">

@@ -3,15 +3,18 @@ import Link from "next/link"
 
 import { CopyPage } from "@/components/docs/copy-page"
 import { InstallCommand } from "@/components/docs/install"
+import { JsonLd } from "@/components/seo/json-ld"
 import { components, getComponent } from "@/lib/docs/catalog"
+import { docsJsonLd, pageMeta } from "@/lib/seo"
 
-export const metadata: Metadata = {
-  title: "Docs",
+export const metadata: Metadata = pageMeta({
+  title: "Introduction",
   description:
-    "Install graph components into a shadcn project, or copy the files by hand.",
-}
+    "ASCII graph components for MDX. Install with the shadcn CLI or copy the files.",
+  path: "/docs",
+})
 
-const intro = `React components you copy into a shadcn project—not an npm package. Each graph sits in a dashed frame with a title on the top edge. Pick one accent color for highlights.`
+const intro = `ASCII-framed graphs you copy into a shadcn project, not an npm package. Each graph sits in a dashed frame with a title on the top edge. Pick one accent color for highlights.`
 
 export default function DocsPage() {
   const extra = [
@@ -24,6 +27,7 @@ export default function DocsPage() {
 
   return (
     <div className="flex flex-col gap-12">
+      <JsonLd data={docsJsonLd()} />
       <div className="flex flex-col gap-3">
         <div className="flex items-start justify-between gap-6">
           <h1 className="max-w-[20ch] text-3xl font-semibold tracking-tight text-balance sm:text-4xl">

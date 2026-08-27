@@ -1,3 +1,4 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 
 import {
@@ -9,9 +10,12 @@ import {
   GraphUptime,
   GraphWaterfall,
 } from "@/components/graphs"
+import { JsonLd } from "@/components/seo/json-ld"
 import { SiteContainer } from "@/components/site/container"
 import { Hero } from "@/components/site/hero"
 import { Principles } from "@/components/site/principles"
+import { pageMeta, websiteJsonLd } from "@/lib/seo"
+import { SITE_DESCRIPTION } from "@/lib/site"
 
 function activityDays(start: string, length: number) {
   const [year, month, day] = start.split("-").map(Number)
@@ -53,9 +57,15 @@ const uptime = Array.from({ length: 90 }, (_, index) => {
   return "ok" as const
 })
 
+export const metadata: Metadata = pageMeta({
+  description: SITE_DESCRIPTION,
+  path: "/",
+})
+
 export default function Page() {
   return (
     <main id="main">
+      <JsonLd data={websiteJsonLd()} />
       <Hero />
       <section className="py-12 sm:py-16">
         <SiteContainer className="flex flex-col gap-8">

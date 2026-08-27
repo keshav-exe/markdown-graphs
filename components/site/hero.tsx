@@ -34,7 +34,7 @@ function Hero() {
             </h1>
             <p className="max-w-[48ch] text-pretty text-muted-foreground">
               React components for tables, charts, and diagrams in MDX. They
-              look like monospace text—dashed frames and block characters, not
+              look like monospace text: dashed frames and block characters, not
               SVG. Copy the source into your shadcn project and pick one accent
               color.
             </p>

@@ -3,13 +3,16 @@ import type { Metadata } from "next"
 import { CopyPage } from "@/components/docs/copy-page"
 import { Command, InstallCommand } from "@/components/docs/install"
 import { NamespaceSetup } from "@/components/docs/namespace"
+import { JsonLd } from "@/components/seo/json-ld"
 import { getComponent } from "@/lib/docs/catalog"
+import { installationJsonLd, pageMeta } from "@/lib/seo"
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMeta({
   title: "Installation",
   description:
     "Add markdown graphs with the shadcn CLI, or copy the files by hand.",
-}
+  path: "/docs/installation",
+})
 
 const description =
   "These are source files, not an npm package. You need an existing shadcn project and the motion dependency."
@@ -47,6 +50,7 @@ export default function InstallationPage() {
 
   return (
     <div className="flex max-w-[65ch] flex-col gap-12">
+      <JsonLd data={installationJsonLd()} />
       <div className="flex flex-col gap-3">
         <div className="flex items-start justify-between gap-6">
           <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">

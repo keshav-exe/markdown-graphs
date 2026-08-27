@@ -1,4 +1,5 @@
 <!-- BEGIN:nextjs-agent-rules -->
+
 # This is NOT the Next.js you know
 
 This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
@@ -11,7 +12,7 @@ ASCII-framed React diagrams for MDX. Source is copied via shadcn registry, not n
 Nested agent notes:
 
 - [`registry/default/AGENTS.md`](registry/default/AGENTS.md) — how to build a graph
-- [`lib/docs/AGENTS.md`](lib/docs/AGENTS.md) — catalog, examples, **New** marks
+- [`lib/docs/AGENTS.md`](lib/docs/AGENTS.md) — catalog, examples, **New** marks, OG
 
 ## Adding a graph
 
@@ -26,6 +27,8 @@ Do the full list. Docs pages are generated from the catalog; there is no per-com
 7. Row in the README component table
 8. Homepage (`app/page.tsx`) only if it earns a slot
 9. `pnpm registry:build` so `public/r/` matches source
+
+OG images are `opengraph-image.tsx` via `lib/og`. They prerender at `next build` from the catalog. Do not commit PNGs or add a pre-commit generator. A new catalog row is enough.
 
 ## Design
 

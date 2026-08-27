@@ -4,13 +4,14 @@ Sidenav, `/docs/[slug]`, install copy, and props tables all read from here. Addi
 
 ## Files
 
-| File | Role |
-| --- | --- |
-| `catalog.ts` | `components[]` — slug, title, name, description, registry, props |
-| `files.ts` | Source paths shown on the Manual / GitHub install tabs |
-| `new.ts` | `NEW_SLUGS` — which sidenav links get a **new** mark |
-| `components/docs/examples.tsx` | `examplesBySlug[slug]` |
-| `components/docs/nav.tsx` | Renders `isNewSlug(item.slug)` |
+| File                                  | Role                                                             |
+| ------------------------------------- | ---------------------------------------------------------------- |
+| `catalog.ts`                          | `components[]` — slug, title, name, description, registry, props |
+| `files.ts`                            | Source paths shown on the Manual / GitHub install tabs           |
+| `new.ts`                              | `NEW_SLUGS` — which sidenav links get a **new** mark             |
+| `components/docs/examples.tsx`        | `examplesBySlug[slug]`                                           |
+| `components/docs/nav.tsx`             | Renders `isNewSlug(item.slug)`                                   |
+| `app/docs/[slug]/opengraph-image.tsx` | Per-page OG. Uses catalog title + description                    |
 
 ## New marks
 
@@ -19,10 +20,7 @@ Sidenav, `/docs/[slug]`, install copy, and props tables all read from here. Addi
 When you ship new graphs:
 
 ```ts
-export const NEW_SLUGS = [
-  "graph-this-drop",
-  "graph-also-this-drop",
-] as const
+export const NEW_SLUGS = ["graph-this-drop", "graph-also-this-drop"] as const
 ```
 
 Replace the array. Do not append last drop’s slugs. Empty the list if nothing in this change is new.

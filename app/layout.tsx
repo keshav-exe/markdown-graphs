@@ -7,6 +7,14 @@ import { SiteHeader } from "@/components/site/header"
 import { ThemeProvider } from "@/components/theme-provider"
 import { accentBlockingScript, DEFAULT_ACCENT_ID } from "@/lib/accent"
 import { getGithubStars } from "@/lib/github"
+import {
+  SITE_AUTHOR,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_NAME_SHORT,
+  SITE_TWITTER,
+  SITE_URL,
+} from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 import "./globals.css"
@@ -24,12 +32,28 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Markdown Graphs",
-    template: "%s · Markdown Graphs",
+    default: SITE_NAME,
+    template: `%s · ${SITE_NAME}`,
   },
-  description:
-    "React components for ASCII-style graphs in MDX. Copy the source into your repo.",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME_SHORT,
+  authors: [{ name: SITE_AUTHOR.name, url: SITE_AUTHOR.url }],
+  creator: SITE_AUTHOR.name,
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: SITE_NAME_SHORT,
+  },
+  twitter: {
+    card: "summary_large_image",
+    creator: SITE_TWITTER,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default async function RootLayout({
