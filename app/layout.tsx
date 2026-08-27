@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import { Geist, Geist_Mono } from "next/font/google"
+import { Analytics } from "@vercel/analytics/next"
 
 import { SiteFooter } from "@/components/site/footer"
 import { SiteHeader } from "@/components/site/header"
@@ -93,6 +94,7 @@ export default async function RootLayout({
             <SiteFooter />
           </div>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   )
