@@ -11,9 +11,12 @@ import {
 import {
   fillDelay,
   graphTransition,
+  toneClass,
   trackMarks,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
+import { cn } from "@/lib/utils"
 
 type GraphMeterProps = {
   title: string
@@ -21,6 +24,7 @@ type GraphMeterProps = {
   ticks?: number
   caption?: string
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -31,6 +35,7 @@ function GraphMeter({
   ticks = 14,
   caption,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphMeterProps) {
@@ -57,7 +62,9 @@ function GraphMeter({
               return (
                 <GraphTick
                   className={
-                    isFilled ? "text-graph-accent" : "text-graph-frame"
+                    isFilled
+                      ? toneClass(palette, "primary")
+                      : "text-graph-frame"
                   }
                   key={index}
                 >
@@ -79,7 +86,12 @@ function GraphMeter({
           <span aria-hidden="true" className="text-graph-frame select-none">
             ]
           </span>
-          <span className="w-[4ch] shrink-0 text-right text-graph-accent">
+          <span
+            className={cn(
+              "w-[4ch] shrink-0 text-right",
+              toneClass(palette, "primary")
+            )}
+          >
             {Math.round(clamped * 100)}%
           </span>
         </p>

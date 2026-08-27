@@ -9,13 +9,15 @@ import {
   GraphTrack,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
-  DIM_OPACITY,
   fadeUp,
+  isMonoPalette,
   resolveGlyphs,
+  seriesClass,
+  seriesDim,
   staggerList,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
-import { cn } from "@/lib/utils"
 
 const DEFAULT_GLYPHS = ["█", "▓", "▒", "░", "#", "=", "+", "-"]
 
@@ -35,6 +37,7 @@ type GraphStackProps = {
   accent?: string
   ticks?: number
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -81,6 +84,7 @@ function GraphStack({
   accent,
   ticks = 24,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphStackProps) {
@@ -126,13 +130,15 @@ function GraphStack({
                   {painted.flatMap((piece) =>
                     Array.from({ length: piece.count }, (_, index) => (
                       <GraphTick
-                        className={
-                          piece.accent ? "text-graph-accent" : "text-foreground"
-                        }
+                        className={seriesClass(
+                          palette,
+                          legend.indexOf(piece.label)
+                        )}
                         key={`${piece.label}-${index}`}
-                        style={
-                          piece.accent ? undefined : { opacity: DIM_OPACITY }
-                        }
+                        style={seriesDim(
+                          palette,
+                          isMonoPalette(palette) ? piece.accent : true
+                        )}
                       >
                         {piece.glyph}
                       </GraphTick>
@@ -146,19 +152,21 @@ function GraphStack({
         <ul className="flex flex-wrap gap-x-4 gap-y-1" role="list">
           {legend.map((label, index) => {
             const glyph = set[index % set.length] ?? "█"
-            const highlighted = accent ? label === accent : index === 0
+            const highlighted = isMonoPalette(palette)
+              ? accent
+                ? label === accent
+                : index === 0
+              : true
 
             return (
               <li
                 className="flex items-center gap-2"
                 key={label}
-                style={highlighted ? undefined : { opacity: DIM_OPACITY }}
+                style={seriesDim(palette, highlighted)}
               >
                 <span
                   aria-hidden="true"
-                  className={cn(
-                    highlighted ? "text-graph-accent" : "text-foreground"
-                  )}
+                  className={seriesClass(palette, index)}
                 >
                   {glyph}
                 </span>

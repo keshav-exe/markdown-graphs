@@ -2,13 +2,13 @@ import type { ComponentDoc, PropRow } from "@/lib/docs/catalog"
 
 export const DESIGN_AND_MOOD = `Design
 - Geist Mono. Dashed frame, plus-sign corners, title as [ TITLE ] on the top edge.
-- One accent color: CSS variable --graph-accent. No extra series colors. Unused rows recede with opacity (~0.4), not a second hue.
+- One accent color: CSS variable --graph-accent. Unused rows recede with opacity (~0.4). Drawing graphs accept palette="mono" | "duo" | "multi" (default mono). duo uses --graph-accent-2 for the second series. multi cycles three accents. Do not invent extra hues.
 - Glyphs do the drawing: █ ░ - = + ├ └ ✓. Borders are dashes, not SVG strokes.
 - Numbers use tabular-nums and sit right-aligned.
 - Motion is transform and opacity only, 220ms cubic-bezier(0.215, 0.61, 0.355, 1). Nothing loops. If prefers-reduced-motion, duration is 0.
 
 Mood
-Typed, not illustrated. Quiet monospace figures that sit next to prose. Restraint over decoration. Do not restyle the frame or add a second accent.`
+Typed, not illustrated. Quiet monospace figures that sit next to prose. Restraint over decoration. Do not restyle the frame. Default is one accent; palette is opt-in.`
 
 export function installCli(origin: string, registry: string) {
   const host = origin || "<origin>"

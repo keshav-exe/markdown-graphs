@@ -12,8 +12,11 @@ import {
   DIM_OPACITY,
   fillDelay,
   graphTransition,
+  isMonoPalette,
   resolveGlyphs,
+  toneClass,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -24,6 +27,7 @@ type GraphSparkProps = {
   data: number[]
   caption?: string
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -33,6 +37,7 @@ function GraphSpark({
   data,
   caption,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphSparkProps) {
@@ -57,14 +62,18 @@ function GraphSpark({
                 <motion.span
                   className={cn(
                     "block w-full",
-                    live ? "text-graph-accent" : "text-graph-muted"
+                    live
+                      ? toneClass(palette, "primary")
+                      : toneClass(palette, "secondary")
                   )}
                   initial={reduce ? false : { opacity: 0 }}
                   transition={graphTransition(reduce, {
                     delay: fillDelay(reduce, index),
                   })}
                   viewport={{ once: true }}
-                  whileInView={{ opacity: live ? 1 : DIM_OPACITY }}
+                  whileInView={{
+                    opacity: live || !isMonoPalette(palette) ? 1 : DIM_OPACITY,
+                  }}
                 >
                   {glyph}
                 </motion.span>

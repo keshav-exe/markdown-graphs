@@ -18,10 +18,11 @@ Import primitives from `@/registry/default/graph-frame/...`, never from the site
 
 ```ts
 glyphs?: Glyphs // "shade" | "ascii" | "hash" | "bar" | readonly string[]
+palette?: GraphPalette // "mono" | "duo" | "multi", default "mono"
 corner?: string // default "+"
 ```
 
-Resolve with `resolveGlyphs(glyphs)`. Intensity: `intensityLevel` / `intensityGlyph` / `intensityClass`. One accent. Mute with `text-graph-muted` / opacity, not extra hues.
+Resolve with `resolveGlyphs(glyphs)`. Intensity: `intensityLevel` / `intensityGlyph` / `intensityClass(level, palette)`. Series: `seriesClass` / `seriesDim` / `toneClass`. Default is one accent. Mute with `text-graph-muted` / opacity. `palette="duo"` paints the second series with `--graph-accent-2`. `palette="multi"` cycles three accents. Don't invent extra hues.
 
 No CSS-box charts. No nested radius demos. No type-specimen / contrast-token graphs.
 

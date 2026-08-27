@@ -51,6 +51,7 @@ export { GraphBullet } from "@/registry/default/graph-bullet/graph-bullet"
 export type {
   GlyphSetName,
   Glyphs,
+  GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 export type { GraphTableProps } from "@/registry/default/graph-table/graph-table"
 export type {

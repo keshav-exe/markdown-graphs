@@ -11,6 +11,7 @@ import {
   resolveGlyphs,
   staggerList,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -50,6 +51,7 @@ type GraphActivityProps = {
   legend?: boolean
   caption?: string | false
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -127,7 +129,13 @@ function dayLabels(weekStartsOn: 0 | 1) {
     : ["", "M", "", "W", "", "F", ""]
 }
 
-function IntensityScale({ glyphs }: { glyphs: readonly string[] }) {
+function IntensityScale({
+  glyphs,
+  palette,
+}: {
+  glyphs: readonly string[]
+  palette?: GraphPalette
+}) {
   return (
     <p className="flex items-center gap-2 text-graph-muted">
       <span>Less</span>
@@ -137,7 +145,8 @@ function IntensityScale({ glyphs }: { glyphs: readonly string[] }) {
             className={cn(
               "w-[1ch] text-center",
               intensityClass(
-                Math.round((index / Math.max(glyphs.length - 1, 1)) * 4)
+                Math.round((index / Math.max(glyphs.length - 1, 1)) * 4),
+                palette
               )
             )}
             key={`${glyph}-${index}`}
@@ -159,6 +168,7 @@ function GraphActivity({
   legend = true,
   caption,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphActivityProps) {
@@ -228,7 +238,7 @@ function GraphActivity({
                         className={cn(
                           "flex h-[1.15em] w-full items-center justify-center leading-none select-none",
                           cell.inRange
-                            ? intensityClass(level)
+                            ? intensityClass(level, palette)
                             : "text-transparent"
                         )}
                         key={cell.date}
@@ -254,7 +264,7 @@ function GraphActivity({
                 {caption ?? summary}
               </p>
             )}
-            {legend ? <IntensityScale glyphs={set} /> : null}
+            {legend ? <IntensityScale glyphs={set} palette={palette} /> : null}
           </div>
         )}
         <span className="sr-only">

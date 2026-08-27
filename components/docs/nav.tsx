@@ -38,6 +38,7 @@ function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
           </NavGroup>
         </div>
       </nav>
+
       <div className="px-2">
         <AccentPicker />
       </div>

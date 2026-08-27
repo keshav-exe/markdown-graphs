@@ -6,6 +6,8 @@ import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
+  toneClass,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -20,6 +22,7 @@ type TimelineEvent = {
 type GraphTimelineProps = {
   title: string
   events: TimelineEvent[]
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -33,6 +36,7 @@ const mark: Record<TimelineState, string> = {
 function GraphTimeline({
   title,
   events,
+  palette,
   corner,
   className,
 }: GraphTimelineProps) {
@@ -67,9 +71,9 @@ function GraphTimeline({
                     aria-hidden="true"
                     className={cn(
                       "text-center leading-none select-none",
-                      live && "text-graph-accent",
+                      live && toneClass(palette, "primary"),
                       state === "done" && "text-foreground",
-                      state === "next" && "text-graph-muted"
+                      state === "next" && toneClass(palette, "secondary")
                     )}
                   >
                     {mark[state]}
@@ -77,16 +81,18 @@ function GraphTimeline({
                   <span
                     className={cn(
                       "tabular-nums",
-                      state === "next" ? "text-graph-muted" : "text-foreground"
+                      state === "next"
+                        ? toneClass(palette, "secondary")
+                        : "text-foreground"
                     )}
                   >
                     {event.date}
                   </span>
                   <span
                     className={cn(
-                      live && "text-graph-accent",
+                      live && toneClass(palette, "primary"),
                       state === "done" && "text-foreground",
-                      state === "next" && "text-graph-muted"
+                      state === "next" && toneClass(palette, "secondary")
                     )}
                   >
                     {event.label}

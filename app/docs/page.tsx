@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMeta({
   path: "/docs",
 })
 
-const intro = `ASCII-framed graphs you copy into a shadcn project, not an npm package. Each graph sits in a dashed frame with a title on the top edge. Pick one accent color for highlights.`
+const intro = `ASCII-framed graphs you copy into a shadcn project, not an npm package. Each graph sits in a dashed frame with a title on the top edge. Pick one accent color for highlights. Drawing graphs also take palette="duo" or "multi".`
 
 export default function DocsPage() {
   const extra = [

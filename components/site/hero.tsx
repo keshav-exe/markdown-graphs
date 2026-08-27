@@ -35,8 +35,7 @@ function Hero() {
             <p className="max-w-[48ch] text-pretty text-muted-foreground">
               React components for tables, charts, and diagrams in MDX. They
               look like monospace text: dashed frames and block characters, not
-              SVG. Copy the source into your shadcn project and pick one accent
-              color.
+              SVG. Copy the source into your shadcn project and pick an accent.
             </p>
           </motion.div>
           <motion.div
@@ -53,9 +52,6 @@ function Hero() {
             >
               Install
             </Button>
-          </motion.div>
-          <motion.div variants={item}>
-            <AccentPicker />
           </motion.div>
         </motion.div>
       </SiteContainer>

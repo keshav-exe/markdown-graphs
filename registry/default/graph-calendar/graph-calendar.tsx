@@ -5,7 +5,10 @@ import { motion, useReducedMotion } from "motion/react"
 import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
+  isMonoPalette,
   staggerList,
+  toneClass,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -38,6 +41,7 @@ type GraphCalendarProps = {
   weekStartsOn?: 0 | 1
   marks?: CalendarMark[] | number[]
   today?: number
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -77,6 +81,7 @@ function GraphCalendar({
   weekStartsOn = 1,
   marks,
   today,
+  palette,
   corner,
   className,
 }: GraphCalendarProps) {
@@ -142,7 +147,13 @@ function GraphCalendar({
                       "w-[4ch] text-center tabular-nums",
                       !inMonth && "text-transparent",
                       inMonth && !accent && !isToday && "text-foreground",
-                      (accent || isToday) && "text-graph-accent"
+                      accent && toneClass(palette, "primary"),
+                      isToday &&
+                        !accent &&
+                        toneClass(
+                          palette,
+                          isMonoPalette(palette) ? "primary" : "secondary"
+                        )
                     )}
                     key={`${weekIndex}-${dayIndex}`}
                   >

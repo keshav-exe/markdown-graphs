@@ -12,8 +12,10 @@ import {
 import {
   fadeUp,
   staggerList,
+  toneClass,
   trackMarks,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -31,6 +33,7 @@ type GraphWaterfallProps = {
   items: WaterfallItem[]
   ticks?: number
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -78,6 +81,7 @@ function GraphWaterfall({
   items,
   ticks = 24,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphWaterfallProps) {
@@ -160,12 +164,12 @@ function GraphWaterfall({
                     {Array.from({ length: ticks }, (_, cell) => {
                       const filled = cell >= start && cell < end
                       const tone = !filled
-                        ? "text-graph-frame"
+                        ? toneClass(palette, "empty")
                         : segment.kind === "out"
-                          ? "text-graph-muted"
+                          ? toneClass(palette, "secondary")
                           : segment.kind === "start"
                             ? "text-foreground"
-                            : "text-graph-accent"
+                            : toneClass(palette, "primary")
 
                       return (
                         <GraphTick className={tone} key={cell}>
@@ -177,8 +181,8 @@ function GraphWaterfall({
                   <span
                     className={cn(
                       "text-right tabular-nums",
-                      segment.kind === "out" && "text-graph-muted",
-                      segment.kind === "end" && "text-graph-accent",
+                      segment.kind === "out" && toneClass(palette, "secondary"),
+                      segment.kind === "end" && toneClass(palette, "primary"),
                       (segment.kind === "start" || segment.kind === "in") &&
                         "text-foreground"
                     )}

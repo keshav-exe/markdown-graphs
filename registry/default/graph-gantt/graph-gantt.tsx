@@ -10,11 +10,13 @@ import {
 } from "@/registry/default/graph-frame/graph-frame"
 import {
   clamp01,
-  DIM_OPACITY,
   fadeUp,
+  seriesDim,
   staggerList,
+  toneClass,
   trackMarks,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -34,6 +36,7 @@ type GraphGanttProps = {
   stage?: string
   progress?: number
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -46,6 +49,7 @@ function GraphGantt({
   stage,
   progress,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphGanttProps) {
@@ -67,7 +71,7 @@ function GraphGantt({
                 <GraphTick
                   className={
                     index === playhead
-                      ? "text-graph-accent"
+                      ? toneClass(palette, "primary")
                       : "text-transparent"
                   }
                   key={index}
@@ -108,13 +112,13 @@ function GraphGantt({
                 }`}
                 className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-4"
                 key={entry.label}
-                style={dim ? { opacity: DIM_OPACITY } : undefined}
+                style={seriesDim(palette, !dim)}
                 variants={item}
               >
                 <span
                   className={cn(
                     "truncate",
-                    focused ? "text-graph-accent" : "text-foreground"
+                    focused ? toneClass(palette, "primary") : "text-foreground"
                   )}
                 >
                   {entry.label}
@@ -130,11 +134,11 @@ function GraphGantt({
                         className={
                           filled
                             ? focused
-                              ? "text-graph-accent"
+                              ? toneClass(palette, "primary")
                               : "text-foreground"
                             : rest
-                              ? "text-graph-muted"
-                              : "text-graph-frame"
+                              ? toneClass(palette, "secondary")
+                              : toneClass(palette, "empty")
                         }
                         key={index}
                       >

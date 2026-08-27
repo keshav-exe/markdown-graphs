@@ -41,6 +41,8 @@
   --color-foreground: var(--foreground);
   --color-background: var(--background);
   --color-graph-accent: var(--graph-accent);
+  --color-graph-accent-2: var(--graph-accent-2);
+  --color-graph-accent-3: var(--graph-accent-3);
   --color-graph-frame: var(--graph-frame);
   --color-graph-muted: var(--graph-muted);
   --color-graph-faint: var(--graph-faint);
@@ -94,7 +96,9 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.205 0 0 / 0.08);
   --sidebar-ring: oklch(0.55 0.16 255);
-  --graph-accent: oklch(0.5 0.18 255);
+  --graph-accent: oklch(0.48 0.16 265);
+  --graph-accent-2: oklch(0.52 0.12 220);
+  --graph-accent-3: oklch(0.45 0.16 280);
   --graph-frame: oklch(0.205 0 0 / 0.28);
   --graph-muted: oklch(0.52 0 0);
   --graph-faint: oklch(0.82 0 0);
@@ -137,7 +141,9 @@
   --sidebar-accent-foreground: oklch(0.86 0 0);
   --sidebar-border: oklch(0.28 0 0);
   --sidebar-ring: oklch(0.68 0.12 255);
-  --graph-accent: oklch(0.7 0.12 255);
+  --graph-accent: oklch(0.62 0.18 265);
+  --graph-accent-2: oklch(0.78 0.12 230);
+  --graph-accent-3: oklch(0.7 0.14 250);
   --graph-frame: oklch(0.48 0 0);
   --graph-muted: oklch(0.52 0 0);
   --graph-faint: oklch(0.28 0 0);
@@ -150,58 +156,90 @@
 
 html[data-accent="paper"] {
   --graph-accent: oklch(0.32 0 0);
+  --graph-accent-2: oklch(0.5 0 0);
+  --graph-accent-3: oklch(0.42 0 0);
 }
 html.dark[data-accent="paper"] {
   --graph-accent: oklch(0.92 0 0);
+  --graph-accent-2: oklch(0.72 0 0);
+  --graph-accent-3: oklch(0.55 0 0);
 }
 
 html[data-accent="mint"] {
   --graph-accent: oklch(0.5 0.12 165);
+  --graph-accent-2: oklch(0.58 0.1 165);
+  --graph-accent-3: oklch(0.45 0.08 165);
 }
 html.dark[data-accent="mint"] {
-  --graph-accent: oklch(0.78 0.1 165);
+  --graph-accent: oklch(0.78 0.12 170);
+  --graph-accent-2: oklch(0.68 0.08 165);
+  --graph-accent-3: oklch(0.55 0.06 165);
 }
 
-html[data-accent="orange"] {
-  --graph-accent: oklch(0.58 0.16 55);
+html[data-accent="gold"] {
+  --graph-accent: oklch(0.58 0.14 75);
+  --graph-accent-2: oklch(0.62 0.12 45);
+  --graph-accent-3: oklch(0.55 0.14 90);
 }
-html.dark[data-accent="orange"] {
-  --graph-accent: oklch(0.76 0.14 55);
-}
-
-html[data-accent="green"] {
-  --graph-accent: oklch(0.5 0.14 145);
-}
-html.dark[data-accent="green"] {
-  --graph-accent: oklch(0.74 0.14 145);
+html.dark[data-accent="gold"] {
+  --graph-accent: oklch(0.82 0.14 78);
+  --graph-accent-2: oklch(0.84 0.1 48);
+  --graph-accent-3: oklch(0.86 0.12 95);
 }
 
-html[data-accent="cyan"] {
-  --graph-accent: oklch(0.5 0.1 210);
+html[data-accent="sky"] {
+  --graph-accent: oklch(0.48 0.16 265);
+  --graph-accent-2: oklch(0.52 0.12 220);
+  --graph-accent-3: oklch(0.45 0.16 280);
 }
-html.dark[data-accent="cyan"] {
-  --graph-accent: oklch(0.76 0.1 210);
-}
-
-html[data-accent="blue"] {
-  --graph-accent: oklch(0.5 0.18 255);
-}
-html.dark[data-accent="blue"] {
-  --graph-accent: oklch(0.7 0.12 255);
+html.dark[data-accent="sky"] {
+  --graph-accent: oklch(0.62 0.18 265);
+  --graph-accent-2: oklch(0.78 0.12 230);
+  --graph-accent-3: oklch(0.7 0.14 250);
 }
 
-html[data-accent="purple"] {
-  --graph-accent: oklch(0.5 0.16 300);
+html[data-accent="lime"] {
+  --graph-accent: oklch(0.52 0.16 135);
+  --graph-accent-2: oklch(0.5 0.1 195);
+  --graph-accent-3: oklch(0.5 0.12 165);
 }
-html.dark[data-accent="purple"] {
-  --graph-accent: oklch(0.72 0.12 300);
+html.dark[data-accent="lime"] {
+  --graph-accent: oklch(0.84 0.18 135);
+  --graph-accent-2: oklch(0.78 0.14 195);
+  --graph-accent-3: oklch(0.8 0.12 165);
 }
 
-html[data-accent="pink"] {
-  --graph-accent: oklch(0.55 0.18 8);
+html[data-accent="dusk"] {
+  --graph-accent: oklch(0.52 0.18 320);
+  --graph-accent-2: oklch(0.48 0.16 270);
+  --graph-accent-3: oklch(0.5 0.14 295);
 }
-html.dark[data-accent="pink"] {
-  --graph-accent: oklch(0.74 0.14 8);
+html.dark[data-accent="dusk"] {
+  --graph-accent: oklch(0.7 0.2 320);
+  --graph-accent-2: oklch(0.58 0.18 270);
+  --graph-accent-3: oklch(0.66 0.16 295);
+}
+
+html[data-accent="coral"] {
+  --graph-accent: oklch(0.55 0.18 25);
+  --graph-accent-2: oklch(0.58 0.16 55);
+  --graph-accent-3: oklch(0.55 0.14 40);
+}
+html.dark[data-accent="coral"] {
+  --graph-accent: oklch(0.72 0.18 22);
+  --graph-accent-2: oklch(0.76 0.16 55);
+  --graph-accent-3: oklch(0.78 0.14 40);
+}
+
+html[data-accent="mist"] {
+  --graph-accent: oklch(0.52 0.14 300);
+  --graph-accent-2: oklch(0.5 0.14 270);
+  --graph-accent-3: oklch(0.5 0.1 285);
+}
+html.dark[data-accent="mist"] {
+  --graph-accent: oklch(0.76 0.12 300);
+  --graph-accent-2: oklch(0.72 0.14 268);
+  --graph-accent-3: oklch(0.78 0.1 285);
 }
 
 @utility graph-frame {
@@ -268,9 +306,103 @@ html.dark[data-accent="pink"] {
   }
 }
 
+html[data-accent-kind="duo"] .graph-title-ink {
+  background-image: linear-gradient(
+    90deg,
+    var(--graph-accent),
+    var(--graph-accent-2)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+html.accent-wiping::view-transition-group(root) {
+  animation: none;
+}
+
+html.accent-wiping::view-transition-old(root) {
+  animation: none;
+  z-index: 1;
+}
+
+html.accent-wiping::view-transition-new(root) {
+  z-index: 2;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 72%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(90deg, #000 0%, #000 72%, transparent 100%);
+  -webkit-mask-size: 260% 100%;
+  mask-size: 260% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  animation: accent-wipe 0.42s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+}
+
+html.accent-shimmer {
+  overflow: hidden;
+}
+
+html.accent-shimmer::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: linear-gradient(
+    105deg,
+    transparent 32%,
+    color-mix(in oklch, var(--graph-accent) 40%, transparent) 46%,
+    color-mix(in oklch, var(--graph-accent-2) 45%, transparent) 54%,
+    transparent 68%
+  );
+  animation: accent-shimmer 0.42s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+}
+
+@keyframes accent-wipe {
+  from {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+
+  to {
+    -webkit-mask-position: 0 0;
+    mask-position: 0 0;
+  }
+}
+
+@keyframes accent-shimmer {
+  from {
+    transform: translateX(-25%);
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(25%);
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .graph-motion {
     animation: none;
     transition: none;
+  }
+
+  html.accent-wiping::view-transition-old(root),
+  html.accent-wiping::view-transition-new(root) {
+    animation: none;
+  }
+
+  html.accent-shimmer::after {
+    animation: none;
+    display: none;
   }
 }

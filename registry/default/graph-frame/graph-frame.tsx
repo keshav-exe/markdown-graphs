@@ -43,12 +43,12 @@ function GraphTitle({
   return (
     <figcaption
       className={cn(
-        "absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 bg-background px-2.5 tracking-wide whitespace-nowrap text-graph-accent uppercase",
+        "absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 bg-background px-2.5 tracking-wide whitespace-nowrap uppercase",
         className
       )}
       {...props}
     >
-      [ {children} ]
+      <span className="graph-title-ink text-graph-accent">[ {children} ]</span>
     </figcaption>
   )
 }

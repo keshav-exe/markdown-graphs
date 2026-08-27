@@ -9,11 +9,14 @@ import {
   GraphTrack,
 } from "@/registry/default/graph-frame/graph-frame"
 import {
-  DIM_OPACITY,
   fadeUp,
+  isMonoPalette,
+  seriesClass,
+  seriesDim,
   staggerList,
   trackMarks,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 
 type FunnelStep = {
@@ -28,6 +31,7 @@ type GraphFunnelProps = {
   ticks?: number
   stage?: string
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -38,6 +42,7 @@ function GraphFunnel({
   ticks = 20,
   stage,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphFunnelProps) {
@@ -69,7 +74,7 @@ function GraphFunnel({
               <motion.li
                 className="grid grid-cols-[7rem_minmax(0,1fr)_8ch_4ch] items-center gap-x-4"
                 key={step.label}
-                style={dim ? { opacity: DIM_OPACITY } : undefined}
+                style={seriesDim(palette, !dim)}
                 variants={item}
               >
                 <span className="truncate text-foreground">{step.label}</span>
@@ -80,7 +85,11 @@ function GraphFunnel({
                     return (
                       <GraphTick
                         className={
-                          filled ? "text-graph-accent" : "text-graph-frame"
+                          filled
+                            ? isMonoPalette(palette)
+                              ? "text-graph-accent"
+                              : seriesClass(palette, index)
+                            : "text-graph-frame"
                         }
                         key={cell}
                       >

@@ -11,8 +11,10 @@ import {
   clamp01,
   fillDelay,
   graphTransition,
+  toneClass,
   trackMarks,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -24,6 +26,7 @@ type GraphPlotProps = {
   variant?: "line" | "area"
   progress?: number
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -44,6 +47,7 @@ function GraphPlot({
   variant = "area",
   progress = 1,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphPlotProps) {
@@ -92,10 +96,10 @@ function GraphPlot({
                     const glyph = isCap ? marks.fill : isFill ? marks.rest : " "
                     const tone = isCap
                       ? live
-                        ? "text-graph-accent"
+                        ? toneClass(palette, "primary")
                         : "text-foreground"
                       : isFill
-                        ? "text-graph-muted"
+                        ? toneClass(palette, "secondary")
                         : "text-transparent"
 
                     return (

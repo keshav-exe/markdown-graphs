@@ -1,0 +1,24 @@
+import type { Metadata } from "next"
+
+import { DocsLink, ErrorFrame, HomeLink } from "@/components/site/error-frame"
+
+export const metadata: Metadata = {
+  title: "Not found",
+  robots: { index: false, follow: false },
+}
+
+export default function NotFound() {
+  return (
+    <ErrorFrame
+      action={
+        <>
+          <DocsLink />
+          <HomeLink />
+        </>
+      }
+      body="That URL is not a page. The docs list every graph."
+      code="404"
+      title="Not found"
+    />
+  )
+}

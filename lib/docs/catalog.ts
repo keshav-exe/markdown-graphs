@@ -25,7 +25,7 @@ export const getStarted: NavLink[] = [
   { href: "/docs/installation", label: "Installation" },
 ]
 
-export const components: ComponentDoc[] = [
+const catalog: ComponentDoc[] = [
   {
     slug: "graph-table",
     title: "Table",
@@ -1227,6 +1227,48 @@ export const components: ComponentDoc[] = [
     ],
   },
 ]
+
+const PALETTE_SLUGS = new Set([
+  "graph-flow",
+  "graph-bars",
+  "graph-cells",
+  "graph-meter",
+  "graph-spark",
+  "graph-timeline",
+  "graph-stack",
+  "graph-funnel",
+  "graph-gantt",
+  "graph-plot",
+  "graph-waffle",
+  "graph-diff",
+  "graph-compare",
+  "graph-activity",
+  "graph-heatmap",
+  "graph-calendar",
+  "graph-waterfall",
+  "graph-uptime",
+  "graph-slope",
+  "graph-bullet",
+])
+
+const paletteProp: PropRow = {
+  name: "palette",
+  type: '"mono" | "duo" | "multi"',
+  default: '"mono"',
+  description:
+    "mono is one accent plus muted. duo paints the second series with --graph-accent-2. multi cycles three accents.",
+}
+
+export const components = catalog.map((item) => {
+  if (!PALETTE_SLUGS.has(item.slug)) {
+    return item
+  }
+
+  const corner = item.props.findIndex((prop) => prop.name === "corner")
+  const props = [...item.props]
+  props.splice(corner === -1 ? props.length : corner, 0, paletteProp)
+  return { ...item, props }
+})
 
 export function getComponent(slug: string) {
   return components.find((item) => item.slug === slug)

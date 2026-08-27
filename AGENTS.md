@@ -33,7 +33,7 @@ OG images are `opengraph-image.tsx` via `lib/og`. They prerender at `next build`
 ## Design
 
 - Geist Mono. Dashed frame, `+` corners (`corner` prop), title as `[ TITLE ]`.
-- One accent: `--graph-accent`. Dim unused rows with opacity (~0.4), never a second series color.
+- One accent: `--graph-accent`. Dim unused rows with opacity (~0.4). Drawing graphs take `palette?: "mono" | "duo" | "multi"` — default mono. duo uses `--graph-accent-2` for the second series. multi cycles three hues. Site accent picker: Mono and Mint are solid; the rest are duo families shown as gradient swatches.
 - Glyphs draw the chart. Tracks span the frame (`GraphTrack` / `GraphTick`). `glyphs` is a preset (`shade` `ascii` `hash` `bar`) or a custom character array.
 - `tabular-nums`. Amounts right-aligned.
 - Motion: transform + opacity, ~220ms, ease-out cubic `[0.215, 0.61, 0.355, 1]`. `useReducedMotion` → duration 0. No loops, no pulsing.
@@ -45,7 +45,7 @@ OG images are `opengraph-image.tsx` via `lib/og`. They prerender at `next build`
 - Prettier: no semicolons, double quotes, 80 width, Tailwind plugin.
 - Registry imports: `@/registry/default/...`. Site barrel: `@/components/graphs`.
 - `"use client"` on graphs that use motion.
-- Every graph forwards `corner?: string` to `Graph`. Drawing graphs also take `glyphs?: Glyphs`.
+- Every graph forwards `corner?: string` to `Graph`. Drawing graphs also take `glyphs?: Glyphs` and `palette?: GraphPalette`.
 - Shared helpers live in `graph-frame` (`graph-motion.ts`). Don’t couple intensity legends into the frame — keep them in the drawing component.
 
 ## Commands

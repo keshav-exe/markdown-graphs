@@ -7,7 +7,7 @@ const principles = [
   },
   {
     title: "One accent color",
-    body: "Pick one highlight color. Everything else stays muted so the graph reads clearly on the page.",
+    body: 'Default is one highlight. Everything else stays muted. Pass palette="duo" or "multi" when a second or third hue earns its keep.',
   },
   {
     title: "Quick entrance animations",

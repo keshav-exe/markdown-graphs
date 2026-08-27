@@ -198,17 +198,20 @@ const flowExamples: Example[] = [
 const barsExamples: Example[] = [
   {
     title: "Before / after",
-    description: "Same shape on both sides. The right group is just taller.",
+    description:
+      "Same shape on both sides. After uses the accent. Before uses the second hue.",
     code: `import { GraphBars } from "@/registry/default/graph-bars/graph-bars"
 
 <GraphBars
   title="THROUGHPUT"
+  palette="duo"
   from={{ label: "before", values: [2, 4, 3, 5, 2] }}
   to={{ label: "after", size: "lg", values: [2, 4, 3, 5, 2] }}
 />`,
     preview: (
       <GraphBars
         from={{ label: "before", values: [2, 4, 3, 5, 2] }}
+        palette="duo"
         title="THROUGHPUT"
         to={{ label: "after", size: "lg", values: [2, 4, 3, 5, 2] }}
       />
@@ -548,12 +551,13 @@ const timelineExamples: Example[] = [
 const stackExamples: Example[] = [
   {
     title: "Bundle",
-    description: "Each segment gets its own glyph. js is the accent.",
+    description:
+      "palette multi paints each segment. js, css, and images each get a hue.",
     code: `import { GraphStack } from "@/registry/default/graph-stack/graph-stack"
 
 <GraphStack
   title="BUNDLE"
-  accent="js"
+  palette="multi"
   rows={[
     {
       label: "marketing",
@@ -575,7 +579,7 @@ const stackExamples: Example[] = [
 />`,
     preview: (
       <GraphStack
-        accent="js"
+        palette="multi"
         rows={[
           {
             label: "marketing",
@@ -849,11 +853,13 @@ const waffleExamples: Example[] = [
 const diffExamples: Example[] = [
   {
     title: "Bundle",
-    description: "Added and removed rows with a total in the footer.",
+    description:
+      "Adds use the accent. Removes use the second hue. Footer is the total.",
     code: `import { GraphDiff } from "@/registry/default/graph-diff/graph-diff"
 
 <GraphDiff
   title="BUNDLE"
+  palette="duo"
   rows={[
     { label: "vendor", value: "84 kb" },
     { label: "app", value: "31 kb", sign: "add" },
@@ -864,6 +870,7 @@ const diffExamples: Example[] = [
     preview: (
       <GraphDiff
         footer={{ label: "shipped", value: "103 kb" }}
+        palette="duo"
         rows={[
           { label: "vendor", value: "84 kb" },
           { label: "app", value: "31 kb", sign: "add" },
@@ -1137,6 +1144,8 @@ const specExamples: Example[] = [
     { label: "Tracking", value: "+0.02em" },
     { label: "Figures", value: "tabular" },
     { label: "Accent", value: "--graph-accent", accent: true },
+    { label: "Duo", value: "--graph-accent-2" },
+    { label: "Tri", value: "--graph-accent-3" },
   ]}
 />`,
     preview: (
@@ -1147,6 +1156,8 @@ const specExamples: Example[] = [
           { label: "Tracking", value: "+0.02em" },
           { label: "Figures", value: "tabular" },
           { label: "Accent", value: "--graph-accent", accent: true },
+          { label: "Duo", value: "--graph-accent-2" },
+          { label: "Tri", value: "--graph-accent-3" },
         ]}
         title="TYPE"
       />
@@ -1280,11 +1291,12 @@ function activityDays(start: string, length: number) {
 const heatmapExamples: Example[] = [
   {
     title: "Punchcard",
-    description: "Same glyphs as Activity. Rows are days, columns are hours.",
+    description: "Same glyphs as Activity. Low intensity uses the second hue.",
     code: `import { GraphHeatmap } from "@/registry/default/graph-heatmap/graph-heatmap"
 
 <GraphHeatmap
   title="DEPLOYS"
+  palette="duo"
   columns={["0", "4", "8", "12", "16", "20"]}
   rows={[
     { label: "Mon", values: [0, 1, 4, 8, 6, 1] },
@@ -1299,6 +1311,7 @@ const heatmapExamples: Example[] = [
     preview: (
       <GraphHeatmap
         columns={["0", "4", "8", "12", "16", "20"]}
+        palette="duo"
         rows={[
           { label: "Mon", values: [0, 1, 4, 8, 6, 1] },
           { label: "Tue", values: [0, 0, 5, 9, 4, 2] },
@@ -1388,11 +1401,12 @@ const waterfallExamples: Example[] = [
   {
     title: "Margin",
     description:
-      "First row starts the run. Negative values cut it. Last row is the total.",
+      "First row starts the run. Negative values use the second hue. Last row is the total.",
     code: `import { GraphWaterfall } from "@/registry/default/graph-waterfall/graph-waterfall"
 
 <GraphWaterfall
   title="MARGIN"
+  palette="duo"
   items={[
     { label: "Revenue", value: 48 },
     { label: "Refunds", value: -6 },
@@ -1408,6 +1422,7 @@ const waterfallExamples: Example[] = [
           { label: "Hosting", value: -4 },
           { label: "Profit", value: 38 },
         ]}
+        palette="duo"
         title="MARGIN"
       />
     ),
@@ -1505,11 +1520,12 @@ const uptimeExamples: Example[] = [
 const slopeExamples: Example[] = [
   {
     title: "Traffic",
-    description: "Up uses the accent. Down recedes.",
+    description: "Up uses the accent. Down uses the second hue.",
     code: `import { GraphSlope } from "@/registry/default/graph-slope/graph-slope"
 
 <GraphSlope
   title="TRAFFIC"
+  palette="duo"
   fromLabel="2025"
   toLabel="2026"
   items={[
@@ -1526,6 +1542,7 @@ const slopeExamples: Example[] = [
           { label: "copy", from: 5100, to: 4100 },
           { label: "ship", from: 640, to: 860 },
         ]}
+        palette="duo"
         title="TRAFFIC"
         toLabel="2026"
       />

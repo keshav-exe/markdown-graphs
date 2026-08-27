@@ -6,6 +6,8 @@ import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
+  toneClass,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -20,6 +22,7 @@ type GraphSlopeProps = {
   fromLabel: string
   toLabel: string
   items: SlopeItem[]
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -35,6 +38,7 @@ function GraphSlope({
   fromLabel,
   toLabel,
   items,
+  palette,
   corner,
   className,
 }: GraphSlopeProps) {
@@ -78,9 +82,9 @@ function GraphSlope({
                   aria-hidden="true"
                   className={cn(
                     "text-center select-none",
-                    up && "text-graph-accent",
-                    down && "text-graph-muted",
-                    !up && !down && "text-graph-frame"
+                    up && toneClass(palette, "primary"),
+                    down && toneClass(palette, "secondary"),
+                    !up && !down && toneClass(palette, "empty")
                   )}
                 >
                   {up ? "→" : down ? "→" : "–"}
@@ -88,8 +92,8 @@ function GraphSlope({
                 <span
                   className={cn(
                     "text-right tabular-nums",
-                    up && "text-graph-accent",
-                    down && "text-graph-muted",
+                    up && toneClass(palette, "primary"),
+                    down && toneClass(palette, "secondary"),
                     !up && !down && "text-foreground"
                   )}
                 >

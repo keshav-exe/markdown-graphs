@@ -6,8 +6,11 @@ import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import {
   fillDelay,
   graphTransition,
+  isMonoPalette,
+  seriesClass,
   trackMarks,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -20,6 +23,7 @@ type GraphCellsProps = {
   title: string
   items: CellGrid[]
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -28,6 +32,7 @@ function GraphCells({
   title,
   items,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphCellsProps) {
@@ -57,7 +62,11 @@ function GraphCells({
                         <motion.span
                           className={cn(
                             "min-w-[1ch] flex-1 text-center select-none",
-                            filled ? "text-graph-accent" : "text-graph-frame"
+                            filled
+                              ? isMonoPalette(palette)
+                                ? "text-graph-accent"
+                                : seriesClass(palette, itemIndex)
+                              : "text-graph-frame"
                           )}
                           initial={reduce || !filled ? false : { opacity: 0 }}
                           key={cellIndex}
@@ -77,7 +86,15 @@ function GraphCells({
                   </div>
                 ))}
               </div>
-              <p className="text-graph-muted">{item.label}</p>
+              <p
+                className={
+                  isMonoPalette(palette)
+                    ? "text-graph-muted"
+                    : seriesClass(palette, itemIndex)
+                }
+              >
+                {item.label}
+              </p>
             </div>
           ))}
         </div>

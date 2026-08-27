@@ -11,6 +11,7 @@ import {
   GraphWaterfall,
 } from "@/components/graphs"
 import { JsonLd } from "@/components/seo/json-ld"
+import { AccentPicker } from "@/components/site/accent-picker"
 import { SiteContainer } from "@/components/site/container"
 import { Hero } from "@/components/site/hero"
 import { Principles } from "@/components/site/principles"
@@ -78,7 +79,8 @@ export default function Page() {
               component or pull in the whole set.
             </p>
           </div>
-          <GraphActivity days={commits} title="COMMITS" />
+          <AccentPicker />
+          <GraphActivity days={commits} palette="multi" title="COMMITS" />
           <div className="grid gap-8 lg:grid-cols-2">
             <GraphWaterfall
               items={[
@@ -87,6 +89,7 @@ export default function Page() {
                 { label: "Hosting", value: -4 },
                 { label: "Profit", value: 38 },
               ]}
+              palette="duo"
               ticks={18}
               title="MARGIN"
             />
@@ -96,21 +99,30 @@ export default function Page() {
                 { label: "RAM", value: 34, target: 64, max: 100 },
                 { label: "SSD", value: 91, target: 90, max: 100 },
               ]}
+              palette="duo"
               title="LOAD"
             />
           </div>
           <div className="grid gap-8 lg:grid-cols-2">
             <GraphCalendar
-              marks={[12, 18, 27]}
+              marks={[12, 18]}
               month={8}
+              palette="duo"
               today={27}
               year={2026}
             />
-            <GraphUptime days={uptime} from="Jun 1" title="API" to="Aug 29" />
+            <GraphUptime
+              days={uptime}
+              from="Jun 1"
+              palette="duo"
+              title="API"
+              to="Aug 29"
+            />
           </div>
           <div className="grid gap-8 lg:grid-cols-2">
             <GraphHeatmap
               columns={["0", "4", "8", "12", "16", "20"]}
+              palette="multi"
               rows={[
                 { label: "Mon", values: [0, 1, 4, 8, 6, 1] },
                 { label: "Tue", values: [0, 0, 5, 9, 4, 2] },
@@ -127,6 +139,7 @@ export default function Page() {
                 { label: "copy", from: 5100, to: 4100 },
                 { label: "ship", from: 640, to: 860 },
               ]}
+              palette="duo"
               title="TRAFFIC"
               toLabel="2026"
             />

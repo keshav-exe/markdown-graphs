@@ -16,7 +16,7 @@ function AccentPicker() {
       </p>
       <div
         aria-label="Accent color"
-        className="flex flex-wrap items-center gap-2"
+        className="flex flex-wrap items-center gap-1"
         role="radiogroup"
       >
         {accents.map((accent) => {
@@ -28,16 +28,21 @@ function AccentPicker() {
               aria-checked={selected}
               aria-label={accent.label}
               className={cn(
-                "relative size-5 rounded-full bg-(--swatch) outline-offset-2",
-                accent.id === "paper" &&
-                  "border border-border dark:border-border",
-                selected && "outline-2 outline-foreground"
+                "relative flex size-7 items-center justify-center rounded-md",
+                selected && "bg-muted"
               )}
               onClick={() => setAccent(accent.id)}
               role="radio"
-              style={{ "--swatch": accent.swatch } as CSSProperties}
               type="button"
             >
+              <span
+                aria-hidden="true"
+                className={cn(
+                  "size-5 rounded-full",
+                  accent.id === "paper" && "border border-border"
+                )}
+                style={{ background: accent.swatch } as CSSProperties}
+              />
               <span
                 aria-hidden="true"
                 className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"

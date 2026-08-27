@@ -7,6 +7,8 @@ import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import {
   fadeUp,
   staggerList,
+  toneClass as paletteTone,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -25,20 +27,30 @@ type FlowRow = {
 type GraphFlowProps = {
   title: string
   rows: FlowRow[]
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
 
-const toneClass: Record<FlowTone, string> = {
-  default: "text-foreground",
-  accent: "text-graph-accent",
-  muted: "text-graph-muted",
+function nodeTone(palette: GraphPalette | undefined): Record<FlowTone, string> {
+  return {
+    default: "text-foreground",
+    accent: paletteTone(palette, "primary"),
+    muted: paletteTone(palette, "secondary"),
+  }
 }
 
-function GraphFlow({ title, rows, corner, className }: GraphFlowProps) {
+function GraphFlow({
+  title,
+  rows,
+  palette,
+  corner,
+  className,
+}: GraphFlowProps) {
   const reduce = useReducedMotion()
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.08)
+  const tones = nodeTone(palette)
 
   return (
     <Graph title={title} className={className} corner={corner}>
@@ -72,10 +84,7 @@ function GraphFlow({ title, rows, corner, className }: GraphFlowProps) {
                       <GraphArrow accent={live} stretch={node.stretch} />
                     ) : null}
                     <span
-                      className={cn(
-                        "shrink-0 whitespace-nowrap",
-                        toneClass[tone]
-                      )}
+                      className={cn("shrink-0 whitespace-nowrap", tones[tone])}
                     >
                       {node.label}
                     </span>

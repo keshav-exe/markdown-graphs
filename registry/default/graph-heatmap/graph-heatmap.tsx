@@ -11,6 +11,7 @@ import {
   resolveGlyphs,
   staggerList,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -27,11 +28,18 @@ type GraphHeatmapProps = {
   legend?: boolean
   caption?: string
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
 
-function IntensityScale({ glyphs }: { glyphs: readonly string[] }) {
+function IntensityScale({
+  glyphs,
+  palette,
+}: {
+  glyphs: readonly string[]
+  palette?: GraphPalette
+}) {
   return (
     <p className="flex items-center gap-2 text-graph-muted">
       <span>Less</span>
@@ -41,7 +49,8 @@ function IntensityScale({ glyphs }: { glyphs: readonly string[] }) {
             className={cn(
               "w-[1ch] text-center",
               intensityClass(
-                Math.round((index / Math.max(glyphs.length - 1, 1)) * 4)
+                Math.round((index / Math.max(glyphs.length - 1, 1)) * 4),
+                palette
               )
             )}
             key={`${glyph}-${index}`}
@@ -63,6 +72,7 @@ function GraphHeatmap({
   legend = true,
   caption,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphHeatmapProps) {
@@ -119,7 +129,7 @@ function GraphHeatmap({
                       aria-hidden="true"
                       className={cn(
                         "text-center leading-none select-none",
-                        intensityClass(level)
+                        intensityClass(level, palette)
                       )}
                       key={`${row.label}-${column}`}
                     >
@@ -134,7 +144,7 @@ function GraphHeatmap({
         {legend || caption ? (
           <div className="flex flex-wrap items-center justify-between gap-3">
             {caption ? <p className="text-graph-muted">{caption}</p> : <span />}
-            {legend ? <IntensityScale glyphs={set} /> : null}
+            {legend ? <IntensityScale glyphs={set} palette={palette} /> : null}
           </div>
         ) : null}
       </GraphBody>

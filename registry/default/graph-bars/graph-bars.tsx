@@ -7,8 +7,10 @@ import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import {
   fillDelay,
   graphTransition,
+  toneClass,
   trackMarks,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -24,6 +26,7 @@ type GraphBarsProps = {
   to: BarSeries
   processor?: string
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -34,12 +37,14 @@ function MiniBars({
   delay = 0,
   tone = "accent",
   fill,
+  palette,
 }: {
   values: number[]
   height: number
   delay?: number
   tone?: "accent" | "muted"
   fill: string
+  palette?: GraphPalette
 }) {
   const reduce = useReducedMotion()
   const max = Math.max(...values, 1)
@@ -64,8 +69,8 @@ function MiniBars({
                     "h-[1em] w-full text-center",
                     on
                       ? tone === "accent"
-                        ? "text-graph-accent"
-                        : "text-graph-muted"
+                        ? toneClass(palette, "primary")
+                        : toneClass(palette, "secondary")
                       : "text-transparent"
                   )}
                   initial={reduce || !on ? false : { opacity: 0 }}
@@ -93,6 +98,7 @@ function GraphBars({
   to,
   processor,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphBarsProps) {
@@ -109,10 +115,11 @@ function GraphBars({
               delay={0.04}
               fill={marks.fill}
               height={fromHeight}
+              palette={palette}
               tone="muted"
               values={from.values}
             />
-            <p className="text-graph-muted">{from.label}</p>
+            <p className={toneClass(palette, "secondary")}>{from.label}</p>
           </div>
 
           <div className="flex items-center justify-center gap-3 text-graph-muted max-sm:rotate-90">
@@ -126,6 +133,7 @@ function GraphBars({
               delay={0.16}
               fill={marks.fill}
               height={toHeight}
+              palette={palette}
               values={to.values}
             />
             <p className="text-foreground">{to.label}</p>

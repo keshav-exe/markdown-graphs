@@ -6,7 +6,10 @@ import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import {
   DIM_OPACITY,
   fadeUp,
+  isMonoPalette,
+  seriesClass,
   staggerList,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -22,6 +25,7 @@ type GraphCompareProps = {
   columns: string[]
   rows: CompareRow[]
   accent?: string
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -39,6 +43,7 @@ function GraphCompare({
   columns,
   rows,
   accent,
+  palette,
   corner,
   className,
 }: GraphCompareProps) {
@@ -56,14 +61,19 @@ function GraphCompare({
             style={{ gridTemplateColumns: template }}
           >
             <span />
-            {columns.map((column) => {
+            {columns.map((column, index) => {
               const focused = Boolean(accent) && column === accent
+              const mono = isMonoPalette(palette)
 
               return (
                 <span
                   className={cn(
                     "text-right",
-                    focused ? "text-graph-accent" : "text-graph-muted"
+                    mono
+                      ? focused
+                        ? "text-graph-accent"
+                        : "text-graph-muted"
+                      : seriesClass(palette, index)
                   )}
                   key={column}
                 >
@@ -94,20 +104,28 @@ function GraphCompare({
                   const dim = Boolean(accent) && !focused
                   const mark = typeof value === "boolean"
                   const on = value === true
+                  const mono = isMonoPalette(palette)
 
                   return (
                     <span
                       className={cn(
                         "text-right",
                         !mark && "tabular-nums",
-                        on && (focused || !accent) && "text-graph-accent",
-                        on && dim && "text-foreground",
+                        on &&
+                          (mono
+                            ? (focused || !accent) && "text-graph-accent"
+                            : seriesClass(palette, index)),
+                        on && mono && dim && "text-foreground",
                         mark && !on && "text-graph-frame",
                         !mark && focused && "text-foreground",
                         !mark && dim && "text-graph-muted"
                       )}
                       key={`${row.label}-${column}`}
-                      style={dim && !on ? { opacity: DIM_OPACITY } : undefined}
+                      style={
+                        dim && !on && mono
+                          ? { opacity: DIM_OPACITY }
+                          : undefined
+                      }
                     >
                       {value == null ? "" : cellText(value)}
                     </span>

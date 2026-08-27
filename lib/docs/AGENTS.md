@@ -28,3 +28,7 @@ Replace the array. Do not append last drop’s slugs. Empty the list if nothing 
 Marks are sidenav-only (desktop + mobile). Tiny mono `new` in `text-graph-accent`. No pill chrome. Do not badge the `/docs` component grid unless asked.
 
 `nav.tsx` already calls `isNewSlug`. Don’t hardcode slugs there.
+
+## Palette prop
+
+Drawing graphs take `palette?: "mono" | "duo" | "multi"`. Don't paste it into every catalog row. `PALETTE_SLUGS` + `paletteProp` in `catalog.ts` inject it before `corner`. Skip table, invoice, spec, stat, tree, frame.

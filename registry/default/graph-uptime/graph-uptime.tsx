@@ -12,7 +12,9 @@ import {
   fadeUp,
   resolveGlyphs,
   staggerList,
+  toneClass,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -25,15 +27,20 @@ type GraphUptimeProps = {
   to?: string
   columns?: number
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
 
-const tone: Record<UptimeStatus, string> = {
-  ok: "text-graph-accent",
-  degraded: "text-graph-muted",
-  down: "text-graph-frame",
-  empty: "text-graph-frame",
+function statusTone(
+  palette: GraphPalette | undefined
+): Record<UptimeStatus, string> {
+  return {
+    ok: toneClass(palette, "primary"),
+    degraded: toneClass(palette, "secondary"),
+    down: toneClass(palette, "empty"),
+    empty: toneClass(palette, "empty"),
+  }
 }
 
 function GraphUptime({
@@ -43,6 +50,7 @@ function GraphUptime({
   to,
   columns = 30,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphUptimeProps) {
@@ -62,6 +70,7 @@ function GraphUptime({
     down: set[0] ?? "·",
     empty: "-",
   }
+  const tone = statusTone(palette)
 
   for (let index = 0; index < days.length; index += cols) {
     const row = days.slice(index, index + cols)
@@ -95,7 +104,7 @@ function GraphUptime({
           ))}
         </motion.div>
         <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <p className="text-graph-accent tabular-nums">{percent}%</p>
+          <p className={cn("tabular-nums", tone.ok)}>{percent}%</p>
           {from || to ? (
             <p className="flex gap-3 text-graph-muted">
               {from ? <span>{from}</span> : null}
@@ -105,13 +114,13 @@ function GraphUptime({
         </div>
         <p className="flex flex-wrap gap-x-4 gap-y-1 text-graph-muted">
           <span>
-            <span className="text-graph-accent">{mark.ok}</span> up
+            <span className={tone.ok}>{mark.ok}</span> up
           </span>
           <span>
-            <span className="text-graph-muted">{mark.degraded}</span> slow
+            <span className={tone.degraded}>{mark.degraded}</span> slow
           </span>
           <span>
-            <span className="text-graph-frame">{mark.down}</span> down
+            <span className={tone.down}>{mark.down}</span> down
           </span>
         </p>
         <span className="sr-only">

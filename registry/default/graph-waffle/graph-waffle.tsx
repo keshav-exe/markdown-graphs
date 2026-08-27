@@ -6,8 +6,10 @@ import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import {
   fillDelay,
   graphTransition,
+  toneClass,
   trackMarks,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -18,6 +20,7 @@ type GraphWaffleProps = {
   columns?: number
   caption?: string
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -29,6 +32,7 @@ function GraphWaffle({
   columns = 10,
   caption,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphWaffleProps) {
@@ -62,7 +66,9 @@ function GraphWaffle({
                   <motion.span
                     className={cn(
                       "min-w-[1ch] flex-1 text-center",
-                      isFilled ? "text-graph-accent" : "text-graph-frame"
+                      isFilled
+                        ? toneClass(palette, "primary")
+                        : "text-graph-frame"
                     )}
                     initial={reduce || !isFilled ? false : { opacity: 0 }}
                     key={column}
@@ -79,7 +85,7 @@ function GraphWaffle({
             </div>
           ))}
         </div>
-        <p className="text-graph-accent tabular-nums">
+        <p className={cn("tabular-nums", toneClass(palette, "primary"))}>
           {Math.round(clamped * 100)}%
         </p>
         {caption ? <p className="text-graph-muted">{caption}</p> : null}

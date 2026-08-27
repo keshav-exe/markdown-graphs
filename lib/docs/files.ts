@@ -138,6 +138,8 @@ export const registryFiles: Record<string, string[]> = {
 
 export const graphUtilitiesCss = `@theme inline {
   --color-graph-accent: var(--graph-accent);
+  --color-graph-accent-2: var(--graph-accent-2);
+  --color-graph-accent-3: var(--graph-accent-3);
   --color-graph-frame: var(--graph-frame);
   --color-graph-muted: var(--graph-muted);
   --color-graph-faint: var(--graph-faint);

@@ -22,7 +22,11 @@ export {
   resolveGlyphs,
   trackMarks,
 } from "./graph-frame/graph-motion"
-export type { GlyphSetName, Glyphs } from "./graph-frame/graph-motion"
+export type {
+  GlyphSetName,
+  Glyphs,
+  GraphPalette,
+} from "./graph-frame/graph-motion"
 export { GraphTable } from "./graph-table/graph-table"
 export { GraphFlow } from "./graph-flow/graph-flow"
 export { GraphBars } from "./graph-bars/graph-bars"

@@ -10,6 +10,8 @@ import {
 import {
   fadeUp,
   staggerList,
+  toneClass,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -25,6 +27,7 @@ type GraphDiffProps = {
   title: string
   rows: DiffRow[]
   footer?: DiffRow
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -38,52 +41,45 @@ const signGlyph: Record<DiffSign, string> = {
 function DiffLine({
   row,
   variants,
+  palette,
 }: {
   row: DiffRow
   variants: ReturnType<typeof fadeUp>
+  palette?: GraphPalette
 }) {
   const sign = row.sign ?? "keep"
+  const tone =
+    sign === "add"
+      ? toneClass(palette, "primary")
+      : sign === "remove"
+        ? toneClass(palette, "secondary")
+        : sign === "keep"
+          ? "text-foreground"
+          : toneClass(palette, "empty")
+  const mark = sign === "keep" ? toneClass(palette, "empty") : tone
 
   return (
     <motion.div
       className="grid grid-cols-[1.25rem_minmax(0,1fr)_8ch] items-baseline gap-x-3"
       variants={variants}
     >
-      <span
-        aria-hidden="true"
-        className={cn(
-          "text-center select-none",
-          sign === "add" && "text-graph-accent",
-          sign === "remove" && "text-graph-muted",
-          sign === "keep" && "text-graph-frame"
-        )}
-      >
+      <span aria-hidden="true" className={cn("text-center select-none", mark)}>
         {signGlyph[sign]}
       </span>
-      <span
-        className={cn(
-          sign === "add" && "text-graph-accent",
-          sign === "remove" && "text-graph-muted",
-          sign === "keep" && "text-foreground"
-        )}
-      >
-        {row.label}
-      </span>
-      <span
-        className={cn(
-          "text-right tabular-nums",
-          sign === "add" && "text-graph-accent",
-          sign === "remove" && "text-graph-muted",
-          sign === "keep" && "text-foreground"
-        )}
-      >
-        {row.value}
-      </span>
+      <span className={tone}>{row.label}</span>
+      <span className={cn("text-right tabular-nums", tone)}>{row.value}</span>
     </motion.div>
   )
 }
 
-function GraphDiff({ title, rows, footer, corner, className }: GraphDiffProps) {
+function GraphDiff({
+  title,
+  rows,
+  footer,
+  palette,
+  corner,
+  className,
+}: GraphDiffProps) {
   const reduce = useReducedMotion()
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.04)
@@ -101,7 +97,7 @@ function GraphDiff({ title, rows, footer, corner, className }: GraphDiffProps) {
         >
           {rows.map((row) => (
             <li key={row.label}>
-              <DiffLine row={row} variants={item} />
+              <DiffLine palette={palette} row={row} variants={item} />
             </li>
           ))}
         </motion.ul>
@@ -114,7 +110,7 @@ function GraphDiff({ title, rows, footer, corner, className }: GraphDiffProps) {
               viewport={{ once: true }}
               whileInView="show"
             >
-              <DiffLine row={footer} variants={item} />
+              <DiffLine palette={palette} row={footer} variants={item} />
             </motion.div>
           </>
         ) : null}

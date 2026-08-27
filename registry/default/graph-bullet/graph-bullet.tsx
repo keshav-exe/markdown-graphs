@@ -11,10 +11,11 @@ import {
 import {
   fadeUp,
   staggerList,
+  toneClass,
   trackMarks,
   type Glyphs,
+  type GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
-import { cn } from "@/lib/utils"
 
 type BulletItem = {
   label: string
@@ -29,6 +30,7 @@ type GraphBulletProps = {
   items: BulletItem[]
   ticks?: number
   glyphs?: Glyphs
+  palette?: GraphPalette
   corner?: string
   className?: string
 }
@@ -58,6 +60,7 @@ function GraphBullet({
   items,
   ticks = 20,
   glyphs,
+  palette,
   corner,
   className,
 }: GraphBulletProps) {
@@ -120,9 +123,11 @@ function GraphBullet({
                         <GraphTick
                           className={
                             isMark
-                              ? "text-foreground"
+                              ? toneClass(palette, "secondary")
                               : isFill
-                                ? "text-graph-accent"
+                                ? mark != null && index > mark
+                                  ? toneClass(palette, "secondary")
+                                  : toneClass(palette, "primary")
                                 : "text-graph-frame"
                           }
                           key={index}
