@@ -29,8 +29,8 @@ export default function DocsPage() {
     <div className="flex flex-col gap-12">
       <JsonLd data={docsJsonLd()} />
       <div className="flex flex-col gap-3">
-        <div className="flex items-start justify-between gap-6">
-          <h1 className="max-w-[20ch] text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+        <div className="flex min-w-0 items-start justify-between gap-3">
+          <h1 className="min-w-0 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
             Introduction
           </h1>
           <CopyPage

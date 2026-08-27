@@ -1,3 +1,5 @@
+import { CHOOSER } from "@/lib/docs/chooser"
+
 export type NavLink = {
   href: string
   label: string
@@ -18,6 +20,8 @@ export type ComponentDoc = {
   registry: string
   dependencies: string[]
   props: PropRow[]
+  when?: string
+  not?: string
 }
 
 export const getStarted: NavLink[] = [
@@ -134,6 +138,57 @@ const catalog: ComponentDoc[] = [
         name: "processor",
         type: "string",
         description: "Optional label between the two groups.",
+      },
+      {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-rank",
+    title: "Rank",
+    name: "GraphRank",
+    description:
+      "A list of labels with a bar of characters and a number on the right.",
+    registry: "graph-rank",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "items",
+        type: "RankItem[]",
+        description:
+          "Each row is a label, a number, and an optional display string for the right column.",
+      },
+      {
+        name: "max",
+        type: "number",
+        description: "Scale for the bars. Defaults to the largest value.",
+      },
+      {
+        name: "ticks",
+        type: "number",
+        default: "20",
+        description: "How many character slots each bar uses.",
       },
       {
         name: "glyphs",
@@ -771,8 +826,7 @@ const catalog: ComponentDoc[] = [
     slug: "graph-stat",
     title: "Stat",
     name: "GraphStat",
-    description:
-      "A row of large numbers with labels. Use it for KPIs, not as a chart.",
+    description: "A row of large numbers with labels.",
     registry: "graph-stat",
     dependencies: ["motion"],
     props: [
@@ -785,6 +839,57 @@ const catalog: ComponentDoc[] = [
         name: "items",
         type: "StatItem[]",
         description: "value, label, optional hint, optional accent.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-kpi",
+    title: "KPI",
+    name: "GraphKpi",
+    description: "One large number with a sparkline under it.",
+    registry: "graph-kpi",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "value",
+        type: "string",
+        description: "The large number, already formatted.",
+      },
+      {
+        name: "label",
+        type: "string",
+        description: "Line under the number.",
+      },
+      {
+        name: "hint",
+        type: "string",
+        description: "Optional extra next to the label, like a delta.",
+      },
+      {
+        name: "data",
+        type: "number[]",
+        description: "Sparkline values. Scaled to the highest point.",
+      },
+      {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        description: "Sparkline characters. Defaults to ▁▂▃▄▅▆▇█.",
       },
       {
         name: "corner",
@@ -1195,6 +1300,94 @@ const catalog: ComponentDoc[] = [
     ],
   },
   {
+    slug: "graph-timer",
+    title: "Timer",
+    name: "GraphTimer",
+    description:
+      "Elapsed time, how long ago, or the time of day. The numbers update every second.",
+    registry: "graph-timer",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "kind",
+        type: '"elapsed" | "ago" | "clock"',
+        default: '"elapsed"',
+        description:
+          "elapsed counts up from at. ago is relative. clock is the time of day.",
+      },
+      {
+        name: "at",
+        type: "Date | number | string",
+        description:
+          "Start time for elapsed and ago. A date, timestamp, or ISO string.",
+      },
+      {
+        name: "caption",
+        type: "string",
+        description: "Line under the number.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-countdown",
+    title: "Countdown",
+    name: "GraphCountdown",
+    description:
+      "Time left until a date. After that it shows a short label you pass in.",
+    registry: "graph-countdown",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "to",
+        type: "Date | number | string",
+        description: "The deadline. A date, timestamp, or ISO string.",
+      },
+      {
+        name: "done",
+        type: "string",
+        default: '"done"',
+        description: "What to show after the deadline.",
+      },
+      {
+        name: "caption",
+        type: "string",
+        description: "Line under the number.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
     slug: "graph-frame",
     title: "Frame",
     name: "Graph",
@@ -1231,6 +1424,7 @@ const catalog: ComponentDoc[] = [
 const PALETTE_SLUGS = new Set([
   "graph-flow",
   "graph-bars",
+  "graph-rank",
   "graph-cells",
   "graph-meter",
   "graph-spark",
@@ -1242,6 +1436,7 @@ const PALETTE_SLUGS = new Set([
   "graph-waffle",
   "graph-diff",
   "graph-compare",
+  "graph-kpi",
   "graph-activity",
   "graph-heatmap",
   "graph-calendar",
@@ -1249,6 +1444,8 @@ const PALETTE_SLUGS = new Set([
   "graph-uptime",
   "graph-slope",
   "graph-bullet",
+  "graph-timer",
+  "graph-countdown",
 ])
 
 const paletteProp: PropRow = {
@@ -1260,14 +1457,17 @@ const paletteProp: PropRow = {
 }
 
 export const components = catalog.map((item) => {
+  const hint = CHOOSER[item.slug]
+  const base = hint ? { ...item, when: hint.when, not: hint.not } : item
+
   if (!PALETTE_SLUGS.has(item.slug)) {
-    return item
+    return base
   }
 
-  const corner = item.props.findIndex((prop) => prop.name === "corner")
-  const props = [...item.props]
+  const corner = base.props.findIndex((prop) => prop.name === "corner")
+  const props = [...base.props]
   props.splice(corner === -1 ? props.length : corner, 0, paletteProp)
-  return { ...item, props }
+  return { ...base, props }
 })
 
 export function getComponent(slug: string) {

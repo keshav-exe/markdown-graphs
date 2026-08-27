@@ -34,9 +34,9 @@ OG images are `opengraph-image.tsx` via `lib/og`. They prerender at `next build`
 
 - Geist Mono. Dashed frame, `+` corners (`corner` prop), title as `[ TITLE ]`.
 - One accent: `--graph-accent`. Dim unused rows with opacity (~0.4). Drawing graphs take `palette?: "mono" | "duo" | "multi"` — default mono. duo uses `--graph-accent-2` for the second series. multi cycles three hues. Site accent picker: solid hues first (Theme, Mint, Orange, Green, Cyan, Blue, Purple, Pink), then 3-stop families (Sunset, Ocean, Neon, Aurora, Fire, Prism).
-- Glyphs draw the chart. Tracks that represent a range (meter, stack, activity) span the frame (`GraphTrack` / `GraphTick`). Spark, bars, cells, and uptime stay packed at 1ch, centered, with a small gap. `glyphs` is a preset (`shade` `ascii` `hash` `bar`) or a custom character array.
+- Glyphs draw the chart. Tracks that represent a range (meter, stack, activity) span the frame (`GraphTrack` / `GraphTick`). Spark, bars, cells, uptime, and rank stay packed at 1ch, centered, with a small gap. `glyphs` is a preset (`shade` `ascii` `hash` `bar`) or a custom character array. No SVG, Recharts, or canvas.
 - `tabular-nums`. Amounts right-aligned.
-- Motion: transform + opacity, ~220ms, ease-out cubic `[0.215, 0.61, 0.355, 1]`. `useReducedMotion` → duration 0. No loops, no pulsing.
+- Motion: transform + opacity, ~220ms, ease-out cubic `[0.215, 0.61, 0.355, 1]`. `useReducedMotion` → duration 0. No loops, no pulsing. Timers tick once a second as text.
 - Don’t animate hundreds of cells one-by-one — stagger weeks/rows.
 - Plain language. No slogans.
 

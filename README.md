@@ -69,6 +69,10 @@ pnpm dlx shadcn@latest add @markdown-graphs/graph-table
 | Uptime    | `graph-uptime`    | One glyph per day, percent up              |
 | Slope     | `graph-slope`     | Two figures per row, before → after        |
 | Bullet    | `graph-bullet`    | Actual versus target on one track          |
+| Rank      | `graph-rank`      | A ranked list, one bar per row             |
+| KPI       | `graph-kpi`       | One number with a sparkline under it       |
+| Timer     | `graph-timer`     | Elapsed time, how long ago, or the clock   |
+| Countdown | `graph-countdown` | Time left until a date                     |
 | Frame     | `graph-frame`     | Shared dashed frame primitives             |
 
 Each docs page has CLI, manual, and agent install tabs. Copy page puts the markdown (install, prompt, examples, props) on the clipboard.
@@ -77,7 +81,7 @@ Each docs page has CLI, manual, and agent install tabs. Copy page puts the markd
 
 - Geist Mono. Dashed frame, `+` corners (swap with `corner`), title as `[ TITLE ]`.
 - One accent: `--graph-accent`. Unused rows recede with opacity. `palette="duo"` / `"multi"` opt into `--graph-accent-2` and `--graph-accent-3`.
-- Glyphs do the drawing (`█ ▓ ▒ ░ · - = + | ├ └ ✓`). Tracks span the frame. Pass `glyphs` (`shade` `ascii` `hash` `bar`, or your own characters).
+- Glyphs do the drawing (`█ ▓ ▒ ░ · - = + | ├ └ ✓`). Tracks that represent a range (meter, stack, bullet, rank) span the frame. Spark, bars, cells, and uptime stay packed at 1ch. Pass `glyphs` (`shade` `ascii` `hash` `bar`, or your own characters). No SVG.
 - Numbers use `tabular-nums`. Amounts sit right-aligned.
 - Motion is transform and opacity only, 220ms, no loops. `prefers-reduced-motion` sets duration to 0.
 

@@ -4,6 +4,7 @@ export const registryFiles: Record<string, string[]> = {
   "graph-frame": [
     "registry/default/graph-frame/graph-frame.tsx",
     "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-frame/graph-clock.ts",
     "registry/default/graph-frame/graph-arrow.tsx",
   ],
   "graph-table": [
@@ -22,6 +23,11 @@ export const registryFiles: Record<string, string[]> = {
     "registry/default/graph-frame/graph-motion.ts",
     "registry/default/graph-frame/graph-arrow.tsx",
     "registry/default/graph-bars/graph-bars.tsx",
+  ],
+  "graph-rank": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-rank/graph-rank.tsx",
   ],
   "graph-cells": [
     "registry/default/graph-frame/graph-frame.tsx",
@@ -93,6 +99,11 @@ export const registryFiles: Record<string, string[]> = {
     "registry/default/graph-frame/graph-motion.ts",
     "registry/default/graph-stat/graph-stat.tsx",
   ],
+  "graph-kpi": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-kpi/graph-kpi.tsx",
+  ],
   "graph-spec": [
     "registry/default/graph-frame/graph-frame.tsx",
     "registry/default/graph-frame/graph-motion.ts",
@@ -132,6 +143,18 @@ export const registryFiles: Record<string, string[]> = {
     "registry/default/graph-frame/graph-frame.tsx",
     "registry/default/graph-frame/graph-motion.ts",
     "registry/default/graph-bullet/graph-bullet.tsx",
+  ],
+  "graph-timer": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-frame/graph-clock.ts",
+    "registry/default/graph-timer/graph-timer.tsx",
+  ],
+  "graph-countdown": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-frame/graph-clock.ts",
+    "registry/default/graph-countdown/graph-countdown.tsx",
   ],
   all: ["registry/default"],
 }

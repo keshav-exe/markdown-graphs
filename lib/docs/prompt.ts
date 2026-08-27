@@ -3,9 +3,23 @@ import type { ComponentDoc, PropRow } from "@/lib/docs/catalog"
 export const DESIGN_AND_MOOD = `Design
 - Geist Mono. Dashed frame, plus-sign corners, title as [ TITLE ] on the top edge.
 - One accent color: CSS variable --graph-accent. Unused rows recede with opacity (~0.4). Drawing graphs accept palette="mono" | "duo" | "multi" (default mono). duo uses --graph-accent-2 for the second series. multi cycles three accents. Do not invent extra hues.
-- Glyphs do the drawing: █ ░ - = + ├ └ ✓. Borders are dashes, not SVG strokes.
+- Glyphs do the drawing: █ ░ - = + ├ └ ✓. Borders are dashes, not SVG strokes. Do not use Recharts, canvas, or SVG.
 - Numbers use tabular-nums and sit right-aligned.
-- Motion is transform and opacity only, 220ms cubic-bezier(0.215, 0.61, 0.355, 1). Nothing loops. If prefers-reduced-motion, duration is 0.
+- Motion is transform and opacity only, 220ms cubic-bezier(0.215, 0.61, 0.355, 1). Nothing loops or pulses. If prefers-reduced-motion, duration is 0. Timers still tick once a second as text.
+
+Chooser
+- a handful of numbers, no axis → GraphSpark
+- a series with a y-scale → GraphPlot (columns of characters, not a line chart library)
+- one fill from 0 to 1 → GraphMeter
+- parts of a whole → GraphStack or GraphWaffle (not a pie)
+- ok / slow / down days → GraphUptime
+- actual vs target → GraphBullet
+- before and after figures → GraphSlope
+- a short ranked list → GraphRank (not Bars)
+- one number plus a trend → GraphKpi
+- two to four numbers, no trend → GraphStat
+- elapsed, how long ago, or the time of day → GraphTimer
+- time left until a date → GraphCountdown
 
 Mood
 Typed, not illustrated. Quiet monospace figures that sit next to prose. Restraint over decoration. Do not restyle the frame. Default is one accent; palette is opt-in.`
@@ -29,7 +43,7 @@ type AgentPromptInput = {
   registry: string
   doc?: Pick<
     ComponentDoc,
-    "title" | "name" | "description" | "dependencies" | "props"
+    "title" | "name" | "description" | "dependencies" | "props" | "when" | "not"
   >
   example?: string
 }
@@ -67,7 +81,7 @@ These are React source files, not an npm package. You need ${deps}. Files land u
 
 What it is
 ${doc.description}
-${usage}
+${doc.when ? `\nWhen to use\n${doc.when}\n` : ""}${doc.not ? `\nSkip it when\n${doc.not}\n` : ""}${usage}
 Props
 ${formatProps(doc.props)}
 
@@ -87,7 +101,14 @@ export type PageCopy = {
   registry?: string
   doc?: Pick<
     ComponentDoc,
-    "title" | "name" | "description" | "dependencies" | "props" | "registry"
+    | "title"
+    | "name"
+    | "description"
+    | "dependencies"
+    | "props"
+    | "registry"
+    | "when"
+    | "not"
   >
   examples?: PageExample[]
   extra?: string

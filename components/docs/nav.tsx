@@ -126,8 +126,8 @@ function ScrollFade({ edge }: { edge: "top" | "bottom" }) {
 function DocsSidebar() {
   return (
     <aside className="w-52 shrink-0 max-lg:hidden">
-      <div className="sticky top-0 isolate max-h-dvh">
-        <div className="max-h-dvh scrollbar-none overflow-y-auto py-10">
+      <div className="sticky top-14 isolate max-h-[calc(100dvh-3.5rem)] sm:top-16 sm:max-h-[calc(100dvh-4rem)]">
+        <div className="max-h-[calc(100dvh-3.5rem)] scrollbar-none overflow-y-auto py-10 sm:max-h-[calc(100dvh-4rem)]">
           <DocsNav />
         </div>
         <ScrollFade edge="top" />
@@ -149,16 +149,16 @@ function DocsMobileNav() {
     >
       <Dialog.Trigger
         aria-label="Open docs menu"
-        className="relative flex items-center gap-2 py-1 text-foreground"
+        className="relative flex min-h-12 items-center gap-2 text-foreground lg:min-h-0 lg:py-1"
       >
         <span
           aria-hidden="true"
           className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
         />
         <HugeiconsIcon
-          className="size-4 shrink-0"
+          className="size-5 shrink-0"
           icon={MenuIcon}
-          size={16}
+          size={20}
           strokeWidth={1.5}
         />
         <span>Docs</span>
@@ -183,9 +183,9 @@ function DocsMobileNav() {
                 className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
               />
               <HugeiconsIcon
-                className="size-4 shrink-0"
+                className="size-5 shrink-0"
                 icon={Cancel01Icon}
-                size={16}
+                size={20}
                 strokeWidth={1.5}
               />
             </Dialog.Close>

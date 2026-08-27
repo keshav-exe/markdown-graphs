@@ -20,21 +20,21 @@ function GithubStarLink({
     <a
       aria-label={count ? `Star on GitHub, ${count} stars` : "Star on GitHub"}
       className={cn(
-        "flex items-center gap-2 text-muted-foreground hover:text-foreground",
+        "flex shrink-0 items-center gap-2 text-muted-foreground hover:text-foreground",
         className
       )}
       href={GITHUB_URL}
       rel="noreferrer"
     >
       <HugeiconsIcon
-        className="size-4 shrink-0"
+        className="size-5 shrink-0 sm:size-4 fill-foreground"
         icon={StarIcon}
-        size={16}
+        size={20}
         strokeWidth={1.5}
       />
-      <span>Star on GitHub</span>
+      <span>on GitHub</span>
       {count ? (
-        <span className="text-foreground tabular-nums">{count}</span>
+        <span className="text-foreground tabular-nums">[{count}]</span>
       ) : null}
     </a>
   )

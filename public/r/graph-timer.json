@@ -1,0 +1,82 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "graph-timer",
+  "title": "Timer",
+  "description": "Elapsed time, how long ago, or the time of day. The numbers update every second.",
+  "dependencies": [
+    "motion"
+  ],
+  "files": [
+    {
+      "path": "registry/default/graph-frame/graph-frame.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction GraphCorners({ mark = \"+\" }: { mark?: string }) {\n  return (\n    <>\n      <span\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute top-0 left-0 z-10 block -translate-x-1/2 -translate-y-1/2 bg-background px-0.5 text-graph-frame\"\n      >\n        {mark}\n      </span>\n      <span\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute top-0 right-0 z-10 block translate-x-1/2 -translate-y-1/2 bg-background px-0.5 text-graph-frame\"\n      >\n        {mark}\n      </span>\n      <span\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute bottom-0 left-0 z-10 block -translate-x-1/2 translate-y-1/2 bg-background px-0.5 text-graph-frame\"\n      >\n        {mark}\n      </span>\n      <span\n        aria-hidden=\"true\"\n        className=\"pointer-events-none absolute right-0 bottom-0 z-10 block translate-x-1/2 translate-y-1/2 bg-background px-0.5 text-graph-frame\"\n      >\n        {mark}\n      </span>\n    </>\n  )\n}\n\nfunction GraphTitle({\n  className,\n  children,\n  ...props\n}: React.ComponentProps<\"figcaption\">) {\n  return (\n    <figcaption\n      className={cn(\n        \"absolute top-0 left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 bg-background px-2.5 tracking-wide whitespace-nowrap uppercase\",\n        className\n      )}\n      {...props}\n    >\n      <span className=\"graph-title-ink text-graph-accent\">[ {children} ]</span>\n    </figcaption>\n  )\n}\n\nfunction GraphBody({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      className={cn(\"w-max min-w-full px-5 py-7 sm:px-8 sm:py-8\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction GraphRule({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      aria-hidden=\"true\"\n      className={cn(\"graph-rule w-full\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction GraphTrack({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      aria-hidden=\"true\"\n      className={cn(\"flex w-full min-w-min select-none\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction GraphTick({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      className={cn(\"min-w-[1ch] flex-1 text-center\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction Graph({\n  title,\n  corner = \"+\",\n  className,\n  children,\n  ...props\n}: React.ComponentProps<\"figure\"> & {\n  title?: string\n  corner?: string\n}) {\n  const captionId = React.useId()\n\n  return (\n    <figure\n      aria-labelledby={title ? captionId : undefined}\n      className={cn(\n        \"relative max-w-full min-w-0 overflow-x-auto overscroll-x-contain graph-frame font-mono text-sm text-foreground\",\n        className\n      )}\n      {...props}\n    >\n      {title ? <GraphTitle id={captionId}>{title}</GraphTitle> : null}\n      <GraphCorners mark={corner} />\n      {children}\n    </figure>\n  )\n}\n\nexport {\n  Graph,\n  GraphBody,\n  GraphCorners,\n  GraphRule,\n  GraphTick,\n  GraphTitle,\n  GraphTrack,\n}\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/default/graph-frame/graph-motion.ts",
+      "content": "import type { Transition, Variants } from \"motion/react\"\n\nexport const easeOutCubic = [0.215, 0.61, 0.355, 1] as const\n\nexport const DIM_OPACITY = 0.4\n\nexport function graphTransition(\n  reduce: boolean | null,\n  extras?: Transition\n): Transition {\n  if (reduce) {\n    return { duration: 0 }\n  }\n\n  return {\n    duration: 0.22,\n    ease: easeOutCubic,\n    ...extras,\n  }\n}\n\nexport function fadeUp(reduce: boolean | null): Variants {\n  if (reduce) {\n    return {\n      hidden: { opacity: 1, transform: \"translateY(0px)\" },\n      show: { opacity: 1, transform: \"translateY(0px)\" },\n    }\n  }\n\n  return {\n    hidden: { opacity: 0, transform: \"translateY(8px)\" },\n    show: {\n      opacity: 1,\n      transform: \"translateY(0px)\",\n      transition: graphTransition(false),\n    },\n  }\n}\n\nexport function staggerList(reduce: boolean | null, stagger = 0.04): Variants {\n  return {\n    hidden: {},\n    show: {\n      transition: reduce ? { duration: 0 } : { staggerChildren: stagger },\n    },\n  }\n}\n\nexport function fillDelay(reduce: boolean | null, index: number, step = 0.03) {\n  if (reduce) {\n    return 0\n  }\n\n  return Math.min(index * step, 0.28)\n}\n\nexport function clamp01(value: number) {\n  return Math.min(1, Math.max(0, value))\n}\n\nexport const GLYPH_SETS = {\n  shade: [\"·\", \"░\", \"▒\", \"▓\", \"█\"],\n  ascii: [\".\", \"-\", \"=\", \"#\", \"@\"],\n  hash: [\".\", \":\", \"+\", \"#\", \"█\"],\n  bar: [\"▁\", \"▂\", \"▃\", \"▅\", \"█\"],\n} as const\n\nexport type GlyphSetName = keyof typeof GLYPH_SETS\nexport type Glyphs = GlyphSetName | readonly string[]\n\nexport const INTENSITY_GLYPHS = GLYPH_SETS.shade\n\nexport function resolveGlyphs(glyphs?: Glyphs): readonly string[] {\n  if (glyphs == null) {\n    return GLYPH_SETS.shade\n  }\n\n  if (typeof glyphs === \"string\") {\n    return GLYPH_SETS[glyphs] ?? GLYPH_SETS.shade\n  }\n\n  return glyphs.length > 0 ? glyphs : GLYPH_SETS.shade\n}\n\nexport function trackMarks(\n  glyphs?: Glyphs,\n  fallback: { empty: string; rest: string; fill: string } = {\n    empty: \"-\",\n    rest: \"░\",\n    fill: \"█\",\n  }\n) {\n  if (glyphs == null) {\n    return fallback\n  }\n\n  const set = resolveGlyphs(glyphs)\n  const last = set.length - 1\n\n  return {\n    empty: set[0] ?? fallback.empty,\n    rest: set[Math.min(1, last)] ?? fallback.rest,\n    fill: set[last] ?? fallback.fill,\n  }\n}\n\nexport function intensityLevel(value: number, max: number) {\n  if (value <= 0 || max <= 0) {\n    return 0\n  }\n\n  return Math.max(1, Math.round(clamp01(value / max) * 4))\n}\n\nexport function intensityGlyph(\n  level: number,\n  glyphs: readonly string[] = INTENSITY_GLYPHS\n) {\n  if (glyphs.length === 0) {\n    return \"·\"\n  }\n\n  const clamped = Math.min(4, Math.max(0, Math.round(level)))\n  const index = Math.round((clamped / 4) * (glyphs.length - 1))\n  return glyphs[index] ?? glyphs[0] ?? \"·\"\n}\n\nexport function intensityClass(level: number, palette: GraphPalette = \"mono\") {\n  const index = Math.min(4, Math.max(0, Math.round(level)))\n\n  if (index <= 0) {\n    return \"text-graph-frame\"\n  }\n\n  if (palette === \"mono\") {\n    if (index <= 2) {\n      return \"text-graph-muted\"\n    }\n\n    if (index === 3) {\n      return \"text-foreground\"\n    }\n\n    return \"text-graph-accent\"\n  }\n\n  if (palette === \"multi\") {\n    if (index === 1) {\n      return \"text-graph-accent-2\"\n    }\n\n    if (index <= 3) {\n      return \"text-graph-accent-3\"\n    }\n\n    return \"text-graph-accent\"\n  }\n\n  if (index <= 2) {\n    return \"text-graph-accent-2\"\n  }\n\n  return \"text-graph-accent\"\n}\n\nexport type GraphPalette = \"mono\" | \"duo\" | \"multi\"\n\nconst SERIES_TONES = [\n  \"text-graph-accent\",\n  \"text-graph-accent-2\",\n  \"text-graph-accent-3\",\n] as const\n\nexport function isMonoPalette(palette?: GraphPalette) {\n  return palette == null || palette === \"mono\"\n}\n\nexport function seriesClass(palette: GraphPalette | undefined, index: number) {\n  if (isMonoPalette(palette)) {\n    return index === 0 ? \"text-graph-accent\" : \"text-foreground\"\n  }\n\n  const count = palette === \"duo\" ? 2 : 3\n  return SERIES_TONES[index % count]\n}\n\nexport function seriesDim(\n  palette: GraphPalette | undefined,\n  highlighted: boolean\n) {\n  if (!isMonoPalette(palette) || highlighted) {\n    return undefined\n  }\n\n  return { opacity: DIM_OPACITY }\n}\n\nexport function toneClass(\n  palette: GraphPalette | undefined,\n  role: \"primary\" | \"secondary\" | \"idle\" | \"empty\"\n) {\n  if (role === \"empty\") {\n    return \"text-graph-frame\"\n  }\n\n  if (role === \"idle\") {\n    return \"text-graph-muted\"\n  }\n\n  if (role === \"primary\") {\n    return \"text-graph-accent\"\n  }\n\n  return isMonoPalette(palette) ? \"text-graph-muted\" : \"text-graph-accent-2\"\n}\n",
+      "type": "registry:lib"
+    },
+    {
+      "path": "registry/default/graph-frame/graph-clock.ts",
+      "content": "\"use client\"\n\nimport { useEffect, useState } from \"react\"\n\nexport function parseInstant(value: Date | number | string) {\n  if (value instanceof Date) {\n    return value.getTime()\n  }\n\n  if (typeof value === \"number\") {\n    return Number.isFinite(value) ? value : Number.NaN\n  }\n\n  return Date.parse(value)\n}\n\nexport function pad2(value: number) {\n  return String(Math.trunc(value)).padStart(2, \"0\")\n}\n\nexport function formatHms(ms: number) {\n  const total = Math.max(0, Math.floor(ms / 1000))\n  const days = Math.floor(total / 86400)\n  const hours = Math.floor((total % 86400) / 3600)\n  const minutes = Math.floor((total % 3600) / 60)\n  const seconds = total % 60\n  const clock = `${pad2(hours)}:${pad2(minutes)}:${pad2(seconds)}`\n\n  if (days > 0) {\n    return `${days}d ${clock}`\n  }\n\n  return clock\n}\n\nexport function formatAgo(ms: number) {\n  const seconds = Math.max(0, Math.floor(ms / 1000))\n\n  if (seconds < 60) {\n    return `${seconds}s ago`\n  }\n\n  const minutes = Math.floor(seconds / 60)\n\n  if (minutes < 60) {\n    return `${minutes}m ago`\n  }\n\n  const hours = Math.floor(minutes / 60)\n\n  if (hours < 48) {\n    return `${hours}h ago`\n  }\n\n  return `${Math.floor(hours / 24)}d ago`\n}\n\nexport function formatClock(ms: number) {\n  const date = new Date(ms)\n\n  return `${pad2(date.getHours())}:${pad2(date.getMinutes())}:${pad2(date.getSeconds())}`\n}\n\nexport function useGraphNow(interval = 1000) {\n  const [now, setNow] = useState<number | null>(null)\n\n  useEffect(() => {\n    setNow(Date.now())\n    const id = window.setInterval(() => setNow(Date.now()), interval)\n    return () => window.clearInterval(id)\n  }, [interval])\n\n  return now\n}\n",
+      "type": "registry:lib"
+    },
+    {
+      "path": "registry/default/graph-timer/graph-timer.tsx",
+      "content": "\"use client\"\n\nimport { motion, useReducedMotion } from \"motion/react\"\n\nimport { Graph, GraphBody } from \"@/registry/default/graph-frame/graph-frame\"\nimport {\n  formatAgo,\n  formatClock,\n  formatHms,\n  parseInstant,\n  useGraphNow,\n} from \"@/registry/default/graph-frame/graph-clock\"\nimport {\n  fadeUp,\n  toneClass,\n  type GraphPalette,\n} from \"@/registry/default/graph-frame/graph-motion\"\nimport { cn } from \"@/lib/utils\"\n\ntype TimerKind = \"elapsed\" | \"ago\" | \"clock\"\n\ntype GraphTimerProps = {\n  title: string\n  kind?: TimerKind\n  at?: Date | number | string\n  caption?: string\n  palette?: GraphPalette\n  corner?: string\n  className?: string\n}\n\nfunction GraphTimer({\n  title,\n  kind = \"elapsed\",\n  at,\n  caption,\n  palette,\n  corner,\n  className,\n}: GraphTimerProps) {\n  const reduce = useReducedMotion()\n  const enter = fadeUp(reduce)\n  const now = useGraphNow()\n  const origin = at == null ? Number.NaN : parseInstant(at)\n  let value = kind === \"ago\" ? \"0s ago\" : \"00:00:00\"\n  let spoken = \"timer\"\n\n  if (now != null) {\n    if (kind === \"clock\") {\n      value = formatClock(now)\n      spoken = `local time ${value}`\n    } else if (Number.isFinite(origin)) {\n      const elapsed = Math.max(0, now - origin)\n      if (kind === \"ago\") {\n        value = formatAgo(elapsed)\n        spoken = value\n      } else {\n        value = formatHms(elapsed)\n        spoken = `elapsed ${value}`\n      }\n    }\n  }\n\n  return (\n    <Graph title={title} className={className} corner={corner}>\n      <GraphBody>\n        <motion.div\n          className=\"flex flex-col gap-2\"\n          initial={reduce ? false : \"hidden\"}\n          variants={enter}\n          viewport={{ once: true, amount: 0.5 }}\n          whileInView=\"show\"\n        >\n          <p\n            className={cn(\n              \"text-3xl tracking-tight tabular-nums sm:text-4xl\",\n              toneClass(palette, \"primary\")\n            )}\n          >\n            {value}\n          </p>\n          {caption ? <p className=\"text-graph-muted\">{caption}</p> : null}\n        </motion.div>\n        <span className=\"sr-only\">{spoken}</span>\n      </GraphBody>\n    </Graph>\n  )\n}\n\nexport { GraphTimer }\nexport type { GraphTimerProps, TimerKind }\n",
+      "type": "registry:component"
+    }
+  ],
+  "cssVars": {
+    "theme": {
+      "color-graph-accent": "var(--graph-accent)",
+      "color-graph-accent-2": "var(--graph-accent-2)",
+      "color-graph-accent-3": "var(--graph-accent-3)",
+      "color-graph-frame": "var(--graph-frame)",
+      "color-graph-muted": "var(--graph-muted)",
+      "color-graph-faint": "var(--graph-faint)",
+      "color-contrast-14": "var(--contrast-14)",
+      "color-contrast-23": "var(--contrast-23)",
+      "color-contrast-45": "var(--contrast-45)",
+      "color-contrast-70": "var(--contrast-70)"
+    },
+    "light": {
+      "graph-accent": "oklch(0.5 0.18 255)",
+      "graph-accent-2": "oklch(0.58 0.14 70)",
+      "graph-accent-3": "oklch(0.5 0.12 165)",
+      "graph-frame": "oklch(0.205 0 0 / 0.28)",
+      "graph-muted": "oklch(0.52 0 0)",
+      "graph-faint": "oklch(0.82 0 0)",
+      "contrast-14": "oklch(0.88 0 0)",
+      "contrast-23": "oklch(0.76 0 0)",
+      "contrast-45": "oklch(0.48 0 0)",
+      "contrast-70": "oklch(0.28 0 0)"
+    },
+    "dark": {
+      "graph-accent": "oklch(0.7 0.12 255)",
+      "graph-accent-2": "oklch(0.78 0.12 70)",
+      "graph-accent-3": "oklch(0.78 0.1 165)",
+      "graph-frame": "oklch(0.48 0 0)",
+      "graph-muted": "oklch(0.52 0 0)",
+      "graph-faint": "oklch(0.28 0 0)",
+      "contrast-14": "oklch(0.22 0 0)",
+      "contrast-23": "oklch(0.34 0 0)",
+      "contrast-45": "oklch(0.62 0 0)",
+      "contrast-70": "oklch(0.84 0 0)"
+    }
+  },
+  "css": {
+    "@utility graph-frame": {
+      "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+      "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+      "background-position": "0 0, 100% 0, 0 100%, 0 0",
+      "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+    },
+    "@utility graph-rule": {
+      "height": "1px",
+      "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+    }
+  },
+  "type": "registry:component"
+}

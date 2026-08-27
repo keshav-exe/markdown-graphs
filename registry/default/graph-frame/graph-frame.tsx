@@ -55,7 +55,10 @@ function GraphTitle({
 
 function GraphBody({ className, ...props }: React.ComponentProps<"div">) {
   return (
-    <div className={cn("px-5 py-7 sm:px-8 sm:py-8", className)} {...props} />
+    <div
+      className={cn("w-max min-w-full px-5 py-7 sm:px-8 sm:py-8", className)}
+      {...props}
+    />
   )
 }
 
@@ -73,7 +76,7 @@ function GraphTrack({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
       aria-hidden="true"
-      className={cn("flex w-full min-w-0 select-none", className)}
+      className={cn("flex w-full min-w-min select-none", className)}
       {...props}
     />
   )
@@ -104,7 +107,7 @@ function Graph({
     <figure
       aria-labelledby={title ? captionId : undefined}
       className={cn(
-        "relative min-w-0 graph-frame font-mono text-sm text-foreground",
+        "relative max-w-full min-w-0 overflow-x-auto overscroll-x-contain graph-frame font-mono text-sm text-foreground",
         className
       )}
       {...props}

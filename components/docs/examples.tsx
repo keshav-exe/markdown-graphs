@@ -10,14 +10,17 @@ import {
   GraphCalendar,
   GraphCells,
   GraphCompare,
+  GraphCountdown,
   GraphDiff,
   GraphFlow,
   GraphFunnel,
   GraphGantt,
   GraphHeatmap,
   GraphInvoice,
+  GraphKpi,
   GraphMeter,
   GraphPlot,
+  GraphRank,
   GraphRule,
   GraphSlope,
   GraphSpark,
@@ -26,6 +29,7 @@ import {
   GraphStat,
   GraphTable,
   GraphTimeline,
+  GraphTimer,
   GraphTree,
   GraphUptime,
   GraphWaffle,
@@ -234,6 +238,61 @@ const barsExamples: Example[] = [
         processor="edit"
         title="DRAFT TO SHIPPED"
         to={{ label: "shipped", size: "lg", values: [3, 5, 4, 6, 5] }}
+      />
+    ),
+  },
+]
+
+const rankExamples: Example[] = [
+  {
+    title: "Routes",
+    description: "Pages ordered by visits. The longest bar is the busiest.",
+    code: `import { GraphRank } from "@/registry/default/graph-rank/graph-rank"
+
+<GraphRank
+  title="ROUTES"
+  items={[
+    { label: "/docs", value: 12400 },
+    { label: "/install", value: 4100 },
+    { label: "/plot", value: 860 },
+    { label: "/rank", value: 420 },
+  ]}
+/>`,
+    preview: (
+      <GraphRank
+        items={[
+          { label: "/docs", value: 12400 },
+          { label: "/install", value: 4100 },
+          { label: "/plot", value: 860 },
+          { label: "/rank", value: 420 },
+        ]}
+        title="ROUTES"
+      />
+    ),
+  },
+  {
+    title: "Coverage",
+    description: "Every bar uses the same scale, so the percents line up.",
+    code: `import { GraphRank } from "@/registry/default/graph-rank/graph-rank"
+
+<GraphRank
+  title="COVERAGE"
+  max={100}
+  items={[
+    { label: "frame", value: 100, display: "100%" },
+    { label: "plot", value: 82, display: "82%" },
+    { label: "invoice", value: 41, display: "41%" },
+  ]}
+/>`,
+    preview: (
+      <GraphRank
+        items={[
+          { label: "frame", value: 100, display: "100%" },
+          { label: "plot", value: 82, display: "82%" },
+          { label: "invoice", value: 41, display: "41%" },
+        ]}
+        max={100}
+        title="COVERAGE"
       />
     ),
   },
@@ -1130,6 +1189,54 @@ const statExamples: Example[] = [
   },
 ]
 
+const kpiExamples: Example[] = [
+  {
+    title: "Reads",
+    description:
+      "The number is the headline. The spark is the last twelve points.",
+    code: `import { GraphKpi } from "@/registry/default/graph-kpi/graph-kpi"
+
+<GraphKpi
+  title="READS"
+  value="12,400"
+  label="this week"
+  hint="+18%"
+  data={[4, 5, 5, 6, 8, 7, 9, 8, 11, 10, 12, 14]}
+/>`,
+    preview: (
+      <GraphKpi
+        data={[4, 5, 5, 6, 8, 7, 9, 8, 11, 10, 12, 14]}
+        hint="+18%"
+        label="this week"
+        title="READS"
+        value="12,400"
+      />
+    ),
+  },
+  {
+    title: "Latency",
+    description: "A latency number with a falling series.",
+    code: `import { GraphKpi } from "@/registry/default/graph-kpi/graph-kpi"
+
+<GraphKpi
+  title="P95"
+  value="142ms"
+  label="read"
+  hint="−18ms"
+  data={[8, 7, 9, 6, 5, 7, 4, 5, 3, 4, 3, 2]}
+/>`,
+    preview: (
+      <GraphKpi
+        data={[8, 7, 9, 6, 5, 7, 4, 5, 3, 4, 3, 2]}
+        hint="−18ms"
+        label="read"
+        title="P95"
+        value="142ms"
+      />
+    ),
+  },
+]
+
 const specExamples: Example[] = [
   {
     title: "Type",
@@ -1629,6 +1736,97 @@ const bulletExamples: Example[] = [
   },
 ]
 
+const timerExamples: Example[] = [
+  {
+    title: "Incident",
+    description: "Counts up from a start time.",
+    code: `import { GraphTimer } from "@/registry/default/graph-timer/graph-timer"
+
+<GraphTimer
+  title="INCIDENT"
+  kind="elapsed"
+  at="2026-08-27T08:00:00Z"
+  caption="api"
+/>`,
+    preview: (
+      <GraphTimer
+        at="2026-08-27T08:00:00Z"
+        caption="api"
+        kind="elapsed"
+        title="INCIDENT"
+      />
+    ),
+  },
+  {
+    title: "Last deploy",
+    description: "How long since the last deploy.",
+    code: `import { GraphTimer } from "@/registry/default/graph-timer/graph-timer"
+
+<GraphTimer
+  title="SHIPPED"
+  kind="ago"
+  at="2026-08-27T12:00:00Z"
+  caption="last deploy"
+/>`,
+    preview: (
+      <GraphTimer
+        at="2026-08-27T12:00:00Z"
+        caption="last deploy"
+        kind="ago"
+        title="SHIPPED"
+      />
+    ),
+  },
+  {
+    title: "Local",
+    description: "The time of day, updating every second.",
+    code: `import { GraphTimer } from "@/registry/default/graph-timer/graph-timer"
+
+<GraphTimer
+  title="LOCAL"
+  kind="clock"
+/>`,
+    preview: <GraphTimer kind="clock" title="LOCAL" />,
+  },
+]
+
+const countdownExamples: Example[] = [
+  {
+    title: "Freeze",
+    description: "Until New Year's. After that it says open.",
+    code: `import { GraphCountdown } from "@/registry/default/graph-countdown/graph-countdown"
+
+<GraphCountdown
+  title="FREEZE"
+  to="2027-01-01T00:00:00Z"
+  done="open"
+  caption="until launch"
+/>`,
+    preview: (
+      <GraphCountdown
+        caption="until launch"
+        done="open"
+        title="FREEZE"
+        to="2027-01-01T00:00:00Z"
+      />
+    ),
+  },
+  {
+    title: "Closed",
+    description: "The date has passed, so the frame shows the label you set.",
+    code: `import { GraphCountdown } from "@/registry/default/graph-countdown/graph-countdown"
+
+<GraphCountdown
+  title="WINDOW"
+  to="2020-01-01T00:00:00Z"
+  done="closed"
+/>`,
+    preview: (
+      <GraphCountdown done="closed" title="WINDOW" to="2020-01-01T00:00:00Z" />
+    ),
+  },
+]
+
 const frameExamples: Example[] = [
   {
     title: "Titled frame",
@@ -1683,6 +1881,7 @@ export const examplesBySlug: Record<string, Example[]> = {
   "graph-table": tableExamples,
   "graph-flow": flowExamples,
   "graph-bars": barsExamples,
+  "graph-rank": rankExamples,
   "graph-cells": cellsExamples,
   "graph-meter": meterExamples,
   "graph-spark": sparkExamples,
@@ -1697,6 +1896,7 @@ export const examplesBySlug: Record<string, Example[]> = {
   "graph-invoice": invoiceExamples,
   "graph-compare": compareExamples,
   "graph-stat": statExamples,
+  "graph-kpi": kpiExamples,
   "graph-spec": specExamples,
   "graph-activity": activityExamples,
   "graph-heatmap": heatmapExamples,
@@ -1705,6 +1905,8 @@ export const examplesBySlug: Record<string, Example[]> = {
   "graph-uptime": uptimeExamples,
   "graph-slope": slopeExamples,
   "graph-bullet": bulletExamples,
+  "graph-timer": timerExamples,
+  "graph-countdown": countdownExamples,
   "graph-frame": frameExamples,
 }
 

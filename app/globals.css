@@ -3,6 +3,13 @@
 @import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
 
 @theme inline {
   --font-sans: "Geist", "Geist Fallback", ui-sans-serif, system-ui, sans-serif;
@@ -361,6 +368,13 @@ html.dark[data-accent="prism"] {
   }
   body {
     @apply bg-background text-foreground;
+  }
+  a,
+  button,
+  input,
+  textarea,
+  select {
+    touch-action: manipulation;
   }
   button:not(:disabled),
   [role="button"]:not(:disabled) {

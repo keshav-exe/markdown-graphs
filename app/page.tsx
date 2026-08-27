@@ -6,7 +6,9 @@ import {
   GraphBullet,
   GraphCalendar,
   GraphHeatmap,
-  GraphSlope,
+  GraphKpi,
+  GraphRank,
+  GraphTimer,
   GraphUptime,
   GraphWaterfall,
 } from "@/components/graphs"
@@ -132,16 +134,32 @@ export default function Page() {
               ]}
               title="DEPLOYS"
             />
-            <GraphSlope
-              fromLabel="2025"
+            <GraphRank
               items={[
-                { label: "docs", from: 8200, to: 12400 },
-                { label: "copy", from: 5100, to: 4100 },
-                { label: "ship", from: 640, to: 860 },
+                { label: "/docs", value: 12400 },
+                { label: "/install", value: 4100 },
+                { label: "/plot", value: 860 },
+                { label: "/rank", value: 420 },
               ]}
               palette="duo"
-              title="TRAFFIC"
-              toLabel="2026"
+              title="ROUTES"
+            />
+          </div>
+          <div className="grid gap-8 lg:grid-cols-2">
+            <GraphKpi
+              data={[4, 5, 5, 6, 8, 7, 9, 8, 11, 10, 12, 14]}
+              hint="+18%"
+              label="this week"
+              palette="duo"
+              title="READS"
+              value="12,400"
+            />
+            <GraphTimer
+              at="2026-08-01T00:00:00Z"
+              caption="api"
+              kind="elapsed"
+              palette="duo"
+              title="UPTIME"
             />
           </div>
           <p>

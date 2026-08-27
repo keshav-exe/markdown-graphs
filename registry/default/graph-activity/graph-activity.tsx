@@ -187,8 +187,8 @@ function GraphActivity({
   return (
     <Graph title={title} className={className} corner={corner}>
       <GraphBody className="flex flex-col gap-4">
-        <div className="flex w-full flex-col gap-1">
-          <div className="flex h-[1.25em] w-full">
+        <div className="flex w-max min-w-full flex-col gap-1">
+          <div className="flex h-[1.25em] w-max min-w-full">
             <span className="w-[2ch] shrink-0" />
             {months.map((month, index) => (
               <span className="relative min-w-[1ch] flex-1" key={`m-${index}`}>
@@ -200,7 +200,7 @@ function GraphActivity({
               </span>
             ))}
           </div>
-          <div className="flex w-full">
+          <div className="flex w-max min-w-full">
             <div className="flex w-[2ch] shrink-0 flex-col">
               {labels.map((label, index) => (
                 <span
@@ -212,7 +212,7 @@ function GraphActivity({
               ))}
             </div>
             <motion.div
-              className="flex min-w-0 flex-1"
+              className="flex w-max min-w-0 flex-1"
               initial={reduce ? false : "hidden"}
               variants={list}
               viewport={{ once: true, amount: 0.2 }}
@@ -221,7 +221,7 @@ function GraphActivity({
               {weeks.map((week, weekIndex) => (
                 <motion.div
                   className={cn(
-                    "flex min-w-[1ch] flex-1 flex-col",
+                    "flex w-[1ch] min-w-[1ch] flex-1 flex-col",
                     !reduce && "will-change-[transform,opacity]"
                   )}
                   key={week[0]?.date ?? weekIndex}

@@ -32,3 +32,5 @@ Marks are sidenav-only (desktop + mobile). Tiny mono `new` in `text-graph-accent
 ## Palette prop
 
 Drawing graphs take `palette?: "mono" | "duo" | "multi"`. Don't paste it into every catalog row. `PALETTE_SLUGS` + `paletteProp` in `catalog.ts` inject it before `corner`. Skip table, invoice, spec, stat, tree, frame.
+
+`when` / `not` live in `lib/docs/chooser.ts`. They feed the agent prompt, docs blurb, and `/llms.txt`. Update that map when you add a graph.

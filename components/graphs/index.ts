@@ -25,6 +25,7 @@ export {
 export { GraphTable } from "@/registry/default/graph-table/graph-table"
 export { GraphFlow } from "@/registry/default/graph-flow/graph-flow"
 export { GraphBars } from "@/registry/default/graph-bars/graph-bars"
+export { GraphRank } from "@/registry/default/graph-rank/graph-rank"
 export { GraphCells } from "@/registry/default/graph-cells/graph-cells"
 export { GraphMeter } from "@/registry/default/graph-meter/graph-meter"
 export { GraphSpark } from "@/registry/default/graph-spark/graph-spark"
@@ -39,6 +40,7 @@ export { GraphWaffle } from "@/registry/default/graph-waffle/graph-waffle"
 export { GraphInvoice } from "@/registry/default/graph-invoice/graph-invoice"
 export { GraphCompare } from "@/registry/default/graph-compare/graph-compare"
 export { GraphStat } from "@/registry/default/graph-stat/graph-stat"
+export { GraphKpi } from "@/registry/default/graph-kpi/graph-kpi"
 export { GraphSpec } from "@/registry/default/graph-spec/graph-spec"
 export { GraphActivity } from "@/registry/default/graph-activity/graph-activity"
 export { GraphHeatmap } from "@/registry/default/graph-heatmap/graph-heatmap"
@@ -47,6 +49,8 @@ export { GraphWaterfall } from "@/registry/default/graph-waterfall/graph-waterfa
 export { GraphUptime } from "@/registry/default/graph-uptime/graph-uptime"
 export { GraphSlope } from "@/registry/default/graph-slope/graph-slope"
 export { GraphBullet } from "@/registry/default/graph-bullet/graph-bullet"
+export { GraphTimer } from "@/registry/default/graph-timer/graph-timer"
+export { GraphCountdown } from "@/registry/default/graph-countdown/graph-countdown"
 
 export type {
   GlyphSetName,
@@ -63,6 +67,10 @@ export type {
   BarSeries,
   GraphBarsProps,
 } from "@/registry/default/graph-bars/graph-bars"
+export type {
+  GraphRankProps,
+  RankItem,
+} from "@/registry/default/graph-rank/graph-rank"
 export type {
   CellGrid,
   GraphCellsProps,
@@ -114,6 +122,7 @@ export type {
   GraphStatProps,
   StatItem,
 } from "@/registry/default/graph-stat/graph-stat"
+export type { GraphKpiProps } from "@/registry/default/graph-kpi/graph-kpi"
 export type {
   GraphSpecProps,
   SpecRow,
@@ -147,3 +156,8 @@ export type {
   BulletItem,
   GraphBulletProps,
 } from "@/registry/default/graph-bullet/graph-bullet"
+export type {
+  GraphTimerProps,
+  TimerKind,
+} from "@/registry/default/graph-timer/graph-timer"
+export type { GraphCountdownProps } from "@/registry/default/graph-countdown/graph-countdown"
