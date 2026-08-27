@@ -6,17 +6,14 @@ import { SiteContainer } from "@/components/site/container"
 function DocsLayout({ children }: { children: ReactNode }) {
   return (
     <div>
-      <div className="sticky top-14 z-30 border-b border-border bg-background sm:top-16 lg:hidden">
-        <SiteContainer className="py-2">
+      <div className="border-b border-border lg:hidden dark:border-border">
+        <SiteContainer className="py-3">
           <DocsMobileNav />
         </SiteContainer>
       </div>
-      <SiteContainer className="flex min-w-0 gap-8 lg:gap-12">
+      <SiteContainer className="flex gap-8 lg:gap-12">
         <DocsSidebar />
-        <main
-          className="min-w-0 flex-1 py-8 text-base sm:py-10 sm:text-sm"
-          id="main"
-        >
+        <main className="min-w-0 flex-1 py-10 text-base sm:text-sm" id="main">
           {children}
         </main>
       </SiteContainer>

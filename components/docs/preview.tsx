@@ -50,7 +50,7 @@ function ComponentPreview({
               key={id}
               aria-selected={tab === id}
               className={cn(
-                "relative min-h-12 px-3 py-2 text-base text-muted-foreground hover:text-foreground sm:min-h-0 sm:px-2 sm:py-1 sm:text-sm",
+                "relative px-2 py-1 text-muted-foreground hover:text-foreground",
                 tab === id && "bg-muted text-foreground"
               )}
               onClick={() => setTab(id)}
@@ -69,7 +69,7 @@ function ComponentPreview({
 
       <div className="relative min-w-0 overflow-x-auto border border-border dark:border-border">
         {tab === "preview" ? (
-          <div className="w-max min-w-full p-4 sm:p-8">{children}</div>
+          <div className="p-4 sm:p-8">{children}</div>
         ) : (
           <>
             <div className="absolute top-2 right-2">

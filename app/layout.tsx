@@ -87,7 +87,7 @@ export default async function RootLayout({
           >
             Skip to content
           </a>
-          <div className="isolate flex min-h-dvh flex-col overflow-x-clip">
+          <div className="isolate flex min-h-dvh flex-col">
             <SiteHeader stars={stars} />
             <div className="flex-1">{children}</div>
             <SiteFooter />

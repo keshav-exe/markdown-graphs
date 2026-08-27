@@ -8,9 +8,7 @@
       "type": "registry:ui",
       "title": "Frame",
       "description": "Dashed ASCII frame, title, corners, and motion helpers.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -86,9 +84,7 @@
       "type": "registry:component",
       "title": "Table",
       "description": "Framed data table with optional footer totals.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -159,9 +155,7 @@
       "type": "registry:component",
       "title": "Flow",
       "description": "Typed process diagram with dashed arrows.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -236,9 +230,7 @@
       "type": "registry:component",
       "title": "Bars",
       "description": "Before/after bar comparison with a processor in the middle.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -313,9 +305,7 @@
       "type": "registry:component",
       "title": "Rank",
       "description": "A list of labels with a bar of characters and a number on the right.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -386,9 +376,7 @@
       "type": "registry:component",
       "title": "Cells",
       "description": "Filled and empty cell grids for comparing density.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -459,9 +447,7 @@
       "type": "registry:component",
       "title": "Meter",
       "description": "Percentage meter drawn with characters, not a progress bar.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -532,9 +518,7 @@
       "type": "registry:component",
       "title": "Spark",
       "description": "Sparkline made of block glyphs.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -605,9 +589,7 @@
       "type": "registry:component",
       "title": "Tree",
       "description": "File or org tree with branch glyphs.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -678,9 +660,7 @@
       "type": "registry:component",
       "title": "Timeline",
       "description": "Vertical changelog. Current row is the accent.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -751,9 +731,7 @@
       "type": "registry:component",
       "title": "Stack",
       "description": "Share of a whole. Glyphs stand in for series color.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -824,9 +802,7 @@
       "type": "registry:component",
       "title": "Funnel",
       "description": "Conversion steps. Percent is versus the first row.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -897,9 +873,7 @@
       "type": "registry:component",
       "title": "Gantt",
       "description": "A schedule in dashes and blocks.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -970,9 +944,7 @@
       "type": "registry:component",
       "title": "Plot",
       "description": "Line or area made of columns. Cap is █, fill is ░.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1043,9 +1015,7 @@
       "type": "registry:component",
       "title": "Waffle",
       "description": "A hundred cells. Value is how many are lit.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1116,9 +1086,7 @@
       "type": "registry:component",
       "title": "Diff",
       "description": "Plus, minus, keep. A ledger, not a table.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1189,9 +1157,7 @@
       "type": "registry:component",
       "title": "Invoice",
       "description": "Document table for invoices and quotes. From, bill-to, line items, totals.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1262,9 +1228,7 @@
       "type": "registry:component",
       "title": "Compare",
       "description": "Feature matrix. Cells are text or true/false, drawn as ✓ and –.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1335,9 +1299,7 @@
       "type": "registry:component",
       "title": "Stat",
       "description": "A row of large numbers with labels. Use it for KPIs, not as a chart.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1408,9 +1370,7 @@
       "type": "registry:component",
       "title": "KPI",
       "description": "One large number with a sparkline under it.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1481,9 +1441,7 @@
       "type": "registry:component",
       "title": "Spec",
       "description": "Aligned label and value rows. Spec sheets, shipping labels, type samples.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1554,9 +1512,7 @@
       "type": "registry:component",
       "title": "Activity",
       "description": "GitHub-style contribution grid from dated counts.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1627,9 +1583,7 @@
       "type": "registry:component",
       "title": "Heatmap",
       "description": "Labeled 2d intensity matrix. Same glyphs as Activity.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1700,9 +1654,7 @@
       "type": "registry:component",
       "title": "Calendar",
       "description": "One month as a seven-column grid. Mark days with the accent.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1773,9 +1725,7 @@
       "type": "registry:component",
       "title": "Waterfall",
       "description": "Running total as floating bars. Start, in, out, end.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1846,9 +1796,7 @@
       "type": "registry:component",
       "title": "Uptime",
       "description": "One glyph per day. ok, degraded, down, or empty.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1919,9 +1867,7 @@
       "type": "registry:component",
       "title": "Slope",
       "description": "Two figures per row with an arrow between.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1992,9 +1938,7 @@
       "type": "registry:component",
       "title": "Bullet",
       "description": "Actual versus target on a shared track. The marker is the target.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -2065,9 +2009,7 @@
       "type": "registry:component",
       "title": "Timer",
       "description": "Elapsed time, how long ago, or the time of day. The numbers update every second.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -2142,9 +2084,7 @@
       "type": "registry:component",
       "title": "Countdown",
       "description": "Time left until a date. After that it shows a short label you pass in.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -2219,9 +2159,7 @@
       "type": "registry:block",
       "title": "All graphs",
       "description": "Every markdown graph component, plus the frame primitives.",
-      "dependencies": [
-        "motion"
-      ],
+      "dependencies": ["motion"],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",

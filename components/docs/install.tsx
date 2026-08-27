@@ -46,7 +46,7 @@ function InstallCommand({ name, doc, example }: InstallCommandProps) {
             key={id}
             aria-selected={tab === id}
             className={cn(
-              "relative min-h-12 px-3 py-2 text-base text-muted-foreground hover:text-foreground sm:min-h-0 sm:px-2 sm:py-1 sm:text-sm",
+              "relative px-2 py-1 text-muted-foreground hover:text-foreground",
               tab === id && "bg-muted text-foreground"
             )}
             onClick={() => setTab(id)}
@@ -165,9 +165,9 @@ function Command({ label, value }: { label: string; value: string }) {
       <p className="font-mono tracking-wide text-graph-muted uppercase">
         {label}
       </p>
-      <div className="flex min-w-0 items-center gap-2 overflow-hidden border border-border px-3 py-2 dark:border-border">
+      <div className="flex min-w-0 items-center gap-2 border border-border px-3 py-2 dark:border-border">
         <pre className="min-w-0 flex-1 overflow-x-auto text-muted-foreground">
-          <code className="whitespace-pre">{value}</code>
+          <code>{value}</code>
         </pre>
         <CopyButton label={`Copy ${label} command`} text={value} />
       </div>

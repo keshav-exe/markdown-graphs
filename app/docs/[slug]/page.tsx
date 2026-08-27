@@ -55,8 +55,8 @@ export default async function ComponentDocPage({ params }: PageProps) {
     <div className="flex flex-col gap-12">
       <JsonLd data={componentJsonLd(item)} />
       <div className="flex flex-col gap-3">
-        <div className="flex min-w-0 items-start justify-between gap-3">
-          <h1 className="min-w-0 text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+        <div className="flex items-start justify-between gap-6">
+          <h1 className="text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
             {item.title}
           </h1>
           <CopyPage

@@ -149,16 +149,16 @@ function DocsMobileNav() {
     >
       <Dialog.Trigger
         aria-label="Open docs menu"
-        className="relative flex min-h-12 items-center gap-2 text-foreground lg:min-h-0 lg:py-1"
+        className="relative flex items-center gap-2 py-1 text-foreground"
       >
         <span
           aria-hidden="true"
           className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
         />
         <HugeiconsIcon
-          className="size-5 shrink-0"
+          className="size-4 shrink-0"
           icon={MenuIcon}
-          size={20}
+          size={16}
           strokeWidth={1.5}
         />
         <span>Docs</span>
@@ -183,9 +183,9 @@ function DocsMobileNav() {
                 className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
               />
               <HugeiconsIcon
-                className="size-5 shrink-0"
+                className="size-4 shrink-0"
                 icon={Cancel01Icon}
-                size={20}
+                size={16}
                 strokeWidth={1.5}
               />
             </Dialog.Close>
