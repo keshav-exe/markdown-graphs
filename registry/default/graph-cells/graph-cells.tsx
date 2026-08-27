@@ -46,22 +46,19 @@ function GraphCells({
   return (
     <Graph title={title} className={className} corner={corner}>
       <GraphBody>
-        <div className="@container flex flex-col justify-center gap-10 @min-[28rem]:flex-row @min-[28rem]:gap-12">
+        <div className="@container flex flex-col items-center gap-10 @min-[28rem]:flex-row @min-[28rem]:justify-center @min-[28rem]:gap-12">
           {items.map((item, itemIndex) => (
-            <div
-              className="flex min-w-0 flex-1 flex-col gap-4"
-              key={item.label}
-            >
-              <div aria-hidden="true" className="flex w-full flex-col gap-1">
+            <div className="flex flex-col items-center gap-4" key={item.label}>
+              <div aria-hidden="true" className="flex flex-col gap-1">
                 {item.cells.map((row, rowIndex) => (
-                  <div className="flex w-full" key={rowIndex}>
+                  <div className="flex gap-1" key={rowIndex}>
                     {row.map((cell, cellIndex) => {
                       const filled = cell === 1
 
                       return (
                         <motion.span
                           className={cn(
-                            "min-w-[1ch] flex-1 text-center select-none",
+                            "w-[1ch] text-center select-none",
                             filled
                               ? isMonoPalette(palette)
                                 ? "text-graph-accent"

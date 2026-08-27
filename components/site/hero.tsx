@@ -3,7 +3,6 @@
 import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 
-import { AccentPicker } from "@/components/site/accent-picker"
 import { Button } from "@/components/ui/button"
 import {
   fadeUp,

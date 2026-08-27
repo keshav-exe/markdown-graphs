@@ -1085,7 +1085,7 @@ const catalog: ComponentDoc[] = [
         name: "columns",
         type: "number",
         default: "30",
-        description: "Days per row. Shorter series stay on one line.",
+        description: "Days per row. Short series are not padded to this width.",
       },
       {
         name: "glyphs",

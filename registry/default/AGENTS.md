@@ -10,7 +10,7 @@ Each item is a folder `graph-<name>/graph-<name>.tsx`. Users copy these files vi
 </Graph>
 ```
 
-Horizontal tracks must span the frame. Use `GraphTrack` + `GraphTick` (`flex-1`), not 1ch-wide ticks with empty `1fr`.
+Horizontal tracks that represent a range (meter, stack, activity) must span the frame. Use `GraphTrack` + `GraphTick` (`flex-1`), not 1ch-wide ticks with empty `1fr`. Spark, bars, cells, and uptime stay packed at 1ch, centered in the frame, with a small gap — don't stretch those glyphs edge to edge. Don't pad short uptime rows out to `columns`.
 
 Import primitives from `@/registry/default/graph-frame/...`, never from the site barrel.
 

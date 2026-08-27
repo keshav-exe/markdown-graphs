@@ -1,6 +1,6 @@
 export const ACCENT_STORAGE_KEY = "graph-accent"
 export const ACCENT_EVENT = "graph-accent"
-export const DEFAULT_ACCENT_ID = "sky"
+export const DEFAULT_ACCENT_ID = "ocean"
 
 type Hue = {
   light: string
@@ -10,7 +10,7 @@ type Hue = {
 export type Accent = {
   id: string
   label: string
-  kind: "solid" | "duo"
+  kind: "solid" | "gradient"
   light: string
   dark: string
   swatch: string
@@ -19,26 +19,33 @@ export type Accent = {
 }
 
 const LEGACY_ACCENTS: Record<string, string> = {
-  orange: "gold",
-  green: "lime",
-  cyan: "sky",
-  blue: "sky",
-  purple: "dusk",
-  pink: "coral",
+  paper: "theme",
+  gold: "sunset",
+  lime: "neon",
+  sky: "ocean",
+  dusk: "aurora",
+  coral: "fire",
+  mist: "prism",
 }
 
 function resolveAccentId(id: string) {
   return LEGACY_ACCENTS[id] ?? id
 }
 
-function gradientSwatch(from: string, to: string) {
-  return `linear-gradient(135deg, ${from}, ${to})`
+function gradientSwatch(
+  angle: number,
+  a: string,
+  b: string,
+  c: string,
+  mid: number
+) {
+  return `linear-gradient(${angle}deg, ${a} 0%, ${b} ${mid}%, ${c} 100%)`
 }
 
 export const accents: Accent[] = [
   {
-    id: "paper",
-    label: "Mono",
+    id: "theme",
+    label: "Theme",
     kind: "solid",
     light: "oklch(0.32 0 0)",
     dark: "oklch(0.92 0 0)",
@@ -50,71 +57,167 @@ export const accents: Accent[] = [
     id: "mint",
     label: "Mint",
     kind: "solid",
-    light: "oklch(0.5 0.12 165)",
-    dark: "oklch(0.78 0.12 170)",
-    swatch: "oklch(0.78 0.12 170)",
-    duo: { light: "oklch(0.58 0.1 165)", dark: "oklch(0.68 0.08 165)" },
-    tri: { light: "oklch(0.45 0.08 165)", dark: "oklch(0.55 0.06 165)" },
+    light: "oklch(0.52 0.14 163)",
+    dark: "oklch(0.77 0.15 163)",
+    swatch: "oklch(0.77 0.15 163)",
+    duo: { light: "oklch(0.58 0.1 163)", dark: "oklch(0.68 0.1 163)" },
+    tri: { light: "oklch(0.45 0.08 163)", dark: "oklch(0.58 0.08 163)" },
   },
   {
-    id: "gold",
-    label: "Gold",
-    kind: "duo",
-    light: "oklch(0.58 0.14 75)",
-    dark: "oklch(0.82 0.14 78)",
-    swatch: gradientSwatch("oklch(0.84 0.1 48)", "oklch(0.82 0.14 78)"),
-    duo: { light: "oklch(0.62 0.12 45)", dark: "oklch(0.84 0.1 48)" },
-    tri: { light: "oklch(0.55 0.14 90)", dark: "oklch(0.86 0.12 95)" },
+    id: "orange",
+    label: "Orange",
+    kind: "solid",
+    light: "oklch(0.58 0.16 55)",
+    dark: "oklch(0.76 0.14 55)",
+    swatch: "oklch(0.76 0.14 55)",
+    duo: { light: "oklch(0.5 0.12 55)", dark: "oklch(0.66 0.12 55)" },
+    tri: { light: "oklch(0.42 0.08 55)", dark: "oklch(0.55 0.08 55)" },
   },
   {
-    id: "sky",
-    label: "Sky",
-    kind: "duo",
-    light: "oklch(0.48 0.16 265)",
-    dark: "oklch(0.62 0.18 265)",
-    swatch: gradientSwatch("oklch(0.78 0.12 230)", "oklch(0.58 0.2 265)"),
-    duo: { light: "oklch(0.52 0.12 220)", dark: "oklch(0.78 0.12 230)" },
-    tri: { light: "oklch(0.45 0.16 280)", dark: "oklch(0.7 0.14 250)" },
+    id: "green",
+    label: "Green",
+    kind: "solid",
+    light: "oklch(0.5 0.14 145)",
+    dark: "oklch(0.74 0.14 145)",
+    swatch: "oklch(0.74 0.14 145)",
+    duo: { light: "oklch(0.58 0.1 145)", dark: "oklch(0.64 0.1 145)" },
+    tri: { light: "oklch(0.42 0.08 145)", dark: "oklch(0.55 0.08 145)" },
   },
   {
-    id: "lime",
-    label: "Lime",
-    kind: "duo",
-    light: "oklch(0.52 0.16 135)",
-    dark: "oklch(0.84 0.18 135)",
-    swatch: gradientSwatch("oklch(0.86 0.2 128)", "oklch(0.78 0.14 195)"),
-    duo: { light: "oklch(0.5 0.1 195)", dark: "oklch(0.78 0.14 195)" },
-    tri: { light: "oklch(0.5 0.12 165)", dark: "oklch(0.8 0.12 165)" },
+    id: "cyan",
+    label: "Cyan",
+    kind: "solid",
+    light: "oklch(0.5 0.1 210)",
+    dark: "oklch(0.76 0.1 210)",
+    swatch: "oklch(0.76 0.1 210)",
+    duo: { light: "oklch(0.58 0.08 210)", dark: "oklch(0.66 0.08 210)" },
+    tri: { light: "oklch(0.42 0.06 210)", dark: "oklch(0.55 0.06 210)" },
   },
   {
-    id: "dusk",
-    label: "Dusk",
-    kind: "duo",
-    light: "oklch(0.52 0.18 320)",
-    dark: "oklch(0.7 0.2 320)",
-    swatch: gradientSwatch("oklch(0.7 0.22 325)", "oklch(0.52 0.2 270)"),
-    duo: { light: "oklch(0.48 0.16 270)", dark: "oklch(0.58 0.18 270)" },
-    tri: { light: "oklch(0.5 0.14 295)", dark: "oklch(0.66 0.16 295)" },
+    id: "blue",
+    label: "Blue",
+    kind: "solid",
+    light: "oklch(0.5 0.18 255)",
+    dark: "oklch(0.7 0.12 255)",
+    swatch: "oklch(0.7 0.12 255)",
+    duo: { light: "oklch(0.58 0.12 255)", dark: "oklch(0.62 0.1 255)" },
+    tri: { light: "oklch(0.42 0.1 255)", dark: "oklch(0.52 0.08 255)" },
   },
   {
-    id: "coral",
-    label: "Coral",
-    kind: "duo",
-    light: "oklch(0.55 0.18 25)",
-    dark: "oklch(0.72 0.18 22)",
-    swatch: gradientSwatch("oklch(0.7 0.2 18)", "oklch(0.76 0.16 55)"),
-    duo: { light: "oklch(0.58 0.16 55)", dark: "oklch(0.76 0.16 55)" },
-    tri: { light: "oklch(0.55 0.14 40)", dark: "oklch(0.78 0.14 40)" },
+    id: "purple",
+    label: "Purple",
+    kind: "solid",
+    light: "oklch(0.5 0.16 300)",
+    dark: "oklch(0.72 0.12 300)",
+    swatch: "oklch(0.72 0.12 300)",
+    duo: { light: "oklch(0.58 0.12 300)", dark: "oklch(0.62 0.1 300)" },
+    tri: { light: "oklch(0.42 0.08 300)", dark: "oklch(0.55 0.08 300)" },
   },
   {
-    id: "mist",
-    label: "Mist",
-    kind: "duo",
-    light: "oklch(0.52 0.14 300)",
-    dark: "oklch(0.76 0.12 300)",
-    swatch: gradientSwatch("oklch(0.78 0.12 295)", "oklch(0.7 0.16 265)"),
-    duo: { light: "oklch(0.5 0.14 270)", dark: "oklch(0.72 0.14 268)" },
-    tri: { light: "oklch(0.5 0.1 285)", dark: "oklch(0.78 0.1 285)" },
+    id: "pink",
+    label: "Pink",
+    kind: "solid",
+    light: "oklch(0.55 0.18 8)",
+    dark: "oklch(0.74 0.14 8)",
+    swatch: "oklch(0.74 0.14 8)",
+    duo: { light: "oklch(0.5 0.12 8)", dark: "oklch(0.64 0.1 8)" },
+    tri: { light: "oklch(0.42 0.08 8)", dark: "oklch(0.55 0.08 8)" },
+  },
+  {
+    id: "sunset",
+    label: "Sunset",
+    kind: "gradient",
+    light: "oklch(0.55 0.18 19)",
+    dark: "oklch(0.7 0.19 19)",
+    swatch: gradientSwatch(
+      135,
+      "oklch(0.7 0.19 19)",
+      "oklch(0.86 0.12 74)",
+      "oklch(0.92 0.1 89)",
+      52
+    ),
+    duo: { light: "oklch(0.55 0.14 74)", dark: "oklch(0.86 0.12 74)" },
+    tri: { light: "oklch(0.52 0.12 89)", dark: "oklch(0.92 0.1 89)" },
+  },
+  {
+    id: "ocean",
+    label: "Ocean",
+    kind: "gradient",
+    light: "oklch(0.5 0.14 228)",
+    dark: "oklch(0.77 0.15 228)",
+    swatch: gradientSwatch(
+      140,
+      "oklch(0.77 0.15 228)",
+      "oklch(0.59 0.23 259)",
+      "oklch(0.72 0.15 248)",
+      48
+    ),
+    duo: { light: "oklch(0.48 0.18 259)", dark: "oklch(0.68 0.18 259)" },
+    tri: { light: "oklch(0.5 0.14 248)", dark: "oklch(0.72 0.15 248)" },
+  },
+  {
+    id: "neon",
+    label: "Neon",
+    kind: "gradient",
+    light: "oklch(0.48 0.16 129)",
+    dark: "oklch(0.92 0.23 129)",
+    swatch: gradientSwatch(
+      145,
+      "oklch(0.92 0.23 129)",
+      "oklch(0.89 0.18 162)",
+      "oklch(0.8 0.15 220)",
+      46
+    ),
+    duo: { light: "oklch(0.48 0.14 162)", dark: "oklch(0.89 0.18 162)" },
+    tri: { light: "oklch(0.5 0.12 220)", dark: "oklch(0.8 0.15 220)" },
+  },
+  {
+    id: "aurora",
+    label: "Aurora",
+    kind: "gradient",
+    light: "oklch(0.55 0.2 351)",
+    dark: "oklch(0.68 0.25 351)",
+    swatch: gradientSwatch(
+      145,
+      "oklch(0.68 0.25 351)",
+      "oklch(0.5 0.14 307)",
+      "oklch(0.6 0.13 244)",
+      45
+    ),
+    duo: { light: "oklch(0.5 0.14 307)", dark: "oklch(0.7 0.14 307)" },
+    tri: { light: "oklch(0.48 0.14 244)", dark: "oklch(0.7 0.13 244)" },
+  },
+  {
+    id: "fire",
+    label: "Fire",
+    kind: "gradient",
+    light: "oklch(0.55 0.18 33)",
+    dark: "oklch(0.67 0.22 33)",
+    swatch: gradientSwatch(
+      145,
+      "oklch(0.67 0.22 33)",
+      "oklch(0.59 0.22 1)",
+      "oklch(0.82 0.15 72)",
+      45
+    ),
+    duo: { light: "oklch(0.52 0.18 1)", dark: "oklch(0.68 0.2 1)" },
+    tri: { light: "oklch(0.55 0.14 72)", dark: "oklch(0.82 0.15 72)" },
+  },
+  {
+    id: "prism",
+    label: "Prism",
+    kind: "gradient",
+    light: "oklch(0.5 0.12 220)",
+    dark: "oklch(0.75 0.14 220)",
+    swatch: gradientSwatch(
+      145,
+      "oklch(0.75 0.14 220)",
+      "oklch(0.69 0.19 313)",
+      "oklch(0.66 0.2 21)",
+      45
+    ),
+    duo: { light: "oklch(0.52 0.16 313)", dark: "oklch(0.69 0.19 313)" },
+    tri: { light: "oklch(0.55 0.18 21)", dark: "oklch(0.66 0.2 21)" },
   },
 ]
 
@@ -195,5 +298,9 @@ export function accentBlockingScript() {
   const key = JSON.stringify(ACCENT_STORAGE_KEY)
   const fallback = JSON.stringify(DEFAULT_ACCENT_ID)
 
-  return `(function(){try{var i=localStorage.getItem(${key});var ids=${ids};var legacy=${legacy};if(legacy[i])i=legacy[i];if(ids.indexOf(i)===-1)i=${fallback};var kind=(i==="paper"||i==="mint")?"solid":"duo";document.documentElement.setAttribute("data-accent",i);document.documentElement.setAttribute("data-accent-kind",kind);}catch(e){document.documentElement.setAttribute("data-accent",${fallback});document.documentElement.setAttribute("data-accent-kind","duo");}})();`
+  const kinds = JSON.stringify(
+    Object.fromEntries(accents.map((item) => [item.id, item.kind]))
+  )
+
+  return `(function(){try{var i=localStorage.getItem(${key});var ids=${ids};var legacy=${legacy};var kinds=${kinds};if(legacy[i])i=legacy[i];if(ids.indexOf(i)===-1)i=${fallback};document.documentElement.setAttribute("data-accent",i);document.documentElement.setAttribute("data-accent-kind",kinds[i]||"gradient");}catch(e){document.documentElement.setAttribute("data-accent",${fallback});document.documentElement.setAttribute("data-accent-kind","gradient");}})();`
 }

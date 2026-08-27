@@ -52,16 +52,15 @@ function GraphSpark({
 
   return (
     <Graph title={title} className={className} corner={corner}>
-      <GraphBody className="flex flex-col gap-4">
-        <GraphTrack>
+      <GraphBody className="flex flex-col items-center gap-4">
+        <GraphTrack className="justify-center gap-0.5">
           {points.map((glyph, index) => {
             const live = index === last
 
             return (
-              <GraphTick key={`${glyph}-${index}`}>
+              <GraphTick className="flex-none" key={`${glyph}-${index}`}>
                 <motion.span
                   className={cn(
-                    "block w-full",
                     live
                       ? toneClass(palette, "primary")
                       : toneClass(palette, "secondary")

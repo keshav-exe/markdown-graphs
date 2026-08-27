@@ -68,7 +68,7 @@ export default async function RootLayout({
       lang="en"
       suppressHydrationWarning
       data-accent={DEFAULT_ACCENT_ID}
-      data-accent-kind="duo"
+      data-accent-kind="gradient"
       className={cn(
         "dark antialiased",
         geistSans.variable,

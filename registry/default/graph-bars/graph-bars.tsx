@@ -50,15 +50,12 @@ function MiniBars({
   const max = Math.max(...values, 1)
 
   return (
-    <div className="flex w-full items-end">
+    <div className="flex items-end gap-1">
       {values.map((value, index) => {
         const level = Math.round((value / max) * (height - 1))
 
         return (
-          <span
-            className="flex min-w-[1ch] flex-1 flex-col justify-end"
-            key={index}
-          >
+          <span className="flex w-[1ch] flex-col justify-end" key={index}>
             {Array.from({ length: height }, (_, row) => {
               const fromBottom = height - 1 - row
               const on = fromBottom <= level
@@ -109,8 +106,8 @@ function GraphBars({
   return (
     <Graph title={title} className={className} corner={corner}>
       <GraphBody>
-        <div className="grid grid-cols-1 items-end gap-8 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:gap-6">
-          <div className="flex min-w-0 flex-col gap-3">
+        <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-end sm:justify-center sm:gap-8">
+          <div className="flex flex-col items-center gap-3">
             <MiniBars
               delay={0.04}
               fill={marks.fill}
@@ -128,7 +125,7 @@ function GraphBars({
             <GraphArrow />
           </div>
 
-          <div className="flex min-w-0 flex-col gap-3">
+          <div className="flex flex-col items-center gap-3">
             <MiniBars
               delay={0.16}
               fill={marks.fill}

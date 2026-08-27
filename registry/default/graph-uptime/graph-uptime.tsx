@@ -73,46 +73,47 @@ function GraphUptime({
   const tone = statusTone(palette)
 
   for (let index = 0; index < days.length; index += cols) {
-    const row = days.slice(index, index + cols)
-    while (row.length < cols) {
-      row.push("empty")
-    }
-    rows.push(row)
+    rows.push(days.slice(index, index + cols))
   }
 
   return (
     <Graph title={title} className={className} corner={corner}>
-      <GraphBody className="flex flex-col gap-4">
-        <motion.div
-          aria-hidden="true"
-          className="flex w-full flex-col gap-1 select-none"
-          initial={reduce ? false : "hidden"}
-          variants={list}
-          viewport={{ once: true, amount: 0.4 }}
-          whileInView="show"
-        >
-          {rows.map((row, rowIndex) => (
-            <motion.div key={rowIndex} variants={item}>
-              <GraphTrack>
-                {row.map((day, index) => (
-                  <GraphTick className={tone[day]} key={`${rowIndex}-${index}`}>
-                    {mark[day]}
-                  </GraphTick>
-                ))}
-              </GraphTrack>
-            </motion.div>
-          ))}
-        </motion.div>
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <p className={cn("tabular-nums", tone.ok)}>{percent}%</p>
-          {from || to ? (
-            <p className="flex gap-3 text-graph-muted">
-              {from ? <span>{from}</span> : null}
-              {to ? <span>{to}</span> : null}
-            </p>
-          ) : null}
+      <GraphBody className="flex flex-col items-center gap-4">
+        <div className="flex w-fit max-w-full flex-col gap-4">
+          <motion.div
+            aria-hidden="true"
+            className="flex flex-col gap-1 select-none"
+            initial={reduce ? false : "hidden"}
+            variants={list}
+            viewport={{ once: true, amount: 0.4 }}
+            whileInView="show"
+          >
+            {rows.map((row, rowIndex) => (
+              <motion.div key={rowIndex} variants={item}>
+                <GraphTrack className="w-auto justify-start gap-0.5">
+                  {row.map((day, index) => (
+                    <GraphTick
+                      className={cn("flex-none", tone[day])}
+                      key={`${rowIndex}-${index}`}
+                    >
+                      {mark[day]}
+                    </GraphTick>
+                  ))}
+                </GraphTrack>
+              </motion.div>
+            ))}
+          </motion.div>
+          <div className="flex flex-wrap items-baseline justify-between gap-3">
+            <p className={cn("tabular-nums", tone.ok)}>{percent}%</p>
+            {from || to ? (
+              <p className="flex gap-3 text-graph-muted">
+                {from ? <span>{from}</span> : null}
+                {to ? <span>{to}</span> : null}
+              </p>
+            ) : null}
+          </div>
         </div>
-        <p className="flex flex-wrap gap-x-4 gap-y-1 text-graph-muted">
+        <p className="flex flex-wrap justify-center gap-x-4 gap-y-1 text-graph-muted">
           <span>
             <span className={tone.ok}>{mark.ok}</span> up
           </span>
