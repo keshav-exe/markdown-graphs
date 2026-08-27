@@ -2,16 +2,16 @@ import { SiteContainer } from "@/components/site/container"
 
 const principles = [
   {
-    title: "Typed, not drawn",
-    body: "Borders are dashes and pluses. Content is characters. You animate by changing a color or swapping a glyph.",
+    title: "Characters, not SVG",
+    body: "Borders are dashes and plus signs. Bars and cells are glyphs. To animate, change a color or swap a character.",
   },
   {
-    title: "One accent",
-    body: "Pick a color. Everything else recedes. Hierarchy is subtraction, not decoration.",
+    title: "One accent color",
+    body: "Pick one highlight color. Everything else stays muted so the graph reads clearly on the page.",
   },
   {
-    title: "Motion as information",
-    body: "Bars grow. Cells fill. Rows arrive. Nothing loops. Nothing takes longer than 220ms.",
+    title: "Quick entrance animations",
+    body: "Bars grow in, cells fill, rows appear when the component mounts. Nothing loops. Animations stay under 220ms.",
   },
 ]
 

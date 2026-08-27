@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s · Markdown Graphs",
   },
   description:
-    "Copy-paste graphs for MDX. Dashed frames, one accent, source in your repo.",
+    "React components for ASCII-style graphs in MDX. Copy the source into your repo.",
 }
 
 export default async function RootLayout({

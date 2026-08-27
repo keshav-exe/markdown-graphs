@@ -6,24 +6,40 @@ import { CopyButton } from "@/components/docs/copy-button"
 import { useAccent } from "@/hooks/use-accent"
 import { useOrigin } from "@/lib/docs/origin"
 import { accentCss } from "@/lib/accent"
+import type { ComponentDoc } from "@/lib/docs/catalog"
 import { graphUtilitiesCss, registryFiles } from "@/lib/docs/files"
+import { agentPrompt } from "@/lib/docs/prompt"
 import { GITHUB_TREE, GITHUB_URL } from "@/lib/github"
 import { cn } from "@/lib/utils"
 
-function InstallCommand({ name }: { name: string }) {
-  const [tab, setTab] = useState<"cli" | "manual">("cli")
+type InstallTab = "cli" | "manual" | "agent"
+
+type InstallCommandProps = {
+  name: string
+  doc?: Pick<
+    ComponentDoc,
+    "title" | "name" | "description" | "dependencies" | "props"
+  >
+  example?: string
+}
+
+function InstallCommand({ name, doc, example }: InstallCommandProps) {
+  const [tab, setTab] = useState<InstallTab>("cli")
+  const origin = useOrigin()
+  const prompt = agentPrompt({ origin, registry: name, doc, example })
 
   return (
     <div className="flex flex-col gap-4">
       <div
         aria-label="Install method"
-        className="flex items-center gap-1"
+        className="flex flex-wrap items-center gap-1"
         role="tablist"
       >
         {(
           [
             ["cli", "CLI"],
             ["manual", "Manual"],
+            ["agent", "Agent"],
           ] as const
         ).map(([id, label]) => (
           <button
@@ -47,8 +63,10 @@ function InstallCommand({ name }: { name: string }) {
       </div>
       {tab === "cli" ? (
         <CliInstall name={name} />
-      ) : (
+      ) : tab === "manual" ? (
         <ManualInstall name={name} />
+      ) : (
+        <CopyBlock label="Prompt" value={prompt} />
       )}
     </div>
   )
@@ -87,19 +105,7 @@ function ManualInstall({ name }: { name: string }) {
         <Command label="Dependency" value="pnpm add motion" />
       </div>
 
-      <div className="flex flex-col gap-2">
-        <p className="font-mono tracking-wide text-graph-muted uppercase">
-          CSS
-        </p>
-        <div className="relative min-w-0 border border-border dark:border-border">
-          <div className="absolute top-2 right-2">
-            <CopyButton label="Copy CSS" text={css} />
-          </div>
-          <pre className="overflow-x-auto p-4 text-muted-foreground">
-            <code>{css}</code>
-          </pre>
-        </div>
-      </div>
+      <CopyBlock label="CSS" value={css} />
 
       <div className="flex flex-col gap-2">
         <p className="font-mono tracking-wide text-graph-muted uppercase">
@@ -135,6 +141,24 @@ function ManualInstall({ name }: { name: string }) {
   )
 }
 
+function CopyBlock({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="flex min-w-0 flex-col gap-2">
+      <p className="font-mono tracking-wide text-graph-muted uppercase">
+        {label}
+      </p>
+      <div className="relative min-w-0 border border-border dark:border-border">
+        <div className="absolute top-2 right-2">
+          <CopyButton label={`Copy ${label}`} text={value} />
+        </div>
+        <pre className="overflow-x-auto p-4 pr-12 text-pretty whitespace-pre-wrap text-muted-foreground">
+          <code>{value}</code>
+        </pre>
+      </div>
+    </div>
+  )
+}
+
 function Command({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex min-w-0 flex-col gap-2">
@@ -151,4 +175,4 @@ function Command({ label, value }: { label: string; value: string }) {
   )
 }
 
-export { Command, InstallCommand, ManualInstall }
+export { Command, CopyBlock, InstallCommand, ManualInstall }

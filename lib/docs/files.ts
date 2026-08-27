@@ -87,6 +87,26 @@ export const registryFiles: Record<string, string[]> = {
     "registry/default/graph-frame/graph-motion.ts",
     "registry/default/graph-waffle/graph-waffle.tsx",
   ],
+  "graph-invoice": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-invoice/graph-invoice.tsx",
+  ],
+  "graph-compare": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-compare/graph-compare.tsx",
+  ],
+  "graph-stat": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-stat/graph-stat.tsx",
+  ],
+  "graph-spec": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-spec/graph-spec.tsx",
+  ],
   all: ["registry/default"],
 }
 

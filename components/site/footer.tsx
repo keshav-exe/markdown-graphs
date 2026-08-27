@@ -52,7 +52,8 @@ function SiteFooter() {
           </nav>
         </div>
         <p className="max-w-[56ch] text-pretty text-muted-foreground">
-          Open source. Copy the files. One accent.
+          Open source on GitHub. Copy the files into your project when you are
+          ready.
         </p>
       </SiteContainer>
     </footer>

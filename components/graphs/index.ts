@@ -29,6 +29,10 @@ export { GraphGantt } from "@/registry/default/graph-gantt/graph-gantt"
 export { GraphDiff } from "@/registry/default/graph-diff/graph-diff"
 export { GraphPlot } from "@/registry/default/graph-plot/graph-plot"
 export { GraphWaffle } from "@/registry/default/graph-waffle/graph-waffle"
+export { GraphInvoice } from "@/registry/default/graph-invoice/graph-invoice"
+export { GraphCompare } from "@/registry/default/graph-compare/graph-compare"
+export { GraphStat } from "@/registry/default/graph-stat/graph-stat"
+export { GraphSpec } from "@/registry/default/graph-spec/graph-spec"
 
 export type { GraphTableProps } from "@/registry/default/graph-table/graph-table"
 export type {
@@ -80,3 +84,23 @@ export type {
 } from "@/registry/default/graph-diff/graph-diff"
 export type { GraphPlotProps } from "@/registry/default/graph-plot/graph-plot"
 export type { GraphWaffleProps } from "@/registry/default/graph-waffle/graph-waffle"
+export type {
+  GraphInvoiceProps,
+  InvoiceItem,
+  InvoiceMeta,
+  InvoiceParty,
+  InvoiceTotal,
+} from "@/registry/default/graph-invoice/graph-invoice"
+export type {
+  CompareCell,
+  CompareRow,
+  GraphCompareProps,
+} from "@/registry/default/graph-compare/graph-compare"
+export type {
+  GraphStatProps,
+  StatItem,
+} from "@/registry/default/graph-stat/graph-stat"
+export type {
+  GraphSpecProps,
+  SpecRow,
+} from "@/registry/default/graph-spec/graph-spec"

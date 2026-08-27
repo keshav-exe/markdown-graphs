@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { GraphFunnel, GraphTable, GraphTree } from "@/components/graphs"
+import { GraphCompare, GraphInvoice, GraphStat } from "@/components/graphs"
 import { SiteContainer } from "@/components/site/container"
 import { Hero } from "@/components/site/hero"
 import { Principles } from "@/components/site/principles"
@@ -13,67 +13,79 @@ export default function Page() {
         <SiteContainer className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             <h2 className="max-w-[35ch] text-2xl font-semibold tracking-tight text-balance">
-              Same frame, every graph
+              Every graph uses the same frame
             </h2>
             <p className="max-w-[48ch] text-pretty text-muted-foreground">
-              Copy one component, or take the set.
+              Invoices, comparisons, and large figures included. Install one
+              component or pull in the whole set.
             </p>
           </div>
-          <GraphTable
-            align={["left", "right", "right", "right"]}
-            footer={["Total", "437,141", "396", "~50m"]}
-            headers={["Agent", "Tokens", "Tool calls", "Time"]}
-            rows={[
-              ["Inks and paper", "115,207", "120", "16m"],
-              ["Overprint and drift", "135,218", "164", "16m"],
-              ["Naming the patterns", "186,716", "112", "18m"],
+          <GraphInvoice
+            from={{
+              name: "markdown graphs",
+              lines: ["kshv.me"],
+            }}
+            items={[
+              {
+                description: "Design system",
+                qty: "1",
+                rate: "4,200",
+                amount: "4,200",
+              },
+              {
+                description: "Motion pass",
+                qty: "1",
+                rate: "1,800",
+                amount: "1,800",
+              },
+              {
+                description: "Docs rewrite",
+                qty: "8h",
+                rate: "180",
+                amount: "1,440",
+              },
             ]}
-            title="WHAT THE RESEARCH COST"
+            meta={[
+              { label: "No.", value: "0041" },
+              { label: "Issued", value: "Mar 12" },
+              { label: "Due", value: "Apr 11" },
+            ]}
+            note="Net 30. Wire to the account on file."
+            title="INVOICE 0041"
+            to={{
+              name: "Acme Studio",
+              lines: ["14 Market Street"],
+            }}
+            totals={[
+              { label: "Subtotal", value: "7,440" },
+              { label: "Amount due", value: "7,440", accent: true },
+            ]}
           />
           <p>
             <Link
               className="text-foreground underline-offset-4 hover:underline"
-              href="/docs/graph-table"
+              href="/docs/graph-invoice"
             >
-              Open table docs
+              Open invoice docs
             </Link>
           </p>
           <div className="grid gap-8 lg:grid-cols-2">
-            <GraphTree
-              nodes={[
-                {
-                  label: "registry/default",
-                  children: [
-                    {
-                      label: "graph-frame",
-                      children: [
-                        { label: "graph-frame.tsx", meta: "ui" },
-                        { label: "graph-motion.ts", meta: "lib" },
-                      ],
-                    },
-                    {
-                      label: "graph-tree",
-                      children: [
-                        {
-                          label: "graph-tree.tsx",
-                          meta: "ui",
-                          accent: true,
-                        },
-                      ],
-                    },
-                  ],
-                },
+            <GraphStat
+              items={[
+                { value: "12,400", label: "docs" },
+                { value: "860", label: "shipped", accent: true },
               ]}
-              title="REGISTRY"
+              title="THIS WEEK"
             />
-            <GraphFunnel
-              stage="ship"
-              steps={[
-                { label: "docs", value: 12400, display: "12,400" },
-                { label: "copy", value: 4100, display: "4,100" },
-                { label: "ship", value: 860, display: "860" },
+            <GraphCompare
+              accent="This"
+              columns={["Mermaid", "This"]}
+              rows={[
+                { label: "Source", values: [".md", ".tsx"] },
+                { label: "In git", values: [true, true] },
+                { label: "Themable", values: [false, true] },
               ]}
-              title="INSTALL"
+              title="RENDER"
             />
           </div>
           <p>

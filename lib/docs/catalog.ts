@@ -30,8 +30,7 @@ export const components: ComponentDoc[] = [
     slug: "graph-table",
     title: "Table",
     name: "GraphTable",
-    description:
-      "A framed data table with optional footer totals. Rows can be numbers or copy.",
+    description: "Framed data table with an optional footer row for totals.",
     registry: "graph-table",
     dependencies: ["motion"],
     props: [
@@ -74,7 +73,7 @@ export const components: ComponentDoc[] = [
     title: "Flow",
     name: "GraphFlow",
     description:
-      "A typed process diagram. Nodes sit on a dashed arrow. Accent a node to mark the optimistic path.",
+      "Process diagram with nodes on a dashed arrow. Accent a node to highlight a path.",
     registry: "graph-flow",
     dependencies: ["motion"],
     props: [
@@ -100,7 +99,7 @@ export const components: ComponentDoc[] = [
     title: "Bars",
     name: "GraphBars",
     description:
-      "Before and after as two bar groups with a processor in the middle. The right group is the amplified version.",
+      "Two bar groups side by side, with a label between them. The right group is usually the larger one.",
     registry: "graph-bars",
     dependencies: ["motion"],
     props: [
@@ -117,7 +116,7 @@ export const components: ComponentDoc[] = [
       {
         name: "to",
         type: "BarSeries",
-        description: "Right series. Set size to lg for the amplified group.",
+        description: "Right series. Set size to lg for the larger group.",
       },
       {
         name: "processor",
@@ -137,7 +136,7 @@ export const components: ComponentDoc[] = [
     title: "Cells",
     name: "GraphCells",
     description:
-      "Filled and empty cells in a grid. Use it to compare density, coverage, or two ways of learning.",
+      "Grid of filled and empty cells. Useful for density, coverage, or comparing two sets.",
     registry: "graph-cells",
     dependencies: ["motion"],
     props: [
@@ -163,7 +162,7 @@ export const components: ComponentDoc[] = [
     title: "Scale",
     name: "GraphScale",
     description:
-      "A labeled scale. Contrast ratios, type sizes, whatever needs a number and a sentence.",
+      "Labeled scale for contrast ratios, type sizes, or anything that needs a number and a short label.",
     registry: "graph-scale",
     dependencies: ["motion"],
     props: [
@@ -189,7 +188,7 @@ export const components: ComponentDoc[] = [
     title: "Radii",
     name: "GraphRadii",
     description:
-      "Nested radii. Inner equals outer minus inset. The corners are the diagram.",
+      "Nested border radii. Inner radius equals outer minus padding.",
     registry: "graph-radii",
     dependencies: [],
     props: [
@@ -223,7 +222,7 @@ export const components: ComponentDoc[] = [
     title: "Meter",
     name: "GraphMeter",
     description:
-      "A percentage drawn with characters. Equals fill, dashes remain.",
+      "Progress bar drawn with = characters. Empty slots stay as dashes.",
     registry: "graph-meter",
     dependencies: ["motion"],
     props: [
@@ -260,7 +259,7 @@ export const components: ComponentDoc[] = [
     title: "Spark",
     name: "GraphSpark",
     description:
-      "A sparkline made of block glyphs. Animation is swapping a character.",
+      "Sparkline from block characters. Values scale to the highest point.",
     registry: "graph-spark",
     dependencies: ["motion"],
     props: [
@@ -291,7 +290,7 @@ export const components: ComponentDoc[] = [
     title: "Tree",
     name: "GraphTree",
     description:
-      "A file or org tree. Branch glyphs are the chart. Accent a node to mark the point.",
+      "Nested tree with branch glyphs. Accent a node to highlight it.",
     registry: "graph-tree",
     dependencies: ["motion"],
     props: [
@@ -318,7 +317,7 @@ export const components: ComponentDoc[] = [
     title: "Timeline",
     name: "GraphTimeline",
     description:
-      "A vertical changelog. The current row is the accent. Next stays hollow.",
+      "Vertical list of dates. Mark one row as current with the accent color.",
     registry: "graph-timeline",
     dependencies: ["motion"],
     props: [
@@ -344,7 +343,7 @@ export const components: ComponentDoc[] = [
     title: "Stack",
     name: "GraphStack",
     description:
-      "Share of a whole. Glyphs stand in for series color. One accent.",
+      "Stacked bar for parts of a whole. Different glyphs per segment instead of colors.",
     registry: "graph-stack",
     dependencies: ["motion"],
     props: [
@@ -386,7 +385,8 @@ export const components: ComponentDoc[] = [
     slug: "graph-funnel",
     title: "Funnel",
     name: "GraphFunnel",
-    description: "Each row is narrower. Percent is versus the first step.",
+    description:
+      "Steps get narrower as values drop. Percentages compare to the first step.",
     registry: "graph-funnel",
     dependencies: ["motion"],
     props: [
@@ -423,7 +423,7 @@ export const components: ComponentDoc[] = [
     title: "Gantt",
     name: "GraphGantt",
     description:
-      "A schedule in dashes and blocks. start and end are 0–1 along the track.",
+      "Schedule chart. start and end are fractions from 0 to 1 along the track.",
     registry: "graph-gantt",
     dependencies: ["motion"],
     props: [
@@ -470,8 +470,7 @@ export const components: ComponentDoc[] = [
     slug: "graph-plot",
     title: "Plot",
     name: "GraphPlot",
-    description:
-      "A line or area made of columns. Cap is █, fill is ░. One series.",
+    description: "Line or area chart built from columns of block characters.",
     registry: "graph-plot",
     dependencies: ["motion"],
     props: [
@@ -519,8 +518,7 @@ export const components: ComponentDoc[] = [
     slug: "graph-waffle",
     title: "Waffle",
     name: "GraphWaffle",
-    description:
-      "One hundred cells. Value is how many are lit. A pie, without the pie.",
+    description: "Grid of 100 cells. The value sets how many are filled in.",
     registry: "graph-waffle",
     dependencies: ["motion"],
     props: [
@@ -562,7 +560,8 @@ export const components: ComponentDoc[] = [
     slug: "graph-diff",
     title: "Diff",
     name: "GraphDiff",
-    description: "Plus, minus, keep. A ledger for a changelog or a bundle.",
+    description:
+      "List with add, remove, and unchanged rows. Works for changelogs or bundle sizes.",
     registry: "graph-diff",
     dependencies: ["motion"],
     props: [
@@ -589,11 +588,151 @@ export const components: ComponentDoc[] = [
     ],
   },
   {
+    slug: "graph-invoice",
+    title: "Invoice",
+    name: "GraphInvoice",
+    description:
+      "Document table for invoices and quotes. From, bill-to, line items, and a totals block.",
+    registry: "graph-invoice",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "from",
+        type: "InvoiceParty",
+        description: "Issuer name and optional address lines.",
+      },
+      {
+        name: "to",
+        type: "InvoiceParty",
+        description: "Recipient name and optional address lines.",
+      },
+      {
+        name: "meta",
+        type: "InvoiceMeta[]",
+        description: "Fields like number, issued, due.",
+      },
+      {
+        name: "items",
+        type: "InvoiceItem[]",
+        description:
+          "Line items. qty and rate are optional; columns hide when unused.",
+      },
+      {
+        name: "totals",
+        type: "InvoiceTotal[]",
+        description: "Rows under the items. Set accent on the amount due.",
+      },
+      {
+        name: "note",
+        type: "string",
+        description: "Muted line under the totals. Payment terms, etc.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-compare",
+    title: "Compare",
+    name: "GraphCompare",
+    description:
+      "Feature matrix. Cells are text or true/false, drawn as ✓ and –.",
+    registry: "graph-compare",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "columns",
+        type: "string[]",
+        description: "Option names across the top.",
+      },
+      {
+        name: "rows",
+        type: "CompareRow[]",
+        description: "label plus one value per column. Booleans become ✓ or –.",
+      },
+      {
+        name: "accent",
+        type: "string",
+        description: "Column name to highlight. Other columns recede.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-stat",
+    title: "Stat",
+    name: "GraphStat",
+    description:
+      "A row of large numbers with labels. Use it for KPIs, not as a chart.",
+    registry: "graph-stat",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "items",
+        type: "StatItem[]",
+        description: "value, label, optional hint, optional accent.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-spec",
+    title: "Spec",
+    name: "GraphSpec",
+    description:
+      "Aligned label and value rows. Spec sheets, shipping labels, type samples.",
+    registry: "graph-spec",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "rows",
+        type: "SpecRow[]",
+        description: "label, value, and optional accent.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
     slug: "graph-frame",
     title: "Frame",
     name: "Graph",
     description:
-      "The dashed ASCII frame every graph sits in. Compose with GraphTitle, GraphBody, GraphRule, and GraphArrow.",
+      "Dashed frame wrapper used by every graph. Compose with GraphTitle, GraphBody, GraphRule, and GraphArrow.",
     registry: "graph-frame",
     dependencies: ["motion"],
     props: [

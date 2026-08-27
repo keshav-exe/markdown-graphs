@@ -33,8 +33,10 @@ function Hero() {
               Markdown graphs
             </h1>
             <p className="max-w-[48ch] text-pretty text-muted-foreground">
-              Tables, charts, and diagrams for MDX that look like they were
-              typed. Copy the source into your project. One accent.
+              React components for tables, charts, and diagrams in MDX. They
+              look like monospace text—dashed frames and block characters, not
+              SVG. Copy the source into your shadcn project and pick one accent
+              color.
             </p>
           </motion.div>
           <motion.div
@@ -42,14 +44,14 @@ function Hero() {
             variants={item}
           >
             <Button nativeButton={false} render={<Link href="/docs" />}>
-              Browse the docs
+              Read the docs
             </Button>
             <Button
               nativeButton={false}
               render={<Link href="/docs/installation" />}
               variant="outline"
             >
-              Get the code
+              Install
             </Button>
           </motion.div>
           <motion.div variants={item}>

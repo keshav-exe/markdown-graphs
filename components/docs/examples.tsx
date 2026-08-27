@@ -6,17 +6,21 @@ import {
   GraphBars,
   GraphBody,
   GraphCells,
+  GraphCompare,
   GraphDiff,
   GraphFlow,
   GraphFunnel,
   GraphGantt,
+  GraphInvoice,
   GraphMeter,
   GraphPlot,
   GraphRadii,
   GraphRule,
   GraphScale,
   GraphSpark,
+  GraphSpec,
   GraphStack,
+  GraphStat,
   GraphTable,
   GraphTimeline,
   GraphTree,
@@ -116,7 +120,7 @@ const flowExamples: Example[] = [
   {
     title: "Optimistic UI",
     description:
-      "Accent the node that updates immediately. Stretch the muted sync.",
+      "Highlight the node that updates on tap. Mute the server sync step.",
     code: `import { GraphFlow } from "@/registry/default/graph-flow/graph-flow"
 
 <GraphFlow
@@ -406,7 +410,7 @@ const radiiExamples: Example[] = [
 const meterExamples: Example[] = [
   {
     title: "Shipped",
-    description: "Empty ticks sit still. Fill grows in.",
+    description: "Dashes stay empty until the fill animates in.",
     code: `import { GraphMeter } from "@/registry/default/graph-meter/graph-meter"
 
 <GraphMeter
@@ -442,7 +446,7 @@ const meterExamples: Example[] = [
 const sparkExamples: Example[] = [
   {
     title: "Latency",
-    description: "Last point is the accent. Earlier points recede.",
+    description: "Highlight the latest value. Earlier points are muted.",
     code: `import { GraphSpark } from "@/registry/default/graph-spark/graph-spark"
 
 <GraphSpark
@@ -572,7 +576,8 @@ const treeExamples: Example[] = [
 const timelineExamples: Example[] = [
   {
     title: "Shipped",
-    description: "now is the accent. next stays hollow.",
+    description:
+      "The current row uses the accent. Upcoming rows stay outline-only.",
     code: `import { GraphTimeline } from "@/registry/default/graph-timeline/graph-timeline"
 
 <GraphTimeline
@@ -596,7 +601,7 @@ const timelineExamples: Example[] = [
   },
   {
     title: "Incident",
-    description: "A postmortem in three rows.",
+    description: "Three events with the rollback marked as current.",
     code: `import { GraphTimeline } from "@/registry/default/graph-timeline/graph-timeline"
 
 <GraphTimeline
@@ -627,7 +632,7 @@ const timelineExamples: Example[] = [
 const stackExamples: Example[] = [
   {
     title: "Bundle",
-    description: "Glyphs instead of a rainbow. Accent one series.",
+    description: "Each segment gets its own glyph. js is the accent.",
     code: `import { GraphStack } from "@/registry/default/graph-stack/graph-stack"
 
 <GraphStack
@@ -679,7 +684,7 @@ const stackExamples: Example[] = [
   },
   {
     title: "Tokens",
-    description: "One row. A pie, without the pie.",
+    description: "Single row showing how token usage splits.",
     code: `import { GraphStack } from "@/registry/default/graph-stack/graph-stack"
 
 <GraphStack
@@ -718,7 +723,8 @@ const stackExamples: Example[] = [
 const funnelExamples: Example[] = [
   {
     title: "Install",
-    description: "Percent vs the first step. Stage recedes the rest.",
+    description:
+      "Percentages compare to the first step. stage dims the other rows.",
     code: `import { GraphFunnel } from "@/registry/default/graph-funnel/graph-funnel"
 
 <GraphFunnel
@@ -744,7 +750,7 @@ const funnelExamples: Example[] = [
   },
   {
     title: "Signup",
-    description: "Tighter track. Same math.",
+    description: "Shorter bar width. Same percentage logic.",
     code: `import { GraphFunnel } from "@/registry/default/graph-funnel/graph-funnel"
 
 <GraphFunnel
@@ -775,7 +781,8 @@ const funnelExamples: Example[] = [
 const ganttExamples: Example[] = [
   {
     title: "Launch",
-    description: "complete fills the bar. progress is the playhead.",
+    description:
+      "complete sets bar fill. progress marks the current date on the track.",
     code: `import { GraphGantt } from "@/registry/default/graph-gantt/graph-gantt"
 
 <GraphGantt
@@ -926,7 +933,7 @@ const waffleExamples: Example[] = [
 const diffExamples: Example[] = [
   {
     title: "Bundle",
-    description: "Plus, minus, keep. Footer is the total.",
+    description: "Added and removed rows with a total in the footer.",
     code: `import { GraphDiff } from "@/registry/default/graph-diff/graph-diff"
 
 <GraphDiff
@@ -952,7 +959,7 @@ const diffExamples: Example[] = [
   },
   {
     title: "Headcount",
-    description: "A ledger, not a table.",
+    description: "Running total with hire and leave rows.",
     code: `import { GraphDiff } from "@/registry/default/graph-diff/graph-diff"
 
 <GraphDiff
@@ -978,6 +985,285 @@ const diffExamples: Example[] = [
   },
 ]
 
+const invoiceExamples: Example[] = [
+  {
+    title: "Studio invoice",
+    description:
+      "From, bill-to, line items with qty and rate, total in accent.",
+    code: `import { GraphInvoice } from "@/registry/default/graph-invoice/graph-invoice"
+
+<GraphInvoice
+  title="INVOICE 0041"
+  from={{
+    name: "markdown graphs",
+    lines: ["kshv.me", "GSTIN 29AXXXXX1234Z5"],
+  }}
+  to={{
+    name: "Acme Studio",
+    lines: ["14 Market Street", "San Francisco, CA"],
+  }}
+  meta={[
+    { label: "No.", value: "0041" },
+    { label: "Issued", value: "Mar 12, 2026" },
+    { label: "Due", value: "Apr 11, 2026" },
+  ]}
+  items={[
+    { description: "Design system", qty: "1", rate: "4,200", amount: "4,200" },
+    { description: "Motion pass", qty: "1", rate: "1,800", amount: "1,800" },
+    { description: "Docs rewrite", qty: "8h", rate: "180", amount: "1,440" },
+  ]}
+  totals={[
+    { label: "Subtotal", value: "7,440" },
+    { label: "Tax", value: "0" },
+    { label: "Amount due", value: "7,440", accent: true },
+  ]}
+  note="Net 30. Wire to the account on file."
+/>`,
+    preview: (
+      <GraphInvoice
+        from={{
+          name: "markdown graphs",
+          lines: ["kshv.me", "GSTIN 29AXXXXX1234Z5"],
+        }}
+        items={[
+          {
+            description: "Design system",
+            qty: "1",
+            rate: "4,200",
+            amount: "4,200",
+          },
+          {
+            description: "Motion pass",
+            qty: "1",
+            rate: "1,800",
+            amount: "1,800",
+          },
+          {
+            description: "Docs rewrite",
+            qty: "8h",
+            rate: "180",
+            amount: "1,440",
+          },
+        ]}
+        meta={[
+          { label: "No.", value: "0041" },
+          { label: "Issued", value: "Mar 12, 2026" },
+          { label: "Due", value: "Apr 11, 2026" },
+        ]}
+        note="Net 30. Wire to the account on file."
+        title="INVOICE 0041"
+        to={{
+          name: "Acme Studio",
+          lines: ["14 Market Street", "San Francisco, CA"],
+        }}
+        totals={[
+          { label: "Subtotal", value: "7,440" },
+          { label: "Tax", value: "0" },
+          { label: "Amount due", value: "7,440", accent: true },
+        ]}
+      />
+    ),
+  },
+  {
+    title: "Quote",
+    description: "No qty or rate columns. Just description and amount.",
+    code: `import { GraphInvoice } from "@/registry/default/graph-invoice/graph-invoice"
+
+<GraphInvoice
+  title="QUOTE"
+  from={{ name: "markdown graphs" }}
+  to={{ name: "Northwind" }}
+  meta={[{ label: "Valid until", value: "May 01" }]}
+  items={[
+    { description: "Registry install", amount: "0" },
+    { description: "Custom graph", amount: "2,400" },
+  ]}
+  totals={[{ label: "Estimate", value: "2,400", accent: true }]}
+/>`,
+    preview: (
+      <GraphInvoice
+        from={{ name: "markdown graphs" }}
+        items={[
+          { description: "Registry install", amount: "0" },
+          { description: "Custom graph", amount: "2,400" },
+        ]}
+        meta={[{ label: "Valid until", value: "May 01" }]}
+        title="QUOTE"
+        to={{ name: "Northwind" }}
+        totals={[{ label: "Estimate", value: "2,400", accent: true }]}
+      />
+    ),
+  },
+]
+
+const compareExamples: Example[] = [
+  {
+    title: "Plans",
+    description:
+      "Booleans become checkmarks. Studio is the highlighted column.",
+    code: `import { GraphCompare } from "@/registry/default/graph-compare/graph-compare"
+
+<GraphCompare
+  title="PLANS"
+  columns={["Solo", "Studio"]}
+  accent="Studio"
+  rows={[
+    { label: "Registry", values: [true, true] },
+    { label: "Accent picker", values: [true, true] },
+    { label: "Private source", values: [false, true] },
+    { label: "Price", values: ["$0", "$24"] },
+  ]}
+/>`,
+    preview: (
+      <GraphCompare
+        accent="Studio"
+        columns={["Solo", "Studio"]}
+        rows={[
+          { label: "Registry", values: [true, true] },
+          { label: "Accent picker", values: [true, true] },
+          { label: "Private source", values: [false, true] },
+          { label: "Price", values: ["$0", "$24"] },
+        ]}
+        title="PLANS"
+      />
+    ),
+  },
+  {
+    title: "Before after",
+    description: "Three columns. Text cells stay as text.",
+    code: `import { GraphCompare } from "@/registry/default/graph-compare/graph-compare"
+
+<GraphCompare
+  title="RENDER"
+  columns={["Mermaid", "SVG", "This"]}
+  accent="This"
+  rows={[
+    { label: "Source", values: [".md", ".svg", ".tsx"] },
+    { label: "In git", values: [true, false, true] },
+    { label: "Themable", values: [false, false, true] },
+  ]}
+/>`,
+    preview: (
+      <GraphCompare
+        accent="This"
+        columns={["Mermaid", "SVG", "This"]}
+        rows={[
+          { label: "Source", values: [".md", ".svg", ".tsx"] },
+          { label: "In git", values: [true, false, true] },
+          { label: "Themable", values: [false, false, true] },
+        ]}
+        title="RENDER"
+      />
+    ),
+  },
+]
+
+const statExamples: Example[] = [
+  {
+    title: "This week",
+    description: "Three large figures. The last number is the accent.",
+    code: `import { GraphStat } from "@/registry/default/graph-stat/graph-stat"
+
+<GraphStat
+  title="THIS WEEK"
+  items={[
+    { value: "12,400", label: "docs" },
+    { value: "4,100", label: "copies" },
+    { value: "860", label: "shipped", accent: true },
+  ]}
+/>`,
+    preview: (
+      <GraphStat
+        items={[
+          { value: "12,400", label: "docs" },
+          { value: "4,100", label: "copies" },
+          { value: "860", label: "shipped", accent: true },
+        ]}
+        title="THIS WEEK"
+      />
+    ),
+  },
+  {
+    title: "Latency",
+    description: "Hint sits under the label in the frame color.",
+    code: `import { GraphStat } from "@/registry/default/graph-stat/graph-stat"
+
+<GraphStat
+  title="P95"
+  items={[
+    { value: "142ms", label: "read", hint: "−18ms" },
+    { value: "410ms", label: "write", hint: "+22ms", accent: true },
+  ]}
+/>`,
+    preview: (
+      <GraphStat
+        items={[
+          { value: "142ms", label: "read", hint: "−18ms" },
+          { value: "410ms", label: "write", hint: "+22ms", accent: true },
+        ]}
+        title="P95"
+      />
+    ),
+  },
+]
+
+const specExamples: Example[] = [
+  {
+    title: "Type",
+    description: "Label column, value column. Accent the token that matters.",
+    code: `import { GraphSpec } from "@/registry/default/graph-spec/graph-spec"
+
+<GraphSpec
+  title="TYPE"
+  rows={[
+    { label: "Family", value: "Geist Mono" },
+    { label: "Size", value: "14 / 21" },
+    { label: "Tracking", value: "+0.02em" },
+    { label: "Figures", value: "tabular" },
+    { label: "Accent", value: "--graph-accent", accent: true },
+  ]}
+/>`,
+    preview: (
+      <GraphSpec
+        rows={[
+          { label: "Family", value: "Geist Mono" },
+          { label: "Size", value: "14 / 21" },
+          { label: "Tracking", value: "+0.02em" },
+          { label: "Figures", value: "tabular" },
+          { label: "Accent", value: "--graph-accent", accent: true },
+        ]}
+        title="TYPE"
+      />
+    ),
+  },
+  {
+    title: "Ship to",
+    description: "Same layout as a packing slip.",
+    code: `import { GraphSpec } from "@/registry/default/graph-spec/graph-spec"
+
+<GraphSpec
+  title="SHIP TO"
+  rows={[
+    { label: "Name", value: "A. Rao" },
+    { label: "City", value: "Bengaluru" },
+    { label: "Carrier", value: "Delhivery" },
+    { label: "ETA", value: "Thu", accent: true },
+  ]}
+/>`,
+    preview: (
+      <GraphSpec
+        rows={[
+          { label: "Name", value: "A. Rao" },
+          { label: "City", value: "Bengaluru" },
+          { label: "Carrier", value: "Delhivery" },
+          { label: "ETA", value: "Thu", accent: true },
+        ]}
+        title="SHIP TO"
+      />
+    ),
+  },
+]
+
 const frameExamples: Example[] = [
   {
     title: "Titled frame",
@@ -990,17 +1276,19 @@ const frameExamples: Example[] = [
 
 <Graph title="USAGE">
   <GraphBody className="flex flex-col gap-4">
-    <p>Drop a graph next to your prose.</p>
+    <p>Content goes inside the frame.</p>
     <GraphRule />
-    <p className="text-graph-muted">The frame is the component.</p>
+    <p className="text-graph-muted">Same dashed border as the other graphs.</p>
   </GraphBody>
 </Graph>`,
     preview: (
       <Graph title="USAGE">
         <GraphBody className="flex flex-col gap-4">
-          <p>Drop a graph next to your prose.</p>
+          <p>Content goes inside the frame.</p>
           <GraphRule />
-          <p className="text-graph-muted">The frame is the component.</p>
+          <p className="text-graph-muted">
+            Same dashed border as the other graphs.
+          </p>
         </GraphBody>
       </Graph>
     ),
@@ -1042,6 +1330,10 @@ export const examplesBySlug: Record<string, Example[]> = {
   "graph-plot": plotExamples,
   "graph-waffle": waffleExamples,
   "graph-diff": diffExamples,
+  "graph-invoice": invoiceExamples,
+  "graph-compare": compareExamples,
+  "graph-stat": statExamples,
+  "graph-spec": specExamples,
   "graph-frame": frameExamples,
 }
 
