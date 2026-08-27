@@ -25,6 +25,7 @@ type GraphDiffProps = {
   title: string
   rows: DiffRow[]
   footer?: DiffRow
+  corner?: string
   className?: string
 }
 
@@ -82,13 +83,13 @@ function DiffLine({
   )
 }
 
-function GraphDiff({ title, rows, footer, className }: GraphDiffProps) {
+function GraphDiff({ title, rows, footer, corner, className }: GraphDiffProps) {
   const reduce = useReducedMotion()
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.04)
 
   return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody className="flex flex-col gap-3">
         <motion.ul
           role="list"

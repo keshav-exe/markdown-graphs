@@ -6,7 +6,10 @@ import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import {
   fillDelay,
   graphTransition,
+  trackMarks,
+  type Glyphs,
 } from "@/registry/default/graph-frame/graph-motion"
+import { cn } from "@/lib/utils"
 
 type CellGrid = {
   label: string
@@ -16,54 +19,61 @@ type CellGrid = {
 type GraphCellsProps = {
   title: string
   items: CellGrid[]
+  glyphs?: Glyphs
+  corner?: string
   className?: string
 }
 
-function Cell({ filled, delay }: { filled: boolean; delay: number }) {
+function GraphCells({
+  title,
+  items,
+  glyphs,
+  corner,
+  className,
+}: GraphCellsProps) {
   const reduce = useReducedMotion()
+  const marks = trackMarks(glyphs, {
+    empty: "·",
+    rest: "░",
+    fill: "█",
+  })
 
   return (
-    <span className="relative size-2.5 shrink-0">
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 border border-graph-frame"
-      />
-      {filled ? (
-        <motion.span
-          aria-hidden="true"
-          className="absolute inset-0 bg-graph-accent will-change-[opacity]"
-          initial={reduce ? false : { opacity: 0 }}
-          transition={graphTransition(reduce, { delay })}
-          viewport={{ once: true }}
-          whileInView={{ opacity: 1 }}
-        />
-      ) : null}
-    </span>
-  )
-}
-
-function GraphCells({ title, items, className }: GraphCellsProps) {
-  const reduce = useReducedMotion()
-
-  return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody>
-        <div className="@container flex flex-col items-center justify-center gap-10 @min-[28rem]:flex-row @min-[28rem]:gap-12">
+        <div className="@container flex flex-col justify-center gap-10 @min-[28rem]:flex-row @min-[28rem]:gap-12">
           {items.map((item, itemIndex) => (
-            <div key={item.label} className="flex flex-col items-center gap-4">
-              <div className="flex flex-col gap-1">
+            <div
+              className="flex min-w-0 flex-1 flex-col gap-4"
+              key={item.label}
+            >
+              <div aria-hidden="true" className="flex w-full flex-col gap-1">
                 {item.cells.map((row, rowIndex) => (
-                  <div key={rowIndex} className="flex gap-1">
-                    {row.map((cell, cellIndex) => (
-                      <Cell
-                        key={cellIndex}
-                        delay={fillDelay(
-                          reduce,
-                          itemIndex * 8 + rowIndex * 5 + cellIndex
-                        )}
-                        filled={cell === 1}
-                      />
-                    ))}
+                  <div className="flex w-full" key={rowIndex}>
+                    {row.map((cell, cellIndex) => {
+                      const filled = cell === 1
+
+                      return (
+                        <motion.span
+                          className={cn(
+                            "min-w-[1ch] flex-1 text-center select-none",
+                            filled ? "text-graph-accent" : "text-graph-frame"
+                          )}
+                          initial={reduce || !filled ? false : { opacity: 0 }}
+                          key={cellIndex}
+                          transition={graphTransition(reduce, {
+                            delay: fillDelay(
+                              reduce,
+                              itemIndex * 8 + rowIndex * 5 + cellIndex
+                            ),
+                          })}
+                          viewport={{ once: true }}
+                          whileInView={{ opacity: 1 }}
+                        >
+                          {filled ? marks.fill : marks.empty}
+                        </motion.span>
+                      )
+                    })}
                   </div>
                 ))}
               </div>

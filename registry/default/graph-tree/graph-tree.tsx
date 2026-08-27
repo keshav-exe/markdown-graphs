@@ -20,6 +20,7 @@ type TreeNode = {
 type GraphTreeProps = {
   title: string
   nodes: TreeNode[]
+  corner?: string
   className?: string
 }
 
@@ -58,7 +59,7 @@ function flatten(
   })
 }
 
-function GraphTree({ title, nodes, className }: GraphTreeProps) {
+function GraphTree({ title, nodes, corner, className }: GraphTreeProps) {
   const reduce = useReducedMotion()
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.03)
@@ -66,7 +67,7 @@ function GraphTree({ title, nodes, className }: GraphTreeProps) {
   const hasAccent = rows.some((row) => row.accent)
 
   return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody className="overflow-x-auto">
         <motion.ul
           role="list"

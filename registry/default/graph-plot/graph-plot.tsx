@@ -11,6 +11,8 @@ import {
   clamp01,
   fillDelay,
   graphTransition,
+  trackMarks,
+  type Glyphs,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -21,6 +23,8 @@ type GraphPlotProps = {
   height?: number
   variant?: "line" | "area"
   progress?: number
+  glyphs?: Glyphs
+  corner?: string
   className?: string
 }
 
@@ -39,6 +43,8 @@ function GraphPlot({
   height = 7,
   variant = "area",
   progress = 1,
+  glyphs,
+  corner,
   className,
 }: GraphPlotProps) {
   const reduce = useReducedMotion()
@@ -50,10 +56,11 @@ function GraphPlot({
   const yLabel = formatTick(max)
   const revealed = Math.round(clamp01(progress) * data.length)
   const lastLive = Math.max(0, revealed - 1)
+  const marks = trackMarks(glyphs)
 
   return (
-    <Graph title={title} className={className}>
-      <GraphBody className="flex flex-col gap-3 overflow-x-auto">
+    <Graph title={title} className={className} corner={corner}>
+      <GraphBody className="flex flex-col gap-3">
         <div className="flex gap-3">
           <div
             className="flex w-[4ch] shrink-0 flex-col justify-between py-px text-right text-graph-muted tabular-nums"
@@ -64,7 +71,7 @@ function GraphPlot({
           </div>
           <div
             aria-hidden="true"
-            className="flex min-w-0 items-end gap-px select-none"
+            className="flex min-w-0 flex-1 items-end select-none"
             style={{ height: `${height}em` }}
           >
             {data.map((value, column) => {
@@ -73,13 +80,16 @@ function GraphPlot({
               const shown = column < revealed
 
               return (
-                <span className="flex h-full flex-col justify-end" key={column}>
+                <span
+                  className="flex h-full min-w-[1ch] flex-1 flex-col justify-end"
+                  key={column}
+                >
                   {Array.from({ length: height }, (_, row) => {
                     const fromBottom = height - 1 - row
                     const isCap = shown && fromBottom === level
                     const isFill =
                       shown && variant === "area" && fromBottom < level
-                    const glyph = isCap ? "█" : isFill ? "░" : " "
+                    const glyph = isCap ? marks.fill : isFill ? marks.rest : " "
                     const tone = isCap
                       ? live
                         ? "text-graph-accent"
@@ -90,7 +100,7 @@ function GraphPlot({
 
                     return (
                       <motion.span
-                        className={cn("h-[1em] w-[1ch] text-center", tone)}
+                        className={cn("h-[1em] w-full text-center", tone)}
                         initial={
                           reduce || !shown || glyph === " "
                             ? false

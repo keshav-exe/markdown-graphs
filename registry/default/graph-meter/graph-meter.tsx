@@ -2,10 +2,17 @@
 
 import { motion, useReducedMotion } from "motion/react"
 
-import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
+import {
+  Graph,
+  GraphBody,
+  GraphTick,
+  GraphTrack,
+} from "@/registry/default/graph-frame/graph-frame"
 import {
   fillDelay,
   graphTransition,
+  trackMarks,
+  type Glyphs,
 } from "@/registry/default/graph-frame/graph-motion"
 
 type GraphMeterProps = {
@@ -13,6 +20,8 @@ type GraphMeterProps = {
   value: number
   ticks?: number
   caption?: string
+  glyphs?: Glyphs
+  corner?: string
   className?: string
 }
 
@@ -21,45 +30,56 @@ function GraphMeter({
   value,
   ticks = 14,
   caption,
+  glyphs,
+  corner,
   className,
 }: GraphMeterProps) {
   const reduce = useReducedMotion()
   const clamped = Math.min(1, Math.max(0, value))
   const filled = Math.round(clamped * ticks)
+  const marks = trackMarks(glyphs, {
+    empty: "-",
+    rest: "=",
+    fill: "=",
+  })
 
   return (
-    <Graph title={title} className={className}>
-      <GraphBody className="flex flex-col items-center gap-4">
-        <p className="flex items-center gap-3 tabular-nums">
+    <Graph title={title} className={className} corner={corner}>
+      <GraphBody className="flex flex-col gap-4">
+        <p className="flex w-full items-center gap-3 tabular-nums">
           <span aria-hidden="true" className="text-graph-frame select-none">
             [
           </span>
-          <span className="flex select-none" aria-hidden="true">
+          <GraphTrack>
             {Array.from({ length: ticks }, (_, index) => {
               const isFilled = index < filled
 
               return (
-                <motion.span
-                  key={index}
+                <GraphTick
                   className={
                     isFilled ? "text-graph-accent" : "text-graph-frame"
                   }
-                  initial={reduce || !isFilled ? false : { opacity: 0 }}
-                  transition={graphTransition(reduce, {
-                    delay: fillDelay(reduce, index),
-                  })}
-                  viewport={{ once: true }}
-                  whileInView={{ opacity: 1 }}
+                  key={index}
                 >
-                  {isFilled ? "=" : "-"}
-                </motion.span>
+                  <motion.span
+                    className="block w-full"
+                    initial={reduce || !isFilled ? false : { opacity: 0 }}
+                    transition={graphTransition(reduce, {
+                      delay: fillDelay(reduce, index),
+                    })}
+                    viewport={{ once: true }}
+                    whileInView={{ opacity: 1 }}
+                  >
+                    {isFilled ? marks.fill : marks.empty}
+                  </motion.span>
+                </GraphTick>
               )
             })}
-          </span>
+          </GraphTrack>
           <span aria-hidden="true" className="text-graph-frame select-none">
             ]
           </span>
-          <span className="w-[4ch] text-right text-graph-accent">
+          <span className="w-[4ch] shrink-0 text-right text-graph-accent">
             {Math.round(clamped * 100)}%
           </span>
         </p>

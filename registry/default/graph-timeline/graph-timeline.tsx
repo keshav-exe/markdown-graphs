@@ -20,6 +20,7 @@ type TimelineEvent = {
 type GraphTimelineProps = {
   title: string
   events: TimelineEvent[]
+  corner?: string
   className?: string
 }
 
@@ -29,13 +30,18 @@ const mark: Record<TimelineState, string> = {
   next: "○",
 }
 
-function GraphTimeline({ title, events, className }: GraphTimelineProps) {
+function GraphTimeline({
+  title,
+  events,
+  corner,
+  className,
+}: GraphTimelineProps) {
   const reduce = useReducedMotion()
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.05)
 
   return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody>
         <motion.ol
           className="flex flex-col"

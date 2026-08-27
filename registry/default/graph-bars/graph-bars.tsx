@@ -1,11 +1,15 @@
 "use client"
 
-import type { CSSProperties } from "react"
 import { motion, useReducedMotion } from "motion/react"
 
 import { GraphArrow } from "@/registry/default/graph-frame/graph-arrow"
 import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
-import { graphTransition } from "@/registry/default/graph-frame/graph-motion"
+import {
+  fillDelay,
+  graphTransition,
+  trackMarks,
+  type Glyphs,
+} from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
 type BarSeries = {
@@ -19,46 +23,66 @@ type GraphBarsProps = {
   from: BarSeries
   to: BarSeries
   processor?: string
+  glyphs?: Glyphs
+  corner?: string
   className?: string
 }
 
 function MiniBars({
   values,
-  size = "sm",
+  height,
   delay = 0,
   tone = "accent",
+  fill,
 }: {
   values: number[]
-  size?: "sm" | "lg"
+  height: number
   delay?: number
   tone?: "accent" | "muted"
+  fill: string
 }) {
   const reduce = useReducedMotion()
   const max = Math.max(...values, 1)
-  const maxHeight = size === "lg" ? 56 : 28
-  const barWidth = size === "lg" ? 10 : 5
 
   return (
-    <div className="flex items-end gap-px">
-      {values.map((value, index) => (
-        <motion.span
-          key={index}
-          className={cn(
-            "block h-(--bar-h) w-(--bar-w) origin-bottom will-change-transform",
-            tone === "accent" ? "bg-graph-accent" : "bg-graph-frame"
-          )}
-          initial={reduce ? false : { transform: "scaleY(0.08)" }}
-          style={
-            {
-              "--bar-h": `${Math.max((value / max) * maxHeight, 2)}px`,
-              "--bar-w": `${barWidth}px`,
-            } as CSSProperties
-          }
-          transition={graphTransition(reduce, { delay: delay + index * 0.04 })}
-          viewport={{ once: true, amount: 0.6 }}
-          whileInView={{ transform: "scaleY(1)" }}
-        />
-      ))}
+    <div className="flex w-full items-end">
+      {values.map((value, index) => {
+        const level = Math.round((value / max) * (height - 1))
+
+        return (
+          <span
+            className="flex min-w-[1ch] flex-1 flex-col justify-end"
+            key={index}
+          >
+            {Array.from({ length: height }, (_, row) => {
+              const fromBottom = height - 1 - row
+              const on = fromBottom <= level
+
+              return (
+                <motion.span
+                  className={cn(
+                    "h-[1em] w-full text-center",
+                    on
+                      ? tone === "accent"
+                        ? "text-graph-accent"
+                        : "text-graph-muted"
+                      : "text-transparent"
+                  )}
+                  initial={reduce || !on ? false : { opacity: 0 }}
+                  key={row}
+                  transition={graphTransition(reduce, {
+                    delay: delay + fillDelay(reduce, index, 0.03),
+                  })}
+                  viewport={{ once: true }}
+                  whileInView={{ opacity: 1 }}
+                >
+                  {on ? fill : " "}
+                </motion.span>
+              )
+            })}
+          </span>
+        )
+      })}
     </div>
   )
 }
@@ -67,31 +91,43 @@ function GraphBars({
   title,
   from,
   to,
-  processor = "AI",
+  processor,
+  glyphs,
+  corner,
   className,
 }: GraphBarsProps) {
+  const marks = trackMarks(glyphs)
+  const fromHeight = from.size === "lg" ? 8 : 5
+  const toHeight = to.size === "lg" ? 8 : 5
+
   return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody>
-        <div className="flex flex-col items-center gap-8 sm:flex-row sm:items-end sm:justify-between sm:gap-4">
-          <div className="flex flex-col items-center gap-3">
+        <div className="grid grid-cols-1 items-end gap-8 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:gap-6">
+          <div className="flex min-w-0 flex-col gap-3">
             <MiniBars
               delay={0.04}
-              size={from.size ?? "sm"}
+              fill={marks.fill}
+              height={fromHeight}
               tone="muted"
               values={from.values}
             />
             <p className="text-graph-muted">{from.label}</p>
           </div>
 
-          <div className="flex items-center gap-3 text-graph-muted max-sm:rotate-90">
+          <div className="flex items-center justify-center gap-3 text-graph-muted max-sm:rotate-90">
             <GraphArrow />
-            <span>{processor}</span>
+            {processor ? <span>{processor}</span> : null}
             <GraphArrow />
           </div>
 
-          <div className="flex flex-col items-center gap-3">
-            <MiniBars delay={0.16} size={to.size ?? "lg"} values={to.values} />
+          <div className="flex min-w-0 flex-col gap-3">
+            <MiniBars
+              delay={0.16}
+              fill={marks.fill}
+              height={toHeight}
+              values={to.values}
+            />
             <p className="text-foreground">{to.label}</p>
           </div>
         </div>

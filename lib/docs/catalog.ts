@@ -62,6 +62,12 @@ export const components: ComponentDoc[] = [
           "Per-column alignment. Defaults to left on the first column.",
       },
       {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -88,6 +94,12 @@ export const components: ComponentDoc[] = [
         description: "Each row is a sequence of nodes.",
       },
       {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -99,7 +111,7 @@ export const components: ComponentDoc[] = [
     title: "Bars",
     name: "GraphBars",
     description:
-      "Two bar groups side by side, with a label between them. The right group is usually the larger one.",
+      "Two bar groups side by side, drawn with glyphs. The right group is usually the larger one.",
     registry: "graph-bars",
     dependencies: ["motion"],
     props: [
@@ -121,8 +133,20 @@ export const components: ComponentDoc[] = [
       {
         name: "processor",
         type: "string",
-        default: '"AI"',
-        description: "Label between the two groups.",
+        description: "Optional label between the two groups.",
+      },
+      {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
       },
       {
         name: "className",
@@ -136,7 +160,7 @@ export const components: ComponentDoc[] = [
     title: "Cells",
     name: "GraphCells",
     description:
-      "Grid of filled and empty cells. Useful for density, coverage, or comparing two sets.",
+      "Grid of filled and empty cells, drawn with glyphs. Useful for density or comparing two sets.",
     registry: "graph-cells",
     dependencies: ["motion"],
     props: [
@@ -151,64 +175,17 @@ export const components: ComponentDoc[] = [
         description: "Each item is a labeled 0/1 matrix.",
       },
       {
-        name: "className",
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
         type: "string",
-        description: "Passed to the outer frame.",
-      },
-    ],
-  },
-  {
-    slug: "graph-scale",
-    title: "Scale",
-    name: "GraphScale",
-    description:
-      "Labeled scale for contrast ratios, type sizes, or anything that needs a number and a short label.",
-    registry: "graph-scale",
-    dependencies: ["motion"],
-    props: [
-      {
-        name: "title",
-        type: "string",
-        description: "Caption drawn on the top edge of the frame.",
-      },
-      {
-        name: "items",
-        type: "ScaleItem[]",
-        description: "ratio, label, token, and optional accent.",
-      },
-      {
-        name: "className",
-        type: "string",
-        description: "Passed to the outer frame.",
-      },
-    ],
-  },
-  {
-    slug: "graph-radii",
-    title: "Radii",
-    name: "GraphRadii",
-    description:
-      "Nested border radii. Inner radius equals outer minus padding.",
-    registry: "graph-radii",
-    dependencies: [],
-    props: [
-      {
-        name: "title",
-        type: "string",
-        default: '"NESTED RADII"',
-        description: "Caption drawn on the top edge of the frame.",
-      },
-      {
-        name: "outer",
-        type: "number",
-        default: "16",
-        description: "Outer corner radius in pixels.",
-      },
-      {
-        name: "inset",
-        type: "number",
-        default: "4",
-        description: "Padding between the two frames.",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
       },
       {
         name: "className",
@@ -248,6 +225,19 @@ export const components: ComponentDoc[] = [
         description: "Muted line under the meter.",
       },
       {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -279,6 +269,19 @@ export const components: ComponentDoc[] = [
         description: "Muted line under the sparkline.",
       },
       {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: "▁▂▃▄▅▆▇█",
+        description:
+          "Defaults to spark bars. Pass shade, ascii, hash, bar, or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -306,6 +309,12 @@ export const components: ComponentDoc[] = [
           "Nested nodes. Each may have label, meta, accent, and children.",
       },
       {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -330,6 +339,12 @@ export const components: ComponentDoc[] = [
         name: "events",
         type: "TimelineEvent[]",
         description: "date, label, and optional state: done, now, or next.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
       },
       {
         name: "className",
@@ -371,8 +386,15 @@ export const components: ComponentDoc[] = [
       },
       {
         name: "glyphs",
-        type: "string[]",
-        description: "Characters used per segment, in order.",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        description:
+          "One character per segment, or a preset. Defaults to █▓▒░#=+ -.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
       },
       {
         name: "className",
@@ -410,6 +432,19 @@ export const components: ComponentDoc[] = [
         name: "stage",
         type: "string",
         description: "Step label to focus. Other rows recede.",
+      },
+      {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
       },
       {
         name: "className",
@@ -460,6 +495,19 @@ export const components: ComponentDoc[] = [
         description: "0–1 playhead. Draws ▾ on the track.",
       },
       {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -508,6 +556,19 @@ export const components: ComponentDoc[] = [
         description: "0–1. How many columns are revealed.",
       },
       {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -550,6 +611,19 @@ export const components: ComponentDoc[] = [
         description: "Muted line under the percent.",
       },
       {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -579,6 +653,12 @@ export const components: ComponentDoc[] = [
         name: "footer",
         type: "DiffRow",
         description: "Total row under a rule.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
       },
       {
         name: "className",
@@ -633,6 +713,12 @@ export const components: ComponentDoc[] = [
         description: "Muted line under the totals. Payment terms, etc.",
       },
       {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -669,6 +755,12 @@ export const components: ComponentDoc[] = [
         description: "Column name to highlight. Other columns recede.",
       },
       {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -693,6 +785,12 @@ export const components: ComponentDoc[] = [
         name: "items",
         type: "StatItem[]",
         description: "value, label, optional hint, optional accent.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
       },
       {
         name: "className",
@@ -721,6 +819,375 @@ export const components: ComponentDoc[] = [
         description: "label, value, and optional accent.",
       },
       {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-activity",
+    title: "Activity",
+    name: "GraphActivity",
+    description:
+      "GitHub-style contribution grid. Pass dated counts; weeks, months, and intensity are derived.",
+    registry: "graph-activity",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "days",
+        type: "ActivityDay[]",
+        description: "ISO date plus count. Gaps fill as empty days.",
+      },
+      {
+        name: "weekStartsOn",
+        type: "0 | 1",
+        default: "0",
+        description: "0 is Sunday, like GitHub. 1 is Monday.",
+      },
+      {
+        name: "max",
+        type: "number",
+        description: "Lock the intensity scale. Defaults to the highest count.",
+      },
+      {
+        name: "legend",
+        type: "boolean",
+        default: "true",
+        description: "Less / more glyph key under the grid.",
+      },
+      {
+        name: "caption",
+        type: "string | false",
+        description:
+          "Replaces the computed contribution total. Pass false to hide it.",
+      },
+      {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-heatmap",
+    title: "Heatmap",
+    name: "GraphHeatmap",
+    description:
+      "Labeled rows and columns with the same intensity glyphs as Activity. Punchcards, hours, anything 2d.",
+    registry: "graph-heatmap",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "columns",
+        type: "string[]",
+        description: "Column headers, left to right.",
+      },
+      {
+        name: "rows",
+        type: "HeatRow[]",
+        description: "label plus a value per column.",
+      },
+      {
+        name: "max",
+        type: "number",
+        description: "Lock the intensity scale across charts.",
+      },
+      {
+        name: "legend",
+        type: "boolean",
+        default: "true",
+        description: "Less / more glyph key.",
+      },
+      {
+        name: "caption",
+        type: "string",
+        description: "Optional note under the matrix.",
+      },
+      {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-calendar",
+    title: "Calendar",
+    name: "GraphCalendar",
+    description:
+      "One month as a seven-column grid. Marked days use the accent. today is wrapped in brackets.",
+    registry: "graph-calendar",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption. Defaults to the month name.",
+      },
+      {
+        name: "year",
+        type: "number",
+        description: "Full year.",
+      },
+      {
+        name: "month",
+        type: "number",
+        description: "1–12.",
+      },
+      {
+        name: "weekStartsOn",
+        type: "0 | 1",
+        default: "1",
+        description: "0 is Sunday. 1 is Monday.",
+      },
+      {
+        name: "marks",
+        type: "number[] | CalendarMark[]",
+        description: "Days to accent. Pass numbers, or { day, accent }.",
+      },
+      {
+        name: "today",
+        type: "number",
+        description: "Day of the month to wrap in brackets. Pass it in.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-waterfall",
+    title: "Waterfall",
+    name: "GraphWaterfall",
+    description:
+      "Running total as floating bars. First row is the start, last is the end, signed values in between.",
+    registry: "graph-waterfall",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "items",
+        type: "WaterfallItem[]",
+        description:
+          "label, value, optional kind: start, in, out, or end. Kind is inferred if omitted.",
+      },
+      {
+        name: "ticks",
+        type: "number",
+        default: "24",
+        description: "Bar width in characters.",
+      },
+      {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-uptime",
+    title: "Uptime",
+    name: "GraphUptime",
+    description:
+      "One glyph per day. ok, degraded, down, or empty. Wraps every 30 days.",
+    registry: "graph-uptime",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "days",
+        type: "UptimeStatus[]",
+        description: "ok, degraded, down, or empty.",
+      },
+      {
+        name: "from",
+        type: "string",
+        description: "Label at the start of the range.",
+      },
+      {
+        name: "to",
+        type: "string",
+        description: "Label at the end of the range.",
+      },
+      {
+        name: "columns",
+        type: "number",
+        default: "30",
+        description: "Days per row. Shorter series stay on one line.",
+      },
+      {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-slope",
+    title: "Slope",
+    name: "GraphSlope",
+    description:
+      "Two figures per row with an arrow between. Up uses the accent, down recedes.",
+    registry: "graph-slope",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "fromLabel",
+        type: "string",
+        description: "Header over the first column.",
+      },
+      {
+        name: "toLabel",
+        type: "string",
+        description: "Header over the second column.",
+      },
+      {
+        name: "items",
+        type: "SlopeItem[]",
+        description: "label, from, and to.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-bullet",
+    title: "Bullet",
+    name: "GraphBullet",
+    description:
+      "Actual versus target on a shared track. The marker is the target.",
+    registry: "graph-bullet",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "items",
+        type: "BulletItem[]",
+        description: "label, value, optional target, max, and display.",
+      },
+      {
+        name: "ticks",
+        type: "number",
+        default: "20",
+        description: "Track width in characters, not counting the brackets.",
+      },
+      {
+        name: "glyphs",
+        type: '"shade" | "ascii" | "hash" | "bar" | string[]',
+        default: '"shade"',
+        description:
+          "Character set. shade is ·░▒▓█. ascii is .- =#@. Pass a preset or your own characters.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
         name: "className",
         type: "string",
         description: "Passed to the outer frame.",
@@ -732,7 +1199,7 @@ export const components: ComponentDoc[] = [
     title: "Frame",
     name: "Graph",
     description:
-      "Dashed frame wrapper used by every graph. Compose with GraphTitle, GraphBody, GraphRule, and GraphArrow.",
+      "Dashed frame wrapper used by every graph. Compose with GraphTitle, GraphBody, GraphRule, GraphTrack, and GraphTick. corner picks the character at each corner.",
     registry: "graph-frame",
     dependencies: ["motion"],
     props: [
@@ -740,6 +1207,12 @@ export const components: ComponentDoc[] = [
         name: "title",
         type: "string",
         description: "Optional caption. Renders as [ TITLE ] on the top edge.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner. Default +.",
       },
       {
         name: "className",

@@ -1,0 +1,169 @@
+"use client"
+
+import { motion, useReducedMotion } from "motion/react"
+
+import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
+import {
+  fadeUp,
+  staggerList,
+} from "@/registry/default/graph-frame/graph-motion"
+import { cn } from "@/lib/utils"
+
+const WEEKDAYS_SUN = ["S", "M", "T", "W", "T", "F", "S"]
+const WEEKDAYS_MON = ["M", "T", "W", "T", "F", "S", "S"]
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+]
+
+type CalendarMark = {
+  day: number
+  accent?: boolean
+}
+
+type GraphCalendarProps = {
+  title?: string
+  year: number
+  month: number
+  weekStartsOn?: 0 | 1
+  marks?: CalendarMark[] | number[]
+  today?: number
+  corner?: string
+  className?: string
+}
+
+function monthLength(year: number, monthIndex: number) {
+  return new Date(Date.UTC(year, monthIndex + 1, 0)).getUTCDate()
+}
+
+function leadingBlanks(year: number, monthIndex: number, weekStartsOn: 0 | 1) {
+  const weekday = new Date(Date.UTC(year, monthIndex, 1)).getUTCDay()
+  return (weekday - weekStartsOn + 7) % 7
+}
+
+function markSet(marks: GraphCalendarProps["marks"]) {
+  const map = new Map<number, boolean>()
+
+  if (!marks) {
+    return map
+  }
+
+  for (const mark of marks) {
+    if (typeof mark === "number") {
+      map.set(mark, true)
+      continue
+    }
+
+    map.set(mark.day, mark.accent ?? true)
+  }
+
+  return map
+}
+
+function GraphCalendar({
+  title,
+  year,
+  month,
+  weekStartsOn = 1,
+  marks,
+  today,
+  corner,
+  className,
+}: GraphCalendarProps) {
+  const reduce = useReducedMotion()
+  const item = fadeUp(reduce)
+  const list = staggerList(reduce, 0.04)
+  const monthIndex = month - 1
+  const days = monthLength(year, monthIndex)
+  const pad = leadingBlanks(year, monthIndex, weekStartsOn)
+  const highlighted = markSet(marks)
+  const headers = weekStartsOn === 1 ? WEEKDAYS_MON : WEEKDAYS_SUN
+  const trailing = (7 - ((pad + days) % 7)) % 7
+  const caption = title ?? `${MONTHS[monthIndex]} ${year}`
+  const grid: (number | null)[] = [
+    ...Array.from({ length: pad }, () => null),
+    ...Array.from({ length: days }, (_, index) => index + 1),
+    ...Array.from({ length: trailing }, () => null),
+  ]
+  const weeks: (number | null)[][] = []
+
+  for (let index = 0; index < grid.length; index += 7) {
+    weeks.push(grid.slice(index, index + 7))
+  }
+
+  return (
+    <Graph title={caption} className={className} corner={corner}>
+      <GraphBody className="flex flex-col gap-3">
+        <div
+          aria-hidden="true"
+          className="grid grid-cols-7 justify-items-center"
+        >
+          {headers.map((header, index) => (
+            <span
+              className="w-[4ch] text-center text-graph-muted"
+              key={`${header}-${index}`}
+            >
+              {header}
+            </span>
+          ))}
+        </div>
+        <motion.div
+          aria-hidden="true"
+          className="flex flex-col gap-1"
+          initial={reduce ? false : "hidden"}
+          variants={list}
+          viewport={{ once: true, amount: 0.4 }}
+          whileInView="show"
+        >
+          {weeks.map((week, weekIndex) => (
+            <motion.div
+              className="grid grid-cols-7 justify-items-center"
+              key={weekIndex}
+              variants={item}
+            >
+              {week.map((day, dayIndex) => {
+                const inMonth = day != null
+                const accent = inMonth && highlighted.get(day) === true
+                const isToday = inMonth && today === day
+
+                return (
+                  <span
+                    className={cn(
+                      "w-[4ch] text-center tabular-nums",
+                      !inMonth && "text-transparent",
+                      inMonth && !accent && !isToday && "text-foreground",
+                      (accent || isToday) && "text-graph-accent"
+                    )}
+                    key={`${weekIndex}-${dayIndex}`}
+                  >
+                    {inMonth ? (isToday ? `[${day}]` : day) : "\u00a0"}
+                  </span>
+                )
+              })}
+            </motion.div>
+          ))}
+        </motion.div>
+        <span className="sr-only">
+          {MONTHS[monthIndex]} {year}
+          {today ? `, today ${today}` : ""}
+          {highlighted.size > 0
+            ? `, marked ${[...highlighted.keys()].join(", ")}`
+            : ""}
+        </span>
+      </GraphBody>
+    </Graph>
+  )
+}
+
+export { GraphCalendar }
+export type { CalendarMark, GraphCalendarProps }

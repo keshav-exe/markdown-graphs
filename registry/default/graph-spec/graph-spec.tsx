@@ -18,16 +18,17 @@ type SpecRow = {
 type GraphSpecProps = {
   title: string
   rows: SpecRow[]
+  corner?: string
   className?: string
 }
 
-function GraphSpec({ title, rows, className }: GraphSpecProps) {
+function GraphSpec({ title, rows, corner, className }: GraphSpecProps) {
   const reduce = useReducedMotion()
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.04)
 
   return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody>
         <motion.dl
           className="flex flex-col gap-3"

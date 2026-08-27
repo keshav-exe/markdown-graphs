@@ -1,9 +1,57 @@
 import Link from "next/link"
 
-import { GraphCompare, GraphInvoice, GraphStat } from "@/components/graphs"
+import {
+  GraphActivity,
+  GraphBullet,
+  GraphCalendar,
+  GraphHeatmap,
+  GraphSlope,
+  GraphUptime,
+  GraphWaterfall,
+} from "@/components/graphs"
 import { SiteContainer } from "@/components/site/container"
 import { Hero } from "@/components/site/hero"
 import { Principles } from "@/components/site/principles"
+
+function activityDays(start: string, length: number) {
+  const [year, month, day] = start.split("-").map(Number)
+  const origin = Date.UTC(year, (month ?? 1) - 1, day)
+  return Array.from({ length }, (_, index) => {
+    const time = origin + index * 86_400_000
+    const date = new Date(time).toISOString().slice(0, 10)
+    const dow = new Date(time).getUTCDay()
+    const week = Math.floor(index / 7)
+    let count = 0
+    if (dow > 0 && dow < 6) {
+      const pulse = (week + dow) % 9
+      count =
+        pulse === 0
+          ? 12
+          : pulse === 4
+            ? 7
+            : pulse % 3 === 0
+              ? 3
+              : index % 5 === 0
+                ? 1
+                : 0
+    } else if (index % 13 === 0) {
+      count = 2
+    }
+    return { date, count }
+  })
+}
+
+const commits = activityDays("2025-09-01", 371)
+
+const uptime = Array.from({ length: 90 }, (_, index) => {
+  if (index === 41 || index === 42) {
+    return "down" as const
+  }
+  if (index === 18 || index === 60 || index === 61) {
+    return "degraded" as const
+  }
+  return "ok" as const
+})
 
 export default function Page() {
   return (
@@ -16,76 +64,61 @@ export default function Page() {
               Every graph uses the same frame
             </h2>
             <p className="max-w-[48ch] text-pretty text-muted-foreground">
-              Invoices, comparisons, and large figures included. Install one
+              Activity grids, calendars, and status strips included. Install one
               component or pull in the whole set.
             </p>
           </div>
-          <GraphInvoice
-            from={{
-              name: "markdown graphs",
-              lines: ["kshv.me"],
-            }}
-            items={[
-              {
-                description: "Design system",
-                qty: "1",
-                rate: "4,200",
-                amount: "4,200",
-              },
-              {
-                description: "Motion pass",
-                qty: "1",
-                rate: "1,800",
-                amount: "1,800",
-              },
-              {
-                description: "Docs rewrite",
-                qty: "8h",
-                rate: "180",
-                amount: "1,440",
-              },
-            ]}
-            meta={[
-              { label: "No.", value: "0041" },
-              { label: "Issued", value: "Mar 12" },
-              { label: "Due", value: "Apr 11" },
-            ]}
-            note="Net 30. Wire to the account on file."
-            title="INVOICE 0041"
-            to={{
-              name: "Acme Studio",
-              lines: ["14 Market Street"],
-            }}
-            totals={[
-              { label: "Subtotal", value: "7,440" },
-              { label: "Amount due", value: "7,440", accent: true },
-            ]}
-          />
-          <p>
-            <Link
-              className="text-foreground underline-offset-4 hover:underline"
-              href="/docs/graph-invoice"
-            >
-              Open invoice docs
-            </Link>
-          </p>
+          <GraphActivity days={commits} title="COMMITS" />
           <div className="grid gap-8 lg:grid-cols-2">
-            <GraphStat
+            <GraphWaterfall
               items={[
-                { value: "12,400", label: "docs" },
-                { value: "860", label: "shipped", accent: true },
+                { label: "Revenue", value: 48 },
+                { label: "Refunds", value: -6 },
+                { label: "Hosting", value: -4 },
+                { label: "Profit", value: 38 },
               ]}
-              title="THIS WEEK"
+              ticks={18}
+              title="MARGIN"
             />
-            <GraphCompare
-              accent="This"
-              columns={["Mermaid", "This"]}
-              rows={[
-                { label: "Source", values: [".md", ".tsx"] },
-                { label: "In git", values: [true, true] },
-                { label: "Themable", values: [false, true] },
+            <GraphBullet
+              items={[
+                { label: "CPU", value: 72, target: 80, max: 100 },
+                { label: "RAM", value: 34, target: 64, max: 100 },
+                { label: "SSD", value: 91, target: 90, max: 100 },
               ]}
-              title="RENDER"
+              title="LOAD"
+            />
+          </div>
+          <div className="grid gap-8 lg:grid-cols-2">
+            <GraphCalendar
+              marks={[12, 18, 27]}
+              month={8}
+              today={27}
+              year={2026}
+            />
+            <GraphUptime days={uptime} from="Jun 1" title="API" to="Aug 29" />
+          </div>
+          <div className="grid gap-8 lg:grid-cols-2">
+            <GraphHeatmap
+              columns={["0", "4", "8", "12", "16", "20"]}
+              rows={[
+                { label: "Mon", values: [0, 1, 4, 8, 6, 1] },
+                { label: "Tue", values: [0, 0, 5, 9, 4, 2] },
+                { label: "Wed", values: [1, 0, 6, 12, 5, 1] },
+                { label: "Thu", values: [0, 2, 4, 7, 8, 3] },
+                { label: "Fri", values: [0, 1, 3, 5, 2, 0] },
+              ]}
+              title="DEPLOYS"
+            />
+            <GraphSlope
+              fromLabel="2025"
+              items={[
+                { label: "docs", from: 8200, to: 12400 },
+                { label: "copy", from: 5100, to: 4100 },
+                { label: "ship", from: 640, to: 860 },
+              ]}
+              title="TRAFFIC"
+              toLabel="2026"
             />
           </div>
           <p>

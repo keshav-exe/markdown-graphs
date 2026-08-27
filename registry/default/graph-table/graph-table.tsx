@@ -23,6 +23,7 @@ type GraphTableProps = {
   rows: ReactNode[][]
   footer?: ReactNode[]
   align?: GraphAlign[]
+  corner?: string
   className?: string
 }
 
@@ -32,6 +33,7 @@ function GraphTable({
   rows,
   footer,
   align,
+  corner,
   className,
 }: GraphTableProps) {
   const reduce = useReducedMotion()
@@ -39,7 +41,7 @@ function GraphTable({
   const list = staggerList(reduce, 0.04)
 
   return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody className="px-3 py-6 sm:px-6 sm:py-8">
         <div className="@container overflow-x-auto">
           <table className="w-full min-w-lg border-separate border-spacing-0">

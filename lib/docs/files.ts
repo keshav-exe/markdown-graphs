@@ -28,15 +28,6 @@ export const registryFiles: Record<string, string[]> = {
     "registry/default/graph-frame/graph-motion.ts",
     "registry/default/graph-cells/graph-cells.tsx",
   ],
-  "graph-scale": [
-    "registry/default/graph-frame/graph-frame.tsx",
-    "registry/default/graph-frame/graph-motion.ts",
-    "registry/default/graph-scale/graph-scale.tsx",
-  ],
-  "graph-radii": [
-    "registry/default/graph-frame/graph-frame.tsx",
-    "registry/default/graph-radii/graph-radii.tsx",
-  ],
   "graph-meter": [
     "registry/default/graph-frame/graph-frame.tsx",
     "registry/default/graph-frame/graph-motion.ts",
@@ -106,6 +97,41 @@ export const registryFiles: Record<string, string[]> = {
     "registry/default/graph-frame/graph-frame.tsx",
     "registry/default/graph-frame/graph-motion.ts",
     "registry/default/graph-spec/graph-spec.tsx",
+  ],
+  "graph-activity": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-activity/graph-activity.tsx",
+  ],
+  "graph-heatmap": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-heatmap/graph-heatmap.tsx",
+  ],
+  "graph-calendar": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-calendar/graph-calendar.tsx",
+  ],
+  "graph-waterfall": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-waterfall/graph-waterfall.tsx",
+  ],
+  "graph-uptime": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-uptime/graph-uptime.tsx",
+  ],
+  "graph-slope": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-slope/graph-slope.tsx",
+  ],
+  "graph-bullet": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-bullet/graph-bullet.tsx",
   ],
   all: ["registry/default"],
 }

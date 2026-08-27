@@ -3,20 +3,23 @@ import type { ReactNode } from "react"
 import { ComponentPreview } from "@/components/docs/preview"
 import {
   Graph,
+  GraphActivity,
   GraphBars,
   GraphBody,
+  GraphBullet,
+  GraphCalendar,
   GraphCells,
   GraphCompare,
   GraphDiff,
   GraphFlow,
   GraphFunnel,
   GraphGantt,
+  GraphHeatmap,
   GraphInvoice,
   GraphMeter,
   GraphPlot,
-  GraphRadii,
   GraphRule,
-  GraphScale,
+  GraphSlope,
   GraphSpark,
   GraphSpec,
   GraphStack,
@@ -24,7 +27,9 @@ import {
   GraphTable,
   GraphTimeline,
   GraphTree,
+  GraphUptime,
   GraphWaffle,
+  GraphWaterfall,
 } from "@/components/graphs"
 
 type Example = {
@@ -192,20 +197,20 @@ const flowExamples: Example[] = [
 
 const barsExamples: Example[] = [
   {
-    title: "AI is an amplifier",
+    title: "Before / after",
     description: "Same shape on both sides. The right group is just taller.",
     code: `import { GraphBars } from "@/registry/default/graph-bars/graph-bars"
 
 <GraphBars
-  title="AI IS AN AMPLIFIER"
-  from={{ label: "your taste", values: [2, 4, 3, 5, 2] }}
-  to={{ label: "amplified", size: "lg", values: [2, 4, 3, 5, 2] }}
+  title="THROUGHPUT"
+  from={{ label: "before", values: [2, 4, 3, 5, 2] }}
+  to={{ label: "after", size: "lg", values: [2, 4, 3, 5, 2] }}
 />`,
     preview: (
       <GraphBars
-        from={{ label: "your taste", values: [2, 4, 3, 5, 2] }}
-        title="AI IS AN AMPLIFIER"
-        to={{ label: "amplified", size: "lg", values: [2, 4, 3, 5, 2] }}
+        from={{ label: "before", values: [2, 4, 3, 5, 2] }}
+        title="THROUGHPUT"
+        to={{ label: "after", size: "lg", values: [2, 4, 3, 5, 2] }}
       />
     ),
   },
@@ -284,7 +289,7 @@ const cellsExamples: Example[] = [
   },
   {
     title: "Coverage",
-    description: "A single grid. Empty cells stay as frames.",
+    description: "A single grid. Empty cells stay as the quiet glyph.",
     code: `import { GraphCells } from "@/registry/default/graph-cells/graph-cells"
 
 <GraphCells
@@ -315,95 +320,6 @@ const cellsExamples: Example[] = [
         title="COVERAGE"
       />
     ),
-  },
-]
-
-const scaleExamples: Example[] = [
-  {
-    title: "Contrast",
-    description: "Accent the ratios that actually pass.",
-    code: `import { GraphScale } from "@/registry/default/graph-scale/graph-scale"
-
-<GraphScale
-  title="CONTRAST"
-  items={[
-    { ratio: "1.4:1", label: "you can't read this", token: "14" },
-    { ratio: "2.3:1", label: "you strain to read this", token: "23" },
-    { ratio: "4.5:1", label: "you can read this", token: "45", accent: true },
-    { ratio: "7:1", label: "you can read this too", token: "70", accent: true },
-  ]}
-/>`,
-    preview: (
-      <GraphScale
-        items={[
-          { ratio: "1.4:1", label: "you can't read this", token: "14" },
-          { ratio: "2.3:1", label: "you strain to read this", token: "23" },
-          {
-            ratio: "4.5:1",
-            label: "you can read this",
-            token: "45",
-            accent: true,
-          },
-          {
-            ratio: "7:1",
-            label: "you can read this too",
-            token: "70",
-            accent: true,
-          },
-        ]}
-        title="CONTRAST"
-      />
-    ),
-  },
-  {
-    title: "Type size",
-    description: "Same component, different labels.",
-    code: `import { GraphScale } from "@/registry/default/graph-scale/graph-scale"
-
-<GraphScale
-  title="TYPE SIZE"
-  items={[
-    { ratio: "12px", label: "captions only", token: "14" },
-    { ratio: "14px", label: "dense UI, never body", token: "23" },
-    { ratio: "16px", label: "body on mobile", token: "45", accent: true },
-    { ratio: "18px", label: "intro copy", token: "70", accent: true },
-  ]}
-/>`,
-    preview: (
-      <GraphScale
-        items={[
-          { ratio: "12px", label: "captions only", token: "14" },
-          { ratio: "14px", label: "dense UI, never body", token: "23" },
-          {
-            ratio: "16px",
-            label: "body on mobile",
-            token: "45",
-            accent: true,
-          },
-          { ratio: "18px", label: "intro copy", token: "70", accent: true },
-        ]}
-        title="TYPE SIZE"
-      />
-    ),
-  },
-]
-
-const radiiExamples: Example[] = [
-  {
-    title: "Nested 16 / 4",
-    description: "The default. Inner is 12px.",
-    code: `import { GraphRadii } from "@/registry/default/graph-radii/graph-radii"
-
-<GraphRadii />`,
-    preview: <GraphRadii />,
-  },
-  {
-    title: "Nested 24 / 8",
-    description: "Larger outer, larger inset. Inner is 16px.",
-    code: `import { GraphRadii } from "@/registry/default/graph-radii/graph-radii"
-
-<GraphRadii title="NESTED RADII" outer={24} inset={8} />`,
-    preview: <GraphRadii inset={8} outer={24} />,
   },
 ]
 
@@ -1264,6 +1180,438 @@ const specExamples: Example[] = [
   },
 ]
 
+function activityDays(start: string, length: number) {
+  const [year, month, day] = start.split("-").map(Number)
+  const origin = Date.UTC(year, (month ?? 1) - 1, day)
+  return Array.from({ length }, (_, index) => {
+    const time = origin + index * 86_400_000
+    const date = new Date(time).toISOString().slice(0, 10)
+    const dow = new Date(time).getUTCDay()
+    const week = Math.floor(index / 7)
+    let count = 0
+    if (dow > 0 && dow < 6) {
+      const pulse = (week + dow) % 9
+      count =
+        pulse === 0
+          ? 12
+          : pulse === 4
+            ? 7
+            : pulse % 3 === 0
+              ? 3
+              : index % 5 === 0
+                ? 1
+                : 0
+    } else if (index % 13 === 0) {
+      count = 2
+    }
+    return { date, count }
+  })
+}
+
+const yearActivity = activityDays("2025-09-01", 371)
+const quarterActivity = activityDays("2026-06-01", 91)
+
+const uptimeQuarter = Array.from({ length: 90 }, (_, index) => {
+  if (index === 41 || index === 42) {
+    return "down" as const
+  }
+  if (index === 18 || index === 60 || index === 61) {
+    return "degraded" as const
+  }
+  return "ok" as const
+})
+
+const activityExamples: Example[] = [
+  {
+    title: "Year",
+    description:
+      "Dated counts. The grid, month labels, and intensity scale are derived.",
+    code: `import { GraphActivity } from "@/registry/default/graph-activity/graph-activity"
+
+function activityDays(start: string, length: number) {
+  const [year, month, day] = start.split("-").map(Number)
+  const origin = Date.UTC(year, month - 1, day)
+  return Array.from({ length }, (_, index) => {
+    const time = origin + index * 86_400_000
+    const date = new Date(time).toISOString().slice(0, 10)
+    const dow = new Date(time).getUTCDay()
+    const week = Math.floor(index / 7)
+    let count = 0
+    if (dow > 0 && dow < 6) {
+      const pulse = (week + dow) % 9
+      count =
+        pulse === 0 ? 12 : pulse === 4 ? 7 : pulse % 3 === 0 ? 3 : index % 5 === 0 ? 1 : 0
+    }
+    return { date, count }
+  })
+}
+
+<GraphActivity
+  title="COMMITS"
+  days={activityDays("2025-09-01", 371)}
+/>`,
+    preview: <GraphActivity days={yearActivity} title="COMMITS" />,
+  },
+  {
+    title: "Quarter",
+    description:
+      'Shorter range. glyphs="ascii" swaps the block characters for .- =#@.',
+    code: `import { GraphActivity } from "@/registry/default/graph-activity/graph-activity"
+
+<GraphActivity
+  title="SHIPPED"
+  weekStartsOn={1}
+  glyphs="ascii"
+  days={activityDays("2026-06-01", 91)}
+  caption="Jun – Aug"
+/>`,
+    preview: (
+      <GraphActivity
+        caption="Jun – Aug"
+        days={quarterActivity}
+        glyphs="ascii"
+        title="SHIPPED"
+        weekStartsOn={1}
+      />
+    ),
+  },
+]
+
+const heatmapExamples: Example[] = [
+  {
+    title: "Punchcard",
+    description: "Same glyphs as Activity. Rows are days, columns are hours.",
+    code: `import { GraphHeatmap } from "@/registry/default/graph-heatmap/graph-heatmap"
+
+<GraphHeatmap
+  title="DEPLOYS"
+  columns={["0", "4", "8", "12", "16", "20"]}
+  rows={[
+    { label: "Mon", values: [0, 1, 4, 8, 6, 1] },
+    { label: "Tue", values: [0, 0, 5, 9, 4, 2] },
+    { label: "Wed", values: [1, 0, 6, 12, 5, 1] },
+    { label: "Thu", values: [0, 2, 4, 7, 8, 3] },
+    { label: "Fri", values: [0, 1, 3, 5, 2, 0] },
+    { label: "Sat", values: [0, 0, 1, 0, 0, 0] },
+    { label: "Sun", values: [0, 0, 0, 1, 0, 0] },
+  ]}
+/>`,
+    preview: (
+      <GraphHeatmap
+        columns={["0", "4", "8", "12", "16", "20"]}
+        rows={[
+          { label: "Mon", values: [0, 1, 4, 8, 6, 1] },
+          { label: "Tue", values: [0, 0, 5, 9, 4, 2] },
+          { label: "Wed", values: [1, 0, 6, 12, 5, 1] },
+          { label: "Thu", values: [0, 2, 4, 7, 8, 3] },
+          { label: "Fri", values: [0, 1, 3, 5, 2, 0] },
+          { label: "Sat", values: [0, 0, 1, 0, 0, 0] },
+          { label: "Sun", values: [0, 0, 0, 1, 0, 0] },
+        ]}
+        title="DEPLOYS"
+      />
+    ),
+  },
+  {
+    title: "Coverage",
+    description: "Lock max so two heatmaps share a scale.",
+    code: `import { GraphHeatmap } from "@/registry/default/graph-heatmap/graph-heatmap"
+
+<GraphHeatmap
+  title="TESTS"
+  max={10}
+  legend={false}
+  columns={["a", "b", "c", "d"]}
+  rows={[
+    { label: "auth", values: [10, 8, 4, 2] },
+    { label: "billing", values: [6, 10, 7, 1] },
+    { label: "docs", values: [2, 3, 9, 8] },
+  ]}
+/>`,
+    preview: (
+      <GraphHeatmap
+        columns={["a", "b", "c", "d"]}
+        legend={false}
+        max={10}
+        rows={[
+          { label: "auth", values: [10, 8, 4, 2] },
+          { label: "billing", values: [6, 10, 7, 1] },
+          { label: "docs", values: [2, 3, 9, 8] },
+        ]}
+        title="TESTS"
+      />
+    ),
+  },
+]
+
+const calendarExamples: Example[] = [
+  {
+    title: "Marked days",
+    description: "month is 1–12. today is passed in so render stays stable.",
+    code: `import { GraphCalendar } from "@/registry/default/graph-calendar/graph-calendar"
+
+<GraphCalendar
+  year={2026}
+  month={8}
+  today={27}
+  marks={[12, 18, 27]}
+/>`,
+    preview: (
+      <GraphCalendar marks={[12, 18, 27]} month={8} today={27} year={2026} />
+    ),
+  },
+  {
+    title: "Sunday start",
+    description: "weekStartsOn 0 matches a US calendar.",
+    code: `import { GraphCalendar } from "@/registry/default/graph-calendar/graph-calendar"
+
+<GraphCalendar
+  title="SHIP WEEK"
+  year={2026}
+  month={3}
+  weekStartsOn={0}
+  marks={[{ day: 12, accent: true }, { day: 18 }]}
+/>`,
+    preview: (
+      <GraphCalendar
+        marks={[{ day: 12, accent: true }, { day: 18 }]}
+        month={3}
+        title="SHIP WEEK"
+        weekStartsOn={0}
+        year={2026}
+      />
+    ),
+  },
+]
+
+const waterfallExamples: Example[] = [
+  {
+    title: "Margin",
+    description:
+      "First row starts the run. Negative values cut it. Last row is the total.",
+    code: `import { GraphWaterfall } from "@/registry/default/graph-waterfall/graph-waterfall"
+
+<GraphWaterfall
+  title="MARGIN"
+  items={[
+    { label: "Revenue", value: 48 },
+    { label: "Refunds", value: -6 },
+    { label: "Hosting", value: -4 },
+    { label: "Profit", value: 38 },
+  ]}
+/>`,
+    preview: (
+      <GraphWaterfall
+        items={[
+          { label: "Revenue", value: 48 },
+          { label: "Refunds", value: -6 },
+          { label: "Hosting", value: -4 },
+          { label: "Profit", value: 38 },
+        ]}
+        title="MARGIN"
+      />
+    ),
+  },
+  {
+    title: "Headcount",
+    description: "kind can be set by hand when the last row is not a total.",
+    code: `import { GraphWaterfall } from "@/registry/default/graph-waterfall/graph-waterfall"
+
+<GraphWaterfall
+  title="TEAM"
+  items={[
+    { label: "Start", value: 12, kind: "start" },
+    { label: "Hired", value: 4, kind: "in" },
+    { label: "Left", value: 2, kind: "out" },
+    { label: "Now", value: 14, kind: "end" },
+  ]}
+/>`,
+    preview: (
+      <GraphWaterfall
+        items={[
+          { label: "Start", value: 12, kind: "start" },
+          { label: "Hired", value: 4, kind: "in" },
+          { label: "Left", value: 2, kind: "out" },
+          { label: "Now", value: 14, kind: "end" },
+        ]}
+        title="TEAM"
+      />
+    ),
+  },
+]
+
+const uptimeExamples: Example[] = [
+  {
+    title: "Ninety days",
+    description:
+      "One glyph per day, wrapped every 30. Percent is the share of ok days.",
+    code: `import { GraphUptime } from "@/registry/default/graph-uptime/graph-uptime"
+
+<GraphUptime
+  title="API"
+  from="Jun 1"
+  to="Aug 29"
+  days={Array.from({ length: 90 }, (_, index) =>
+    index === 41 || index === 42
+      ? "down"
+      : index === 18 || index === 60
+        ? "degraded"
+        : "ok"
+  )}
+/>`,
+    preview: (
+      <GraphUptime days={uptimeQuarter} from="Jun 1" title="API" to="Aug 29" />
+    ),
+  },
+  {
+    title: "Incident window",
+    description: "empty days sit as dashes so a gap stays visible.",
+    code: `import { GraphUptime } from "@/registry/default/graph-uptime/graph-uptime"
+
+<GraphUptime
+  title="WEBHOOKS"
+  days={[
+    "ok", "ok", "ok", "degraded", "ok",
+    "empty", "empty",
+    "ok", "down", "ok", "ok", "ok",
+  ]}
+  from="Mon"
+  to="Fri"
+/>`,
+    preview: (
+      <GraphUptime
+        days={[
+          "ok",
+          "ok",
+          "ok",
+          "degraded",
+          "ok",
+          "empty",
+          "empty",
+          "ok",
+          "down",
+          "ok",
+          "ok",
+          "ok",
+        ]}
+        from="Mon"
+        title="WEBHOOKS"
+        to="Fri"
+      />
+    ),
+  },
+]
+
+const slopeExamples: Example[] = [
+  {
+    title: "Traffic",
+    description: "Up uses the accent. Down recedes.",
+    code: `import { GraphSlope } from "@/registry/default/graph-slope/graph-slope"
+
+<GraphSlope
+  title="TRAFFIC"
+  fromLabel="2025"
+  toLabel="2026"
+  items={[
+    { label: "docs", from: 8200, to: 12400 },
+    { label: "copy", from: 5100, to: 4100 },
+    { label: "ship", from: 640, to: 860 },
+  ]}
+/>`,
+    preview: (
+      <GraphSlope
+        fromLabel="2025"
+        items={[
+          { label: "docs", from: 8200, to: 12400 },
+          { label: "copy", from: 5100, to: 4100 },
+          { label: "ship", from: 640, to: 860 },
+        ]}
+        title="TRAFFIC"
+        toLabel="2026"
+      />
+    ),
+  },
+  {
+    title: "Latency",
+    description: "Decimals stay tabular. Flat rows use a dash.",
+    code: `import { GraphSlope } from "@/registry/default/graph-slope/graph-slope"
+
+<GraphSlope
+  title="P95"
+  fromLabel="before"
+  toLabel="after"
+  items={[
+    { label: "read", from: 160, to: 142 },
+    { label: "write", from: 388, to: 410 },
+    { label: "cache", from: 12, to: 12 },
+  ]}
+/>`,
+    preview: (
+      <GraphSlope
+        fromLabel="before"
+        items={[
+          { label: "read", from: 160, to: 142 },
+          { label: "write", from: 388, to: 410 },
+          { label: "cache", from: 12, to: 12 },
+        ]}
+        title="P95"
+        toLabel="after"
+      />
+    ),
+  },
+]
+
+const bulletExamples: Example[] = [
+  {
+    title: "Targets",
+    description: "Fill is the actual. The marker is the target.",
+    code: `import { GraphBullet } from "@/registry/default/graph-bullet/graph-bullet"
+
+<GraphBullet
+  title="BUDGET"
+  items={[
+    { label: "Design", value: 42, target: 40 },
+    { label: "Motion", value: 18, target: 24 },
+    { label: "Docs", value: 9, target: 12 },
+  ]}
+/>`,
+    preview: (
+      <GraphBullet
+        items={[
+          { label: "Design", value: 42, target: 40 },
+          { label: "Motion", value: 18, target: 24 },
+          { label: "Docs", value: 9, target: 12 },
+        ]}
+        title="BUDGET"
+      />
+    ),
+  },
+  {
+    title: "Capacity",
+    description: "max locks the track when values share a scale.",
+    code: `import { GraphBullet } from "@/registry/default/graph-bullet/graph-bullet"
+
+<GraphBullet
+  title="LOAD"
+  items={[
+    { label: "CPU", value: 72, target: 80, max: 100 },
+    { label: "RAM", value: 34, target: 64, max: 100 },
+    { label: "SSD", value: 91, target: 90, max: 100 },
+  ]}
+/>`,
+    preview: (
+      <GraphBullet
+        items={[
+          { label: "CPU", value: 72, target: 80, max: 100 },
+          { label: "RAM", value: 34, target: 64, max: 100 },
+          { label: "SSD", value: 91, target: 90, max: 100 },
+        ]}
+        title="LOAD"
+      />
+    ),
+  },
+]
+
 const frameExamples: Example[] = [
   {
     title: "Titled frame",
@@ -1295,18 +1643,19 @@ const frameExamples: Example[] = [
   },
   {
     title: "Untitled",
-    description: "Skip title and the top edge stays a dashed line.",
+    description:
+      "Skip title and the top edge stays a dashed line. corner swaps the +.",
     code: `import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 
-<Graph>
+<Graph corner="*">
   <GraphBody>
-    <p>Corners still sit on pluses. Caption is optional.</p>
+    <p>Corners still sit on the frame. Caption is optional.</p>
   </GraphBody>
 </Graph>`,
     preview: (
-      <Graph>
+      <Graph corner="*">
         <GraphBody>
-          <p>Corners still sit on pluses. Caption is optional.</p>
+          <p>Corners still sit on the frame. Caption is optional.</p>
         </GraphBody>
       </Graph>
     ),
@@ -1318,8 +1667,6 @@ export const examplesBySlug: Record<string, Example[]> = {
   "graph-flow": flowExamples,
   "graph-bars": barsExamples,
   "graph-cells": cellsExamples,
-  "graph-scale": scaleExamples,
-  "graph-radii": radiiExamples,
   "graph-meter": meterExamples,
   "graph-spark": sparkExamples,
   "graph-tree": treeExamples,
@@ -1334,6 +1681,13 @@ export const examplesBySlug: Record<string, Example[]> = {
   "graph-compare": compareExamples,
   "graph-stat": statExamples,
   "graph-spec": specExamples,
+  "graph-activity": activityExamples,
+  "graph-heatmap": heatmapExamples,
+  "graph-calendar": calendarExamples,
+  "graph-waterfall": waterfallExamples,
+  "graph-uptime": uptimeExamples,
+  "graph-slope": slopeExamples,
+  "graph-bullet": bulletExamples,
   "graph-frame": frameExamples,
 }
 

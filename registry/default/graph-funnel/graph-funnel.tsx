@@ -2,11 +2,18 @@
 
 import { motion, useReducedMotion } from "motion/react"
 
-import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
+import {
+  Graph,
+  GraphBody,
+  GraphTick,
+  GraphTrack,
+} from "@/registry/default/graph-frame/graph-frame"
 import {
   DIM_OPACITY,
   fadeUp,
   staggerList,
+  trackMarks,
+  type Glyphs,
 } from "@/registry/default/graph-frame/graph-motion"
 
 type FunnelStep = {
@@ -20,6 +27,8 @@ type GraphFunnelProps = {
   steps: FunnelStep[]
   ticks?: number
   stage?: string
+  glyphs?: Glyphs
+  corner?: string
   className?: string
 }
 
@@ -28,6 +37,8 @@ function GraphFunnel({
   steps,
   ticks = 20,
   stage,
+  glyphs,
+  corner,
   className,
 }: GraphFunnelProps) {
   const reduce = useReducedMotion()
@@ -35,10 +46,11 @@ function GraphFunnel({
   const list = staggerList(reduce, 0.05)
   const max = Math.max(...steps.map((step) => step.value), 1)
   const head = steps[0]?.value || 1
+  const marks = trackMarks(glyphs)
 
   return (
-    <Graph title={title} className={className}>
-      <GraphBody className="overflow-x-auto">
+    <Graph title={title} className={className} corner={corner}>
+      <GraphBody>
         <motion.ol
           className="flex flex-col gap-3"
           initial={reduce ? false : "hidden"}
@@ -55,29 +67,28 @@ function GraphFunnel({
 
             return (
               <motion.li
-                key={step.label}
                 className="grid grid-cols-[7rem_minmax(0,1fr)_8ch_4ch] items-center gap-x-4"
+                key={step.label}
                 style={dim ? { opacity: DIM_OPACITY } : undefined}
                 variants={item}
               >
                 <span className="truncate text-foreground">{step.label}</span>
-                <span aria-hidden="true" className="flex select-none">
-                  <span className="flex text-graph-accent">
-                    {Array.from({ length: width }, (_, cell) => (
-                      <span className="w-[1ch] text-center" key={cell}>
-                        █
-                      </span>
-                    ))}
-                  </span>
-                  {Array.from({ length: ticks - width }, (_, cell) => (
-                    <span
-                      className="w-[1ch] text-center text-graph-frame"
-                      key={cell}
-                    >
-                      -
-                    </span>
-                  ))}
-                </span>
+                <GraphTrack>
+                  {Array.from({ length: ticks }, (_, cell) => {
+                    const filled = cell < width
+
+                    return (
+                      <GraphTick
+                        className={
+                          filled ? "text-graph-accent" : "text-graph-frame"
+                        }
+                        key={cell}
+                      >
+                        {filled ? marks.fill : marks.empty}
+                      </GraphTick>
+                    )
+                  })}
+                </GraphTrack>
                 <span className="text-right text-foreground tabular-nums">
                   {step.display ?? step.value.toLocaleString()}
                 </span>

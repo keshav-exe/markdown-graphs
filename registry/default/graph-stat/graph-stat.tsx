@@ -26,17 +26,18 @@ type StatItem = {
 type GraphStatProps = {
   title: string
   items: StatItem[]
+  corner?: string
   className?: string
 }
 
-function GraphStat({ title, items, className }: GraphStatProps) {
+function GraphStat({ title, items, corner, className }: GraphStatProps) {
   const reduce = useReducedMotion()
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.06)
   const columns = Math.min(items.length, 4)
 
   return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody>
         <motion.ul
           className={cn("grid gap-8", columnClass[columns])}

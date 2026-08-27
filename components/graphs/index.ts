@@ -3,7 +3,9 @@ export {
   GraphBody,
   GraphCorners,
   GraphRule,
+  GraphTick,
   GraphTitle,
+  GraphTrack,
 } from "@/registry/default/graph-frame/graph-frame"
 export { GraphArrow } from "@/registry/default/graph-frame/graph-arrow"
 export {
@@ -12,13 +14,18 @@ export {
   staggerList,
   easeOutCubic,
   clamp01,
+  GLYPH_SETS,
+  INTENSITY_GLYPHS,
+  intensityClass,
+  intensityGlyph,
+  intensityLevel,
+  resolveGlyphs,
+  trackMarks,
 } from "@/registry/default/graph-frame/graph-motion"
 export { GraphTable } from "@/registry/default/graph-table/graph-table"
 export { GraphFlow } from "@/registry/default/graph-flow/graph-flow"
 export { GraphBars } from "@/registry/default/graph-bars/graph-bars"
 export { GraphCells } from "@/registry/default/graph-cells/graph-cells"
-export { GraphScale } from "@/registry/default/graph-scale/graph-scale"
-export { GraphRadii } from "@/registry/default/graph-radii/graph-radii"
 export { GraphMeter } from "@/registry/default/graph-meter/graph-meter"
 export { GraphSpark } from "@/registry/default/graph-spark/graph-spark"
 export { GraphTree } from "@/registry/default/graph-tree/graph-tree"
@@ -33,7 +40,18 @@ export { GraphInvoice } from "@/registry/default/graph-invoice/graph-invoice"
 export { GraphCompare } from "@/registry/default/graph-compare/graph-compare"
 export { GraphStat } from "@/registry/default/graph-stat/graph-stat"
 export { GraphSpec } from "@/registry/default/graph-spec/graph-spec"
+export { GraphActivity } from "@/registry/default/graph-activity/graph-activity"
+export { GraphHeatmap } from "@/registry/default/graph-heatmap/graph-heatmap"
+export { GraphCalendar } from "@/registry/default/graph-calendar/graph-calendar"
+export { GraphWaterfall } from "@/registry/default/graph-waterfall/graph-waterfall"
+export { GraphUptime } from "@/registry/default/graph-uptime/graph-uptime"
+export { GraphSlope } from "@/registry/default/graph-slope/graph-slope"
+export { GraphBullet } from "@/registry/default/graph-bullet/graph-bullet"
 
+export type {
+  GlyphSetName,
+  Glyphs,
+} from "@/registry/default/graph-frame/graph-motion"
 export type { GraphTableProps } from "@/registry/default/graph-table/graph-table"
 export type {
   FlowNode,
@@ -48,11 +66,6 @@ export type {
   CellGrid,
   GraphCellsProps,
 } from "@/registry/default/graph-cells/graph-cells"
-export type {
-  GraphScaleProps,
-  ScaleItem,
-} from "@/registry/default/graph-scale/graph-scale"
-export type { GraphRadiiProps } from "@/registry/default/graph-radii/graph-radii"
 export type { GraphMeterProps } from "@/registry/default/graph-meter/graph-meter"
 export type { GraphSparkProps } from "@/registry/default/graph-spark/graph-spark"
 export type {
@@ -104,3 +117,32 @@ export type {
   GraphSpecProps,
   SpecRow,
 } from "@/registry/default/graph-spec/graph-spec"
+export type {
+  ActivityDay,
+  GraphActivityProps,
+} from "@/registry/default/graph-activity/graph-activity"
+export type {
+  GraphHeatmapProps,
+  HeatRow,
+} from "@/registry/default/graph-heatmap/graph-heatmap"
+export type {
+  CalendarMark,
+  GraphCalendarProps,
+} from "@/registry/default/graph-calendar/graph-calendar"
+export type {
+  GraphWaterfallProps,
+  WaterfallItem,
+  WaterfallKind,
+} from "@/registry/default/graph-waterfall/graph-waterfall"
+export type {
+  GraphUptimeProps,
+  UptimeStatus,
+} from "@/registry/default/graph-uptime/graph-uptime"
+export type {
+  GraphSlopeProps,
+  SlopeItem,
+} from "@/registry/default/graph-slope/graph-slope"
+export type {
+  BulletItem,
+  GraphBulletProps,
+} from "@/registry/default/graph-bullet/graph-bullet"

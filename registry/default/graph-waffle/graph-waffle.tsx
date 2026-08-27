@@ -6,6 +6,8 @@ import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import {
   fillDelay,
   graphTransition,
+  trackMarks,
+  type Glyphs,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -15,6 +17,8 @@ type GraphWaffleProps = {
   cells?: number
   columns?: number
   caption?: string
+  glyphs?: Glyphs
+  corner?: string
   className?: string
 }
 
@@ -24,34 +28,40 @@ function GraphWaffle({
   cells = 100,
   columns = 10,
   caption,
+  glyphs,
+  corner,
   className,
 }: GraphWaffleProps) {
   const reduce = useReducedMotion()
   const clamped = Math.min(1, Math.max(0, value))
   const filled = Math.round(clamped * cells)
   const rows = Math.ceil(cells / columns)
+  const marks = trackMarks(glyphs, {
+    empty: "░",
+    rest: "░",
+    fill: "█",
+  })
 
   return (
-    <Graph title={title} className={className}>
-      <GraphBody className="flex flex-col items-center gap-4">
+    <Graph title={title} className={className} corner={corner}>
+      <GraphBody className="flex flex-col gap-4">
         <div
           aria-hidden="true"
-          className="flex flex-col gap-1 select-none"
-          style={{ width: `${columns}ch` }}
+          className="flex w-full flex-col gap-1 select-none"
         >
           {Array.from({ length: rows }, (_, row) => (
-            <div className="flex" key={row}>
+            <div className="flex w-full" key={row}>
               {Array.from({ length: columns }, (_, column) => {
                 const index = row * columns + column
                 if (index >= cells) {
-                  return <span className="w-[1ch]" key={column} />
+                  return <span className="min-w-[1ch] flex-1" key={column} />
                 }
                 const isFilled = index < filled
 
                 return (
                   <motion.span
                     className={cn(
-                      "w-[1ch] text-center",
+                      "min-w-[1ch] flex-1 text-center",
                       isFilled ? "text-graph-accent" : "text-graph-frame"
                     )}
                     initial={reduce || !isFilled ? false : { opacity: 0 }}
@@ -62,14 +72,14 @@ function GraphWaffle({
                     viewport={{ once: true }}
                     whileInView={{ opacity: 1 }}
                   >
-                    {isFilled ? "█" : "░"}
+                    {isFilled ? marks.fill : marks.empty}
                   </motion.span>
                 )
               })}
             </div>
           ))}
         </div>
-        <p className="w-[4ch] text-center text-graph-accent tabular-nums">
+        <p className="text-graph-accent tabular-nums">
           {Math.round(clamped * 100)}%
         </p>
         {caption ? <p className="text-graph-muted">{caption}</p> : null}

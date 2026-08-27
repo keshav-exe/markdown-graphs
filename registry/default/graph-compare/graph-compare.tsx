@@ -22,6 +22,7 @@ type GraphCompareProps = {
   columns: string[]
   rows: CompareRow[]
   accent?: string
+  corner?: string
   className?: string
 }
 
@@ -38,6 +39,7 @@ function GraphCompare({
   columns,
   rows,
   accent,
+  corner,
   className,
 }: GraphCompareProps) {
   const reduce = useReducedMotion()
@@ -46,7 +48,7 @@ function GraphCompare({
   const template = `minmax(7rem,1fr) repeat(${columns.length}, minmax(4.5rem, 7rem))`
 
   return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody className="overflow-x-auto">
         <div className="flex min-w-lg flex-col gap-3">
           <div

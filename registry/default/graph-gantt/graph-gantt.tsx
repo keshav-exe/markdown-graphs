@@ -2,12 +2,19 @@
 
 import { motion, useReducedMotion } from "motion/react"
 
-import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
+import {
+  Graph,
+  GraphBody,
+  GraphTick,
+  GraphTrack,
+} from "@/registry/default/graph-frame/graph-frame"
 import {
   clamp01,
   DIM_OPACITY,
   fadeUp,
   staggerList,
+  trackMarks,
+  type Glyphs,
 } from "@/registry/default/graph-frame/graph-motion"
 import { cn } from "@/lib/utils"
 
@@ -26,6 +33,8 @@ type GraphGanttProps = {
   columns?: number
   stage?: string
   progress?: number
+  glyphs?: Glyphs
+  corner?: string
   className?: string
 }
 
@@ -36,6 +45,8 @@ function GraphGantt({
   columns = 24,
   stage,
   progress,
+  glyphs,
+  corner,
   className,
 }: GraphGanttProps) {
   const reduce = useReducedMotion()
@@ -43,34 +54,34 @@ function GraphGantt({
   const list = staggerList(reduce, 0.05)
   const playhead =
     progress == null ? null : Math.round(clamp01(progress) * (columns - 1))
+  const marks = trackMarks(glyphs)
 
   return (
-    <Graph title={title} className={className}>
-      <GraphBody className="flex flex-col gap-4 overflow-x-auto">
+    <Graph title={title} className={className} corner={corner}>
+      <GraphBody className="flex flex-col gap-4">
         {playhead != null ? (
           <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-x-4">
             <span />
-            <span aria-hidden="true" className="flex select-none">
+            <GraphTrack>
               {Array.from({ length: columns }, (_, index) => (
-                <span
-                  className={cn(
-                    "w-[1ch] text-center",
+                <GraphTick
+                  className={
                     index === playhead
                       ? "text-graph-accent"
                       : "text-transparent"
-                  )}
+                  }
                   key={index}
                 >
                   ▾
-                </span>
+                </GraphTick>
               ))}
-            </span>
+            </GraphTrack>
           </div>
         ) : null}
         <motion.ul
-          role="list"
           className="flex flex-col gap-2"
           initial={reduce ? false : "hidden"}
+          role="list"
           variants={list}
           viewport={{ once: true, amount: 0.4 }}
           whileInView="show"
@@ -90,8 +101,13 @@ function GraphGantt({
 
             return (
               <motion.li
-                key={entry.label}
+                aria-label={`${entry.label} from ${Math.round(entry.start * 100)}% to ${Math.round(entry.end * 100)}%${
+                  entry.complete != null
+                    ? `, ${Math.round(entry.complete * 100)}% complete`
+                    : ""
+                }`}
                 className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-4"
+                key={entry.label}
                 style={dim ? { opacity: DIM_OPACITY } : undefined}
                 variants={item}
               >
@@ -103,16 +119,15 @@ function GraphGantt({
                 >
                   {entry.label}
                 </span>
-                <span aria-hidden="true" className="flex select-none">
+                <GraphTrack>
                   {Array.from({ length: columns }, (_, index) => {
                     const inBar = index >= start && index < end
                     const filled = inBar && index < start + done
                     const rest = inBar && !filled
 
                     return (
-                      <span
-                        className={cn(
-                          "w-[1ch] text-center",
+                      <GraphTick
+                        className={
                           filled
                             ? focused
                               ? "text-graph-accent"
@@ -120,21 +135,14 @@ function GraphGantt({
                             : rest
                               ? "text-graph-muted"
                               : "text-graph-frame"
-                        )}
+                        }
                         key={index}
                       >
-                        {filled ? "█" : rest ? "░" : "-"}
-                      </span>
+                        {filled ? marks.fill : rest ? marks.rest : marks.empty}
+                      </GraphTick>
                     )
                   })}
-                </span>
-                <span className="sr-only">
-                  {entry.label} from {Math.round(entry.start * 100)}% to{" "}
-                  {Math.round(entry.end * 100)}%
-                  {entry.complete != null
-                    ? `, ${Math.round(entry.complete * 100)}% complete`
-                    : ""}
-                </span>
+                </GraphTrack>
               </motion.li>
             )
           })}

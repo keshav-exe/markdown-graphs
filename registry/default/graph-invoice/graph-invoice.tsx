@@ -44,6 +44,7 @@ type GraphInvoiceProps = {
   items: InvoiceItem[]
   totals?: InvoiceTotal[]
   note?: string
+  corner?: string
   className?: string
 }
 
@@ -71,6 +72,7 @@ function GraphInvoice({
   items,
   totals,
   note,
+  corner,
   className,
 }: GraphInvoiceProps) {
   const reduce = useReducedMotion()
@@ -81,7 +83,7 @@ function GraphInvoice({
   const columns = 1 + Number(showQty) + Number(showRate) + 1
 
   return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody className="flex flex-col gap-8">
         {from || to ? (
           <div className="grid gap-6 sm:grid-cols-2">

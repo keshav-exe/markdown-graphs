@@ -25,6 +25,7 @@ type FlowRow = {
 type GraphFlowProps = {
   title: string
   rows: FlowRow[]
+  corner?: string
   className?: string
 }
 
@@ -34,13 +35,13 @@ const toneClass: Record<FlowTone, string> = {
   muted: "text-graph-muted",
 }
 
-function GraphFlow({ title, rows, className }: GraphFlowProps) {
+function GraphFlow({ title, rows, corner, className }: GraphFlowProps) {
   const reduce = useReducedMotion()
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.08)
 
   return (
-    <Graph title={title} className={className}>
+    <Graph title={title} className={className} corner={corner}>
       <GraphBody className="flex flex-col gap-7">
         <motion.div
           className="flex flex-col gap-7"

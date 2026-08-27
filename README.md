@@ -48,8 +48,6 @@ pnpm dlx shadcn@latest add @markdown-graphs/graph-table
 | Flow | `graph-flow` | Process diagrams on a dashed arrow |
 | Bars | `graph-bars` | Two bar groups, side by side |
 | Cells | `graph-cells` | Filled / empty grids |
-| Scale | `graph-scale` | Labeled ratios and type samples |
-| Radii | `graph-radii` | Nested corner radii |
 | Meter | `graph-meter` | Progress as `=` and `-` |
 | Spark | `graph-spark` | Sparkline from block characters |
 | Tree | `graph-tree` | File or org trees |
@@ -64,15 +62,22 @@ pnpm dlx shadcn@latest add @markdown-graphs/graph-table
 | Compare | `graph-compare` | Feature matrix (`✓` / `–`) |
 | Stat | `graph-stat` | Large figures with labels |
 | Spec | `graph-spec` | Label / value sheets |
+| Activity | `graph-activity` | GitHub-style contribution grid |
+| Heatmap | `graph-heatmap` | Labeled 2d intensity matrix |
+| Calendar | `graph-calendar` | One month, marked days |
+| Waterfall | `graph-waterfall` | Running total as floating bars |
+| Uptime | `graph-uptime` | One glyph per day, percent up |
+| Slope | `graph-slope` | Two figures per row, before → after |
+| Bullet | `graph-bullet` | Actual versus target on one track |
 | Frame | `graph-frame` | Shared dashed frame primitives |
 
 Each docs page has CLI, manual, and agent install tabs. Copy page puts the markdown (install, prompt, examples, props) on the clipboard.
 
 ## Design
 
-- Geist Mono. Dashed frame, `+` corners, title as `[ TITLE ]`.
+- Geist Mono. Dashed frame, `+` corners (swap with `corner`), title as `[ TITLE ]`.
 - One accent: `--graph-accent`. Unused rows recede with opacity, not a second color.
-- Glyphs do the drawing (`█ ░ - = + ├ └ ✓`). Borders are dashes, not SVG strokes.
+- Glyphs do the drawing (`█ ▓ ▒ ░ · - = + | ├ └ ✓`). Tracks span the frame. Pass `glyphs` (`shade` `ascii` `hash` `bar`, or your own characters).
 - Numbers use `tabular-nums`. Amounts sit right-aligned.
 - Motion is transform and opacity only, 220ms, no loops. `prefers-reduced-motion` sets duration to 0.
 

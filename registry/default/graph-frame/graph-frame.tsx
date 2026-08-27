@@ -4,32 +4,32 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
-function GraphCorners() {
+function GraphCorners({ mark = "+" }: { mark?: string }) {
   return (
     <>
       <span
         aria-hidden="true"
         className="pointer-events-none absolute top-0 left-0 z-10 block -translate-x-1/2 -translate-y-1/2 bg-background px-0.5 text-graph-frame"
       >
-        +
+        {mark}
       </span>
       <span
         aria-hidden="true"
         className="pointer-events-none absolute top-0 right-0 z-10 block translate-x-1/2 -translate-y-1/2 bg-background px-0.5 text-graph-frame"
       >
-        +
+        {mark}
       </span>
       <span
         aria-hidden="true"
         className="pointer-events-none absolute bottom-0 left-0 z-10 block -translate-x-1/2 translate-y-1/2 bg-background px-0.5 text-graph-frame"
       >
-        +
+        {mark}
       </span>
       <span
         aria-hidden="true"
         className="pointer-events-none absolute right-0 bottom-0 z-10 block translate-x-1/2 translate-y-1/2 bg-background px-0.5 text-graph-frame"
       >
-        +
+        {mark}
       </span>
     </>
   )
@@ -69,13 +69,34 @@ function GraphRule({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+function GraphTrack({ className, ...props }: React.ComponentProps<"span">) {
+  return (
+    <span
+      aria-hidden="true"
+      className={cn("flex w-full min-w-0 select-none", className)}
+      {...props}
+    />
+  )
+}
+
+function GraphTick({ className, ...props }: React.ComponentProps<"span">) {
+  return (
+    <span
+      className={cn("min-w-[1ch] flex-1 text-center", className)}
+      {...props}
+    />
+  )
+}
+
 function Graph({
   title,
+  corner = "+",
   className,
   children,
   ...props
 }: React.ComponentProps<"figure"> & {
   title?: string
+  corner?: string
 }) {
   const captionId = React.useId()
 
@@ -89,10 +110,18 @@ function Graph({
       {...props}
     >
       {title ? <GraphTitle id={captionId}>{title}</GraphTitle> : null}
-      <GraphCorners />
+      <GraphCorners mark={corner} />
       {children}
     </figure>
   )
 }
 
-export { Graph, GraphBody, GraphCorners, GraphRule, GraphTitle }
+export {
+  Graph,
+  GraphBody,
+  GraphCorners,
+  GraphRule,
+  GraphTick,
+  GraphTitle,
+  GraphTrack,
+}
