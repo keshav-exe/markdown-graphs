@@ -48,6 +48,15 @@ function SiteFooter() {
                   X
                 </a>
               </li>
+              <li>
+                <a
+                  className="font-normal text-muted-foreground hover:text-foreground"
+                  href="https://github.com/keshav-exe/markdown-graphs/blob/main/LICENSE"
+                  rel="noreferrer"
+                >
+                  MIT
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
