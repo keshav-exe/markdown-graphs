@@ -9,6 +9,7 @@ import { HugeiconsIcon } from "@hugeicons/react"
 
 import { AccentPicker } from "@/components/site/accent-picker"
 import { components, getStarted } from "@/lib/docs/catalog"
+import { isNewSlug } from "@/lib/docs/new"
 import { cn } from "@/lib/utils"
 
 function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
@@ -27,6 +28,7 @@ function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
             {components.map((item) => (
               <NavItem
                 href={`/docs/${item.slug}`}
+                isNew={isNewSlug(item.slug)}
                 key={item.slug}
                 onNavigate={onNavigate}
               >
@@ -59,10 +61,12 @@ function NavGroup({ label, children }: { label: string; children: ReactNode }) {
 function NavItem({
   href,
   children,
+  isNew = false,
   onNavigate,
 }: {
   href: string
   children: ReactNode
+  isNew?: boolean
   onNavigate?: () => void
 }) {
   const pathname = usePathname()
@@ -73,13 +77,18 @@ function NavItem({
       <Link
         aria-current={active ? "page" : undefined}
         className={cn(
-          "block px-2 py-2.5 text-muted-foreground hover:bg-muted hover:text-foreground sm:py-1.5",
+          "flex items-center justify-between gap-2 px-2 py-2.5 text-muted-foreground hover:bg-muted hover:text-foreground sm:py-1.5",
           active && "bg-muted text-foreground"
         )}
         href={href}
         onClick={onNavigate}
       >
-        {children}
+        <span className="min-w-0 truncate">{children}</span>
+        {isNew ? (
+          <span className="shrink-0 font-mono text-[10px] tracking-wide text-graph-accent uppercase">
+            new
+          </span>
+        ) : null}
       </Link>
     </li>
   )
