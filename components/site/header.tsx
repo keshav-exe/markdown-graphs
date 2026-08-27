@@ -6,7 +6,6 @@ import { Cancel01Icon, MenuIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { GithubStarLink } from "@/components/site/github-star"
-import { LogoMark } from "@/components/site/logo"
 import { SiteContainer } from "@/components/site/container"
 import { cn } from "@/lib/utils"
 
@@ -15,13 +14,8 @@ function SiteHeader({ stars }: { stars: number | null }) {
     <header className="pt-4 sm:pt-6">
       <SiteContainer>
         <div className="flex items-center gap-6">
-          <Link
-            aria-label="Homepage"
-            className="flex items-center gap-2.5 text-foreground"
-            href="/"
-          >
-            <LogoMark />
-            <span>markdown graphs</span>
+          <Link className="text-foreground" href="/">
+            markdown graphs
           </Link>
 
           <nav aria-label="Primary" className="max-lg:hidden">

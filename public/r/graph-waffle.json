@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "graph-frame",
-  "title": "Frame",
-  "description": "Dashed ASCII frame, title, corners, and motion helpers.",
+  "name": "graph-waffle",
+  "title": "Waffle",
+  "description": "A hundred cells. Value is how many are lit.",
   "dependencies": [
     "motion"
   ],
@@ -18,9 +18,9 @@
       "type": "registry:lib"
     },
     {
-      "path": "registry/default/graph-frame/graph-arrow.tsx",
-      "content": "\"use client\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction GraphArrow({\n  accent = false,\n  stretch = false,\n  className,\n}: {\n  accent?: boolean\n  stretch?: boolean\n  className?: string\n}) {\n  return (\n    <div\n      aria-hidden=\"true\"\n      className={cn(\n        \"flex min-w-6 items-center gap-1\",\n        stretch && \"min-w-10 flex-1\",\n        accent ? \"text-graph-accent\" : \"text-graph-frame\",\n        className\n      )}\n    >\n      {stretch ? (\n        <span className=\"h-px min-w-6 flex-1 border-t border-dashed border-current\" />\n      ) : (\n        <span>- - -</span>\n      )}\n      <span className=\"shrink-0\">▶</span>\n    </div>\n  )\n}\n\nexport { GraphArrow }\n",
-      "type": "registry:ui"
+      "path": "registry/default/graph-waffle/graph-waffle.tsx",
+      "content": "\"use client\"\n\nimport { motion, useReducedMotion } from \"motion/react\"\n\nimport { Graph, GraphBody } from \"@/registry/default/graph-frame/graph-frame\"\nimport {\n  fillDelay,\n  graphTransition,\n} from \"@/registry/default/graph-frame/graph-motion\"\nimport { cn } from \"@/lib/utils\"\n\ntype GraphWaffleProps = {\n  title: string\n  value: number\n  cells?: number\n  columns?: number\n  caption?: string\n  className?: string\n}\n\nfunction GraphWaffle({\n  title,\n  value,\n  cells = 100,\n  columns = 10,\n  caption,\n  className,\n}: GraphWaffleProps) {\n  const reduce = useReducedMotion()\n  const clamped = Math.min(1, Math.max(0, value))\n  const filled = Math.round(clamped * cells)\n  const rows = Math.ceil(cells / columns)\n\n  return (\n    <Graph title={title} className={className}>\n      <GraphBody className=\"flex flex-col items-center gap-4\">\n        <div\n          aria-hidden=\"true\"\n          className=\"flex flex-col gap-1 select-none\"\n          style={{ width: `${columns}ch` }}\n        >\n          {Array.from({ length: rows }, (_, row) => (\n            <div className=\"flex\" key={row}>\n              {Array.from({ length: columns }, (_, column) => {\n                const index = row * columns + column\n                if (index >= cells) {\n                  return <span className=\"w-[1ch]\" key={column} />\n                }\n                const isFilled = index < filled\n\n                return (\n                  <motion.span\n                    className={cn(\n                      \"w-[1ch] text-center\",\n                      isFilled ? \"text-graph-accent\" : \"text-graph-frame\"\n                    )}\n                    initial={reduce || !isFilled ? false : { opacity: 0 }}\n                    key={column}\n                    transition={graphTransition(reduce, {\n                      delay: fillDelay(reduce, index, 0.006),\n                    })}\n                    viewport={{ once: true }}\n                    whileInView={{ opacity: 1 }}\n                  >\n                    {isFilled ? \"█\" : \"░\"}\n                  </motion.span>\n                )\n              })}\n            </div>\n          ))}\n        </div>\n        <p className=\"w-[4ch] text-center text-graph-accent tabular-nums\">\n          {Math.round(clamped * 100)}%\n        </p>\n        {caption ? <p className=\"text-graph-muted\">{caption}</p> : null}\n        <span className=\"sr-only\">\n          {Math.round(clamped * 100)} percent\n          {caption ? `. ${caption}` : \"\"}\n        </span>\n      </GraphBody>\n    </Graph>\n  )\n}\n\nexport { GraphWaffle }\nexport type { GraphWaffleProps }\n",
+      "type": "registry:component"
     }
   ],
   "cssVars": {
@@ -67,6 +67,5 @@
       "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
     }
   },
-  "docs": "Primitive used by every graph. Install this, or skip it — every other item includes it.",
-  "type": "registry:ui"
+  "type": "registry:component"
 }

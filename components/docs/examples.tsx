@@ -6,13 +6,21 @@ import {
   GraphBars,
   GraphBody,
   GraphCells,
+  GraphDiff,
   GraphFlow,
+  GraphFunnel,
+  GraphGantt,
   GraphMeter,
+  GraphPlot,
   GraphRadii,
   GraphRule,
   GraphScale,
   GraphSpark,
+  GraphStack,
   GraphTable,
+  GraphTimeline,
+  GraphTree,
+  GraphWaffle,
 } from "@/components/graphs"
 
 type Example = {
@@ -237,7 +245,7 @@ const cellsExamples: Example[] = [
       ],
     },
     {
-      label: "animations.dev",
+      label: "a system",
       cells: [
         [1, 1, 1, 1, 1],
         [1, 1, 1, 1, 1],
@@ -258,7 +266,7 @@ const cellsExamples: Example[] = [
             ],
           },
           {
-            label: "animations.dev",
+            label: "a system",
             cells: [
               [1, 1, 1, 1, 1],
               [1, 1, 1, 1, 1],
@@ -398,7 +406,7 @@ const radiiExamples: Example[] = [
 const meterExamples: Example[] = [
   {
     title: "Shipped",
-    description: "Characters, not a progress bar.",
+    description: "Empty ticks sit still. Fill grows in.",
     code: `import { GraphMeter } from "@/registry/default/graph-meter/graph-meter"
 
 <GraphMeter
@@ -434,17 +442,17 @@ const meterExamples: Example[] = [
 const sparkExamples: Example[] = [
   {
     title: "Latency",
-    description: "Swap a glyph. That's the animation.",
+    description: "Last point is the accent. Earlier points recede.",
     code: `import { GraphSpark } from "@/registry/default/graph-spark/graph-spark"
 
 <GraphSpark
   title="LATENCY"
   data={[2, 3, 4, 3, 6, 5, 8, 7, 9, 6, 10, 8]}
-  caption="swap a glyph, that's the animation"
+  caption="last point is the accent"
 />`,
     preview: (
       <GraphSpark
-        caption="swap a glyph, that's the animation"
+        caption="last point is the accent"
         data={[2, 3, 4, 3, 6, 5, 8, 7, 9, 6, 10, 8]}
         title="LATENCY"
       />
@@ -465,6 +473,506 @@ const sparkExamples: Example[] = [
         caption="last twelve deploys"
         data={[4, 4, 5, 3, 6, 8, 7, 9, 8, 6, 5, 7]}
         title="REQUESTS"
+      />
+    ),
+  },
+]
+
+const treeExamples: Example[] = [
+  {
+    title: "Registry",
+    description: "Nested nodes. Accent the file you care about.",
+    code: `import { GraphTree } from "@/registry/default/graph-tree/graph-tree"
+
+<GraphTree
+  title="REGISTRY"
+  nodes={[
+    {
+      label: "registry/default",
+      children: [
+        {
+          label: "graph-frame",
+          children: [
+            { label: "graph-frame.tsx", meta: "ui" },
+            { label: "graph-motion.ts", meta: "lib" },
+          ],
+        },
+        {
+          label: "graph-tree",
+          children: [
+            { label: "graph-tree.tsx", meta: "ui", accent: true },
+          ],
+        },
+      ],
+    },
+  ]}
+/>`,
+    preview: (
+      <GraphTree
+        nodes={[
+          {
+            label: "registry/default",
+            children: [
+              {
+                label: "graph-frame",
+                children: [
+                  { label: "graph-frame.tsx", meta: "ui" },
+                  { label: "graph-motion.ts", meta: "lib" },
+                ],
+              },
+              {
+                label: "graph-tree",
+                children: [
+                  { label: "graph-tree.tsx", meta: "ui", accent: true },
+                ],
+              },
+            ],
+          },
+        ]}
+        title="REGISTRY"
+      />
+    ),
+  },
+  {
+    title: "Team",
+    description: "Same component. Org chart, not a filesystem.",
+    code: `import { GraphTree } from "@/registry/default/graph-tree/graph-tree"
+
+<GraphTree
+  title="ON CALL"
+  nodes={[
+    {
+      label: "platform",
+      children: [
+        { label: "api", meta: "priya" },
+        { label: "workers", meta: "jon", accent: true },
+        { label: "edge", meta: "mina" },
+      ],
+    },
+  ]}
+/>`,
+    preview: (
+      <GraphTree
+        nodes={[
+          {
+            label: "platform",
+            children: [
+              { label: "api", meta: "priya" },
+              { label: "workers", meta: "jon", accent: true },
+              { label: "edge", meta: "mina" },
+            ],
+          },
+        ]}
+        title="ON CALL"
+      />
+    ),
+  },
+]
+
+const timelineExamples: Example[] = [
+  {
+    title: "Shipped",
+    description: "now is the accent. next stays hollow.",
+    code: `import { GraphTimeline } from "@/registry/default/graph-timeline/graph-timeline"
+
+<GraphTimeline
+  title="SHIPPED"
+  events={[
+    { date: "Mar 12", label: "CLI copies the files" },
+    { date: "Mar 18", label: "Docs, live previews", state: "now" },
+    { date: "Apr 02", label: "Registry listed", state: "next" },
+  ]}
+/>`,
+    preview: (
+      <GraphTimeline
+        events={[
+          { date: "Mar 12", label: "CLI copies the files" },
+          { date: "Mar 18", label: "Docs, live previews", state: "now" },
+          { date: "Apr 02", label: "Registry listed", state: "next" },
+        ]}
+        title="SHIPPED"
+      />
+    ),
+  },
+  {
+    title: "Incident",
+    description: "A postmortem in three rows.",
+    code: `import { GraphTimeline } from "@/registry/default/graph-timeline/graph-timeline"
+
+<GraphTimeline
+  title="INCIDENT"
+  events={[
+    { date: "14:02", label: "p95 crossed 800ms" },
+    { date: "14:11", label: "rolled back the cache flag", state: "now" },
+    { date: "14:40", label: "write the postmortem", state: "next" },
+  ]}
+/>`,
+    preview: (
+      <GraphTimeline
+        events={[
+          { date: "14:02", label: "p95 crossed 800ms" },
+          {
+            date: "14:11",
+            label: "rolled back the cache flag",
+            state: "now",
+          },
+          { date: "14:40", label: "write the postmortem", state: "next" },
+        ]}
+        title="INCIDENT"
+      />
+    ),
+  },
+]
+
+const stackExamples: Example[] = [
+  {
+    title: "Bundle",
+    description: "Glyphs instead of a rainbow. Accent one series.",
+    code: `import { GraphStack } from "@/registry/default/graph-stack/graph-stack"
+
+<GraphStack
+  title="BUNDLE"
+  accent="js"
+  rows={[
+    {
+      label: "marketing",
+      segments: [
+        { label: "js", value: 48 },
+        { label: "css", value: 22 },
+        { label: "images", value: 30 },
+      ],
+    },
+    {
+      label: "docs",
+      segments: [
+        { label: "js", value: 28 },
+        { label: "css", value: 18 },
+        { label: "images", value: 54 },
+      ],
+    },
+  ]}
+/>`,
+    preview: (
+      <GraphStack
+        accent="js"
+        rows={[
+          {
+            label: "marketing",
+            segments: [
+              { label: "js", value: 48 },
+              { label: "css", value: 22 },
+              { label: "images", value: 30 },
+            ],
+          },
+          {
+            label: "docs",
+            segments: [
+              { label: "js", value: 28 },
+              { label: "css", value: 18 },
+              { label: "images", value: 54 },
+            ],
+          },
+        ]}
+        title="BUNDLE"
+      />
+    ),
+  },
+  {
+    title: "Tokens",
+    description: "One row. A pie, without the pie.",
+    code: `import { GraphStack } from "@/registry/default/graph-stack/graph-stack"
+
+<GraphStack
+  title="TOKENS"
+  ticks={28}
+  rows={[
+    {
+      label: "week",
+      segments: [
+        { label: "prompt", value: 61 },
+        { label: "completion", value: 27 },
+        { label: "cached", value: 12 },
+      ],
+    },
+  ]}
+/>`,
+    preview: (
+      <GraphStack
+        rows={[
+          {
+            label: "week",
+            segments: [
+              { label: "prompt", value: 61 },
+              { label: "completion", value: 27 },
+              { label: "cached", value: 12 },
+            ],
+          },
+        ]}
+        ticks={28}
+        title="TOKENS"
+      />
+    ),
+  },
+]
+
+const funnelExamples: Example[] = [
+  {
+    title: "Install",
+    description: "Percent vs the first step. Stage recedes the rest.",
+    code: `import { GraphFunnel } from "@/registry/default/graph-funnel/graph-funnel"
+
+<GraphFunnel
+  title="INSTALL"
+  stage="ship"
+  steps={[
+    { label: "docs", value: 12400, display: "12,400" },
+    { label: "copy", value: 4100, display: "4,100" },
+    { label: "ship", value: 860, display: "860" },
+  ]}
+/>`,
+    preview: (
+      <GraphFunnel
+        stage="ship"
+        steps={[
+          { label: "docs", value: 12400, display: "12,400" },
+          { label: "copy", value: 4100, display: "4,100" },
+          { label: "ship", value: 860, display: "860" },
+        ]}
+        title="INSTALL"
+      />
+    ),
+  },
+  {
+    title: "Signup",
+    description: "Tighter track. Same math.",
+    code: `import { GraphFunnel } from "@/registry/default/graph-funnel/graph-funnel"
+
+<GraphFunnel
+  title="SIGNUP"
+  ticks={16}
+  steps={[
+    { label: "visit", value: 8000, display: "8,000" },
+    { label: "start", value: 2400, display: "2,400" },
+    { label: "verify", value: 960, display: "960" },
+    { label: "paid", value: 180, display: "180" },
+  ]}
+/>`,
+    preview: (
+      <GraphFunnel
+        steps={[
+          { label: "visit", value: 8000, display: "8,000" },
+          { label: "start", value: 2400, display: "2,400" },
+          { label: "verify", value: 960, display: "960" },
+          { label: "paid", value: 180, display: "180" },
+        ]}
+        ticks={16}
+        title="SIGNUP"
+      />
+    ),
+  },
+]
+
+const ganttExamples: Example[] = [
+  {
+    title: "Launch",
+    description: "complete fills the bar. progress is the playhead.",
+    code: `import { GraphGantt } from "@/registry/default/graph-gantt/graph-gantt"
+
+<GraphGantt
+  title="LAUNCH"
+  stage="build"
+  progress={0.58}
+  ticks={["q1", "q2", "q3", "q4"]}
+  items={[
+    { label: "design", start: 0, end: 0.35, complete: 1 },
+    { label: "build", start: 0.2, end: 0.75, complete: 0.55 },
+    { label: "docs", start: 0.55, end: 0.9, complete: 0.2 },
+    { label: "ship", start: 0.85, end: 1, complete: 0 },
+  ]}
+/>`,
+    preview: (
+      <GraphGantt
+        items={[
+          { label: "design", start: 0, end: 0.35, complete: 1 },
+          { label: "build", start: 0.2, end: 0.75, complete: 0.55 },
+          { label: "docs", start: 0.55, end: 0.9, complete: 0.2 },
+          { label: "ship", start: 0.85, end: 1, complete: 0 },
+        ]}
+        progress={0.58}
+        stage="build"
+        ticks={["q1", "q2", "q3", "q4"]}
+        title="LAUNCH"
+      />
+    ),
+  },
+  {
+    title: "Week",
+    description: "A denser track. Same API.",
+    code: `import { GraphGantt } from "@/registry/default/graph-gantt/graph-gantt"
+
+<GraphGantt
+  title="THIS WEEK"
+  columns={20}
+  ticks={["mon", "wed", "fri"]}
+  items={[
+    { label: "rfc", start: 0, end: 0.4, accent: true },
+    { label: "patch", start: 0.35, end: 0.8 },
+    { label: "review", start: 0.7, end: 1 },
+  ]}
+/>`,
+    preview: (
+      <GraphGantt
+        columns={20}
+        items={[
+          { label: "rfc", start: 0, end: 0.4, accent: true },
+          { label: "patch", start: 0.35, end: 0.8 },
+          { label: "review", start: 0.7, end: 1 },
+        ]}
+        ticks={["mon", "wed", "fri"]}
+        title="THIS WEEK"
+      />
+    ),
+  },
+]
+
+const plotExamples: Example[] = [
+  {
+    title: "p95",
+    description: "Last cap is the live point.",
+    code: `import { GraphPlot } from "@/registry/default/graph-plot/graph-plot"
+
+<GraphPlot
+  title="P95"
+  data={[2, 3, 3, 5, 4, 7, 6, 8, 5, 9, 7, 6]}
+  labels={["jan", "dec"]}
+/>`,
+    preview: (
+      <GraphPlot
+        data={[2, 3, 3, 5, 4, 7, 6, 8, 5, 9, 7, 6]}
+        labels={["jan", "dec"]}
+        title="P95"
+      />
+    ),
+  },
+  {
+    title: "Errors",
+    description: "Line only. progress reveals a prefix.",
+    code: `import { GraphPlot } from "@/registry/default/graph-plot/graph-plot"
+
+<GraphPlot
+  title="ERRORS"
+  variant="line"
+  height={5}
+  progress={0.7}
+  data={[1, 1, 4, 2, 8, 3, 2, 1, 5, 2]}
+  labels={["mon", "fri"]}
+/>`,
+    preview: (
+      <GraphPlot
+        data={[1, 1, 4, 2, 8, 3, 2, 1, 5, 2]}
+        height={5}
+        labels={["mon", "fri"]}
+        progress={0.7}
+        title="ERRORS"
+        variant="line"
+      />
+    ),
+  },
+]
+
+const waffleExamples: Example[] = [
+  {
+    title: "Coverage",
+    description: "One hundred cells. Value is how many are lit.",
+    code: `import { GraphWaffle } from "@/registry/default/graph-waffle/graph-waffle"
+
+<GraphWaffle
+  title="COVERAGE"
+  value={0.73}
+  caption="73 of 100 tests green"
+/>`,
+    preview: (
+      <GraphWaffle
+        caption="73 of 100 tests green"
+        title="COVERAGE"
+        value={0.73}
+      />
+    ),
+  },
+  {
+    title: "Quota",
+    description: "Fewer cells. Same 0–1 value.",
+    code: `import { GraphWaffle } from "@/registry/default/graph-waffle/graph-waffle"
+
+<GraphWaffle
+  title="QUOTA"
+  value={0.4}
+  cells={40}
+  columns={8}
+  caption="seats used"
+/>`,
+    preview: (
+      <GraphWaffle
+        caption="seats used"
+        cells={40}
+        columns={8}
+        title="QUOTA"
+        value={0.4}
+      />
+    ),
+  },
+]
+
+const diffExamples: Example[] = [
+  {
+    title: "Bundle",
+    description: "Plus, minus, keep. Footer is the total.",
+    code: `import { GraphDiff } from "@/registry/default/graph-diff/graph-diff"
+
+<GraphDiff
+  title="BUNDLE"
+  rows={[
+    { label: "vendor", value: "84 kb" },
+    { label: "app", value: "31 kb", sign: "add" },
+    { label: "sourcemaps", value: "12 kb", sign: "remove" },
+  ]}
+  footer={{ label: "shipped", value: "103 kb" }}
+/>`,
+    preview: (
+      <GraphDiff
+        footer={{ label: "shipped", value: "103 kb" }}
+        rows={[
+          { label: "vendor", value: "84 kb" },
+          { label: "app", value: "31 kb", sign: "add" },
+          { label: "sourcemaps", value: "12 kb", sign: "remove" },
+        ]}
+        title="BUNDLE"
+      />
+    ),
+  },
+  {
+    title: "Headcount",
+    description: "A ledger, not a table.",
+    code: `import { GraphDiff } from "@/registry/default/graph-diff/graph-diff"
+
+<GraphDiff
+  title="HEADCOUNT"
+  rows={[
+    { label: "start", value: "12" },
+    { label: "hired", value: "3", sign: "add" },
+    { label: "left", value: "1", sign: "remove" },
+  ]}
+  footer={{ label: "now", value: "14" }}
+/>`,
+    preview: (
+      <GraphDiff
+        footer={{ label: "now", value: "14" }}
+        rows={[
+          { label: "start", value: "12" },
+          { label: "hired", value: "3", sign: "add" },
+          { label: "left", value: "1", sign: "remove" },
+        ]}
+        title="HEADCOUNT"
       />
     ),
   },
@@ -526,6 +1034,14 @@ export const examplesBySlug: Record<string, Example[]> = {
   "graph-radii": radiiExamples,
   "graph-meter": meterExamples,
   "graph-spark": sparkExamples,
+  "graph-tree": treeExamples,
+  "graph-timeline": timelineExamples,
+  "graph-stack": stackExamples,
+  "graph-funnel": funnelExamples,
+  "graph-gantt": ganttExamples,
+  "graph-plot": plotExamples,
+  "graph-waffle": waffleExamples,
+  "graph-diff": diffExamples,
   "graph-frame": frameExamples,
 }
 

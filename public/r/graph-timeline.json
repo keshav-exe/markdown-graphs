@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "graph-frame",
-  "title": "Frame",
-  "description": "Dashed ASCII frame, title, corners, and motion helpers.",
+  "name": "graph-timeline",
+  "title": "Timeline",
+  "description": "Vertical changelog. Current row is the accent.",
   "dependencies": [
     "motion"
   ],
@@ -18,9 +18,9 @@
       "type": "registry:lib"
     },
     {
-      "path": "registry/default/graph-frame/graph-arrow.tsx",
-      "content": "\"use client\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction GraphArrow({\n  accent = false,\n  stretch = false,\n  className,\n}: {\n  accent?: boolean\n  stretch?: boolean\n  className?: string\n}) {\n  return (\n    <div\n      aria-hidden=\"true\"\n      className={cn(\n        \"flex min-w-6 items-center gap-1\",\n        stretch && \"min-w-10 flex-1\",\n        accent ? \"text-graph-accent\" : \"text-graph-frame\",\n        className\n      )}\n    >\n      {stretch ? (\n        <span className=\"h-px min-w-6 flex-1 border-t border-dashed border-current\" />\n      ) : (\n        <span>- - -</span>\n      )}\n      <span className=\"shrink-0\">▶</span>\n    </div>\n  )\n}\n\nexport { GraphArrow }\n",
-      "type": "registry:ui"
+      "path": "registry/default/graph-timeline/graph-timeline.tsx",
+      "content": "\"use client\"\n\nimport { motion, useReducedMotion } from \"motion/react\"\n\nimport { Graph, GraphBody } from \"@/registry/default/graph-frame/graph-frame\"\nimport {\n  fadeUp,\n  staggerList,\n} from \"@/registry/default/graph-frame/graph-motion\"\nimport { cn } from \"@/lib/utils\"\n\ntype TimelineState = \"done\" | \"now\" | \"next\"\n\ntype TimelineEvent = {\n  date: string\n  label: string\n  state?: TimelineState\n}\n\ntype GraphTimelineProps = {\n  title: string\n  events: TimelineEvent[]\n  className?: string\n}\n\nconst mark: Record<TimelineState, string> = {\n  done: \"●\",\n  now: \"●\",\n  next: \"○\",\n}\n\nfunction GraphTimeline({ title, events, className }: GraphTimelineProps) {\n  const reduce = useReducedMotion()\n  const item = fadeUp(reduce)\n  const list = staggerList(reduce, 0.05)\n\n  return (\n    <Graph title={title} className={className}>\n      <GraphBody>\n        <motion.ol\n          className=\"flex flex-col\"\n          initial={reduce ? false : \"hidden\"}\n          role=\"list\"\n          variants={list}\n          viewport={{ once: true, amount: 0.4 }}\n          whileInView=\"show\"\n        >\n          {events.map((event, index) => {\n            const state = event.state ?? \"done\"\n            const last = index === events.length - 1\n            const live = state === \"now\"\n\n            return (\n              <motion.li\n                key={`${event.date}-${event.label}`}\n                className=\"flex flex-col\"\n                variants={item}\n              >\n                <div className=\"grid grid-cols-[1.25rem_7rem_minmax(0,1fr)] items-baseline gap-x-4\">\n                  <span\n                    aria-hidden=\"true\"\n                    className={cn(\n                      \"text-center leading-none select-none\",\n                      live && \"text-graph-accent\",\n                      state === \"done\" && \"text-foreground\",\n                      state === \"next\" && \"text-graph-muted\"\n                    )}\n                  >\n                    {mark[state]}\n                  </span>\n                  <span\n                    className={cn(\n                      \"tabular-nums\",\n                      state === \"next\" ? \"text-graph-muted\" : \"text-foreground\"\n                    )}\n                  >\n                    {event.date}\n                  </span>\n                  <span\n                    className={cn(\n                      live && \"text-graph-accent\",\n                      state === \"done\" && \"text-foreground\",\n                      state === \"next\" && \"text-graph-muted\"\n                    )}\n                  >\n                    {event.label}\n                  </span>\n                </div>\n                {last ? null : (\n                  <div\n                    aria-hidden=\"true\"\n                    className=\"grid grid-cols-[1.25rem_7rem_minmax(0,1fr)] gap-x-4 py-1 select-none\"\n                  >\n                    <span className=\"text-center text-graph-frame\">│</span>\n                  </div>\n                )}\n              </motion.li>\n            )\n          })}\n        </motion.ol>\n      </GraphBody>\n    </Graph>\n  )\n}\n\nexport { GraphTimeline }\nexport type { GraphTimelineProps, TimelineEvent, TimelineState }\n",
+      "type": "registry:component"
     }
   ],
   "cssVars": {
@@ -67,6 +67,5 @@
       "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
     }
   },
-  "docs": "Primitive used by every graph. Install this, or skip it — every other item includes it.",
-  "type": "registry:ui"
+  "type": "registry:component"
 }

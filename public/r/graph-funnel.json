@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "graph-frame",
-  "title": "Frame",
-  "description": "Dashed ASCII frame, title, corners, and motion helpers.",
+  "name": "graph-funnel",
+  "title": "Funnel",
+  "description": "Conversion steps. Percent is versus the first row.",
   "dependencies": [
     "motion"
   ],
@@ -18,9 +18,9 @@
       "type": "registry:lib"
     },
     {
-      "path": "registry/default/graph-frame/graph-arrow.tsx",
-      "content": "\"use client\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction GraphArrow({\n  accent = false,\n  stretch = false,\n  className,\n}: {\n  accent?: boolean\n  stretch?: boolean\n  className?: string\n}) {\n  return (\n    <div\n      aria-hidden=\"true\"\n      className={cn(\n        \"flex min-w-6 items-center gap-1\",\n        stretch && \"min-w-10 flex-1\",\n        accent ? \"text-graph-accent\" : \"text-graph-frame\",\n        className\n      )}\n    >\n      {stretch ? (\n        <span className=\"h-px min-w-6 flex-1 border-t border-dashed border-current\" />\n      ) : (\n        <span>- - -</span>\n      )}\n      <span className=\"shrink-0\">▶</span>\n    </div>\n  )\n}\n\nexport { GraphArrow }\n",
-      "type": "registry:ui"
+      "path": "registry/default/graph-funnel/graph-funnel.tsx",
+      "content": "\"use client\"\n\nimport { motion, useReducedMotion } from \"motion/react\"\n\nimport { Graph, GraphBody } from \"@/registry/default/graph-frame/graph-frame\"\nimport {\n  DIM_OPACITY,\n  fadeUp,\n  staggerList,\n} from \"@/registry/default/graph-frame/graph-motion\"\n\ntype FunnelStep = {\n  label: string\n  value: number\n  display?: string\n}\n\ntype GraphFunnelProps = {\n  title: string\n  steps: FunnelStep[]\n  ticks?: number\n  stage?: string\n  className?: string\n}\n\nfunction GraphFunnel({\n  title,\n  steps,\n  ticks = 20,\n  stage,\n  className,\n}: GraphFunnelProps) {\n  const reduce = useReducedMotion()\n  const item = fadeUp(reduce)\n  const list = staggerList(reduce, 0.05)\n  const max = Math.max(...steps.map((step) => step.value), 1)\n  const head = steps[0]?.value || 1\n\n  return (\n    <Graph title={title} className={className}>\n      <GraphBody className=\"overflow-x-auto\">\n        <motion.ol\n          className=\"flex flex-col gap-3\"\n          initial={reduce ? false : \"hidden\"}\n          role=\"list\"\n          variants={list}\n          viewport={{ once: true, amount: 0.4 }}\n          whileInView=\"show\"\n        >\n          {steps.map((step, index) => {\n            const width = Math.max(1, Math.round((step.value / max) * ticks))\n            const percent = Math.round((step.value / head) * 100)\n            const focused = Boolean(stage) && step.label === stage\n            const dim = Boolean(stage) && !focused\n\n            return (\n              <motion.li\n                key={step.label}\n                className=\"grid grid-cols-[7rem_minmax(0,1fr)_8ch_4ch] items-center gap-x-4\"\n                style={dim ? { opacity: DIM_OPACITY } : undefined}\n                variants={item}\n              >\n                <span className=\"truncate text-foreground\">{step.label}</span>\n                <span aria-hidden=\"true\" className=\"flex select-none\">\n                  <span className=\"flex text-graph-accent\">\n                    {Array.from({ length: width }, (_, cell) => (\n                      <span className=\"w-[1ch] text-center\" key={cell}>\n                        █\n                      </span>\n                    ))}\n                  </span>\n                  {Array.from({ length: ticks - width }, (_, cell) => (\n                    <span\n                      className=\"w-[1ch] text-center text-graph-frame\"\n                      key={cell}\n                    >\n                      -\n                    </span>\n                  ))}\n                </span>\n                <span className=\"text-right text-foreground tabular-nums\">\n                  {step.display ?? step.value.toLocaleString()}\n                </span>\n                <span className=\"text-right text-graph-muted tabular-nums\">\n                  {index === 0 ? \"\" : `${percent}%`}\n                </span>\n              </motion.li>\n            )\n          })}\n        </motion.ol>\n      </GraphBody>\n    </Graph>\n  )\n}\n\nexport { GraphFunnel }\nexport type { FunnelStep, GraphFunnelProps }\n",
+      "type": "registry:component"
     }
   ],
   "cssVars": {
@@ -67,6 +67,5 @@
       "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
     }
   },
-  "docs": "Primitive used by every graph. Install this, or skip it — every other item includes it.",
-  "type": "registry:ui"
+  "type": "registry:component"
 }

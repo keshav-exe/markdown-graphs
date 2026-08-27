@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "motion/react"
 import { GraphArrow } from "@/registry/default/graph-frame/graph-arrow"
 import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
 import { graphTransition } from "@/registry/default/graph-frame/graph-motion"
+import { cn } from "@/lib/utils"
 
 type BarSeries = {
   label: string
@@ -25,10 +26,12 @@ function MiniBars({
   values,
   size = "sm",
   delay = 0,
+  tone = "accent",
 }: {
   values: number[]
   size?: "sm" | "lg"
   delay?: number
+  tone?: "accent" | "muted"
 }) {
   const reduce = useReducedMotion()
   const max = Math.max(...values, 1)
@@ -40,8 +43,11 @@ function MiniBars({
       {values.map((value, index) => (
         <motion.span
           key={index}
-          className="block h-(--bar-h) w-(--bar-w) origin-bottom bg-graph-accent will-change-transform"
-          initial={reduce ? false : { transform: "scaleY(0)" }}
+          className={cn(
+            "block h-(--bar-h) w-(--bar-w) origin-bottom will-change-transform",
+            tone === "accent" ? "bg-graph-accent" : "bg-graph-frame"
+          )}
+          initial={reduce ? false : { transform: "scaleY(0.08)" }}
           style={
             {
               "--bar-h": `${Math.max((value / max) * maxHeight, 2)}px`,
@@ -72,6 +78,7 @@ function GraphBars({
             <MiniBars
               delay={0.04}
               size={from.size ?? "sm"}
+              tone="muted"
               values={from.values}
             />
             <p className="text-graph-muted">{from.label}</p>
@@ -85,7 +92,7 @@ function GraphBars({
 
           <div className="flex flex-col items-center gap-3">
             <MiniBars delay={0.16} size={to.size ?? "lg"} values={to.values} />
-            <p className="text-graph-muted">{to.label}</p>
+            <p className="text-foreground">{to.label}</p>
           </div>
         </div>
       </GraphBody>

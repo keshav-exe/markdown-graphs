@@ -3,7 +3,10 @@
 import { motion, useReducedMotion } from "motion/react"
 
 import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
-import { graphTransition } from "@/registry/default/graph-frame/graph-motion"
+import {
+  fillDelay,
+  graphTransition,
+} from "@/registry/default/graph-frame/graph-motion"
 
 type CellGrid = {
   label: string
@@ -40,6 +43,8 @@ function Cell({ filled, delay }: { filled: boolean; delay: number }) {
 }
 
 function GraphCells({ title, items, className }: GraphCellsProps) {
+  const reduce = useReducedMotion()
+
   return (
     <Graph title={title} className={className}>
       <GraphBody>
@@ -52,9 +57,10 @@ function GraphCells({ title, items, className }: GraphCellsProps) {
                     {row.map((cell, cellIndex) => (
                       <Cell
                         key={cellIndex}
-                        delay={
-                          itemIndex * 0.12 + rowIndex * 0.05 + cellIndex * 0.03
-                        }
+                        delay={fillDelay(
+                          reduce,
+                          itemIndex * 8 + rowIndex * 5 + cellIndex
+                        )}
                         filled={cell === 1}
                       />
                     ))}

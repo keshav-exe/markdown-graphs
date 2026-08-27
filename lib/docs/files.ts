@@ -47,6 +47,46 @@ export const registryFiles: Record<string, string[]> = {
     "registry/default/graph-frame/graph-motion.ts",
     "registry/default/graph-spark/graph-spark.tsx",
   ],
+  "graph-tree": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-tree/graph-tree.tsx",
+  ],
+  "graph-timeline": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-timeline/graph-timeline.tsx",
+  ],
+  "graph-stack": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-stack/graph-stack.tsx",
+  ],
+  "graph-funnel": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-funnel/graph-funnel.tsx",
+  ],
+  "graph-gantt": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-gantt/graph-gantt.tsx",
+  ],
+  "graph-diff": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-diff/graph-diff.tsx",
+  ],
+  "graph-plot": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-plot/graph-plot.tsx",
+  ],
+  "graph-waffle": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-waffle/graph-waffle.tsx",
+  ],
   all: ["registry/default"],
 }
 

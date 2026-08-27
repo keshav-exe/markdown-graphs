@@ -2,6 +2,8 @@ import type { Transition, Variants } from "motion/react"
 
 export const easeOutCubic = [0.215, 0.61, 0.355, 1] as const
 
+export const DIM_OPACITY = 0.4
+
 export function graphTransition(
   reduce: boolean | null,
   extras?: Transition
@@ -42,4 +44,16 @@ export function staggerList(reduce: boolean | null, stagger = 0.04): Variants {
       transition: reduce ? { duration: 0 } : { staggerChildren: stagger },
     },
   }
+}
+
+export function fillDelay(reduce: boolean | null, index: number, step = 0.03) {
+  if (reduce) {
+    return 0
+  }
+
+  return Math.min(index * step, 0.28)
+}
+
+export function clamp01(value: number) {
+  return Math.min(1, Math.max(0, value))
 }

@@ -55,30 +55,32 @@ function GraphFlow({ title, rows, className }: GraphFlowProps) {
               className="flex min-w-0 flex-wrap items-center gap-x-3 gap-y-2 sm:flex-nowrap"
               variants={item}
             >
-              {row.nodes.map((node, nodeIndex) => (
-                <div
-                  key={`${node.label}-${nodeIndex}`}
-                  className={cn(
-                    "flex min-w-0 items-center gap-3",
-                    node.stretch && "min-w-16 flex-1"
-                  )}
-                >
-                  {nodeIndex > 0 ? (
-                    <GraphArrow
-                      accent={node.tone === "accent"}
-                      stretch={node.stretch}
-                    />
-                  ) : null}
-                  <span
+              {row.nodes.map((node, nodeIndex) => {
+                const tone = node.tone ?? "default"
+                const live = tone === "accent"
+
+                return (
+                  <div
+                    key={`${node.label}-${nodeIndex}`}
                     className={cn(
-                      "shrink-0 whitespace-nowrap",
-                      toneClass[node.tone ?? "default"]
+                      "flex min-w-0 items-center gap-3",
+                      node.stretch && "min-w-16 flex-1"
                     )}
                   >
-                    {node.label}
-                  </span>
-                </div>
-              ))}
+                    {nodeIndex > 0 ? (
+                      <GraphArrow accent={live} stretch={node.stretch} />
+                    ) : null}
+                    <span
+                      className={cn(
+                        "shrink-0 whitespace-nowrap",
+                        toneClass[tone]
+                      )}
+                    >
+                      {node.label}
+                    </span>
+                  </div>
+                )
+              })}
             </motion.div>
           ))}
         </motion.div>

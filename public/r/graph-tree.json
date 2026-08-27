@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "graph-frame",
-  "title": "Frame",
-  "description": "Dashed ASCII frame, title, corners, and motion helpers.",
+  "name": "graph-tree",
+  "title": "Tree",
+  "description": "File or org tree with branch glyphs.",
   "dependencies": [
     "motion"
   ],
@@ -18,9 +18,9 @@
       "type": "registry:lib"
     },
     {
-      "path": "registry/default/graph-frame/graph-arrow.tsx",
-      "content": "\"use client\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction GraphArrow({\n  accent = false,\n  stretch = false,\n  className,\n}: {\n  accent?: boolean\n  stretch?: boolean\n  className?: string\n}) {\n  return (\n    <div\n      aria-hidden=\"true\"\n      className={cn(\n        \"flex min-w-6 items-center gap-1\",\n        stretch && \"min-w-10 flex-1\",\n        accent ? \"text-graph-accent\" : \"text-graph-frame\",\n        className\n      )}\n    >\n      {stretch ? (\n        <span className=\"h-px min-w-6 flex-1 border-t border-dashed border-current\" />\n      ) : (\n        <span>- - -</span>\n      )}\n      <span className=\"shrink-0\">▶</span>\n    </div>\n  )\n}\n\nexport { GraphArrow }\n",
-      "type": "registry:ui"
+      "path": "registry/default/graph-tree/graph-tree.tsx",
+      "content": "\"use client\"\n\nimport { motion, useReducedMotion } from \"motion/react\"\n\nimport { Graph, GraphBody } from \"@/registry/default/graph-frame/graph-frame\"\nimport {\n  DIM_OPACITY,\n  fadeUp,\n  staggerList,\n} from \"@/registry/default/graph-frame/graph-motion\"\nimport { cn } from \"@/lib/utils\"\n\ntype TreeNode = {\n  label: string\n  meta?: string\n  accent?: boolean\n  children?: TreeNode[]\n}\n\ntype GraphTreeProps = {\n  title: string\n  nodes: TreeNode[]\n  className?: string\n}\n\ntype FlatRow = {\n  key: string\n  branch: string\n  label: string\n  meta?: string\n  accent?: boolean\n}\n\nfunction flatten(\n  nodes: TreeNode[],\n  prefix = \"\",\n  trail = \"root\",\n  isRoot = true\n): FlatRow[] {\n  const singleRoot = isRoot && nodes.length === 1\n\n  return nodes.flatMap((node, index) => {\n    const last = index === nodes.length - 1\n    const branch = singleRoot ? \"\" : prefix + (last ? \"└─ \" : \"├─ \")\n    const key = `${trail}/${node.label}-${index}`\n    const childPrefix = singleRoot ? \"\" : prefix + (last ? \"   \" : \"│  \")\n    const row: FlatRow = {\n      key,\n      branch,\n      label: node.label,\n      meta: node.meta,\n      accent: node.accent,\n    }\n    const kids = node.children\n      ? flatten(node.children, childPrefix, key, false)\n      : []\n    return [row, ...kids]\n  })\n}\n\nfunction GraphTree({ title, nodes, className }: GraphTreeProps) {\n  const reduce = useReducedMotion()\n  const item = fadeUp(reduce)\n  const list = staggerList(reduce, 0.03)\n  const rows = flatten(nodes)\n  const hasAccent = rows.some((row) => row.accent)\n\n  return (\n    <Graph title={title} className={className}>\n      <GraphBody className=\"overflow-x-auto\">\n        <motion.ul\n          role=\"list\"\n          className=\"flex min-w-max flex-col gap-1\"\n          initial={reduce ? false : \"hidden\"}\n          variants={list}\n          viewport={{ once: true, amount: 0.4 }}\n          whileInView=\"show\"\n        >\n          {rows.map((row) => {\n            const dim = hasAccent && !row.accent\n\n            return (\n              <motion.li\n                key={row.key}\n                className=\"grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-6\"\n                style={dim ? { opacity: DIM_OPACITY } : undefined}\n                variants={item}\n              >\n                <span className=\"whitespace-nowrap\">\n                  <span\n                    aria-hidden=\"true\"\n                    className=\"text-graph-frame select-none\"\n                  >\n                    {row.branch}\n                  </span>\n                  <span\n                    className={cn(\n                      row.accent ? \"text-graph-accent\" : \"text-foreground\"\n                    )}\n                  >\n                    {row.label}\n                  </span>\n                </span>\n                {row.meta ? (\n                  <span className=\"text-graph-muted tabular-nums\">\n                    {row.meta}\n                  </span>\n                ) : (\n                  <span />\n                )}\n              </motion.li>\n            )\n          })}\n        </motion.ul>\n        <span className=\"sr-only\">Tree with {rows.length} nodes</span>\n      </GraphBody>\n    </Graph>\n  )\n}\n\nexport { GraphTree }\nexport type { GraphTreeProps, TreeNode }\n",
+      "type": "registry:component"
     }
   ],
   "cssVars": {
@@ -67,6 +67,5 @@
       "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
     }
   },
-  "docs": "Primitive used by every graph. Install this, or skip it — every other item includes it.",
-  "type": "registry:ui"
+  "type": "registry:component"
 }

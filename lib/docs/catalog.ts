@@ -287,6 +287,308 @@ export const components: ComponentDoc[] = [
     ],
   },
   {
+    slug: "graph-tree",
+    title: "Tree",
+    name: "GraphTree",
+    description:
+      "A file or org tree. Branch glyphs are the chart. Accent a node to mark the point.",
+    registry: "graph-tree",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "nodes",
+        type: "TreeNode[]",
+        description:
+          "Nested nodes. Each may have label, meta, accent, and children.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-timeline",
+    title: "Timeline",
+    name: "GraphTimeline",
+    description:
+      "A vertical changelog. The current row is the accent. Next stays hollow.",
+    registry: "graph-timeline",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "events",
+        type: "TimelineEvent[]",
+        description: "date, label, and optional state: done, now, or next.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-stack",
+    title: "Stack",
+    name: "GraphStack",
+    description:
+      "Share of a whole. Glyphs stand in for series color. One accent.",
+    registry: "graph-stack",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "rows",
+        type: "StackRow[]",
+        description: "Each row has a label and labeled numeric segments.",
+      },
+      {
+        name: "accent",
+        type: "string",
+        description:
+          "Segment label to paint with the accent. Defaults to the first.",
+      },
+      {
+        name: "ticks",
+        type: "number",
+        default: "24",
+        description: "Bar width in characters.",
+      },
+      {
+        name: "glyphs",
+        type: "string[]",
+        description: "Characters used per segment, in order.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-funnel",
+    title: "Funnel",
+    name: "GraphFunnel",
+    description: "Each row is narrower. Percent is versus the first step.",
+    registry: "graph-funnel",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "steps",
+        type: "FunnelStep[]",
+        description: "label, value, and optional display string for the count.",
+      },
+      {
+        name: "ticks",
+        type: "number",
+        default: "20",
+        description: "Width of the first bar, in characters.",
+      },
+      {
+        name: "stage",
+        type: "string",
+        description: "Step label to focus. Other rows recede.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-gantt",
+    title: "Gantt",
+    name: "GraphGantt",
+    description:
+      "A schedule in dashes and blocks. start and end are 0–1 along the track.",
+    registry: "graph-gantt",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "items",
+        type: "GanttItem[]",
+        description:
+          "label, start, end, optional complete (0–1 fill inside the bar).",
+      },
+      {
+        name: "ticks",
+        type: "string[]",
+        description: "Labels under the track, spaced at the ends.",
+      },
+      {
+        name: "columns",
+        type: "number",
+        default: "24",
+        description: "Track width in characters.",
+      },
+      {
+        name: "stage",
+        type: "string",
+        description: "Row label to focus. Other rows recede.",
+      },
+      {
+        name: "progress",
+        type: "number",
+        description: "0–1 playhead. Draws ▾ on the track.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-plot",
+    title: "Plot",
+    name: "GraphPlot",
+    description:
+      "A line or area made of columns. Cap is █, fill is ░. One series.",
+    registry: "graph-plot",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "data",
+        type: "number[]",
+        description: "One value per column, left to right.",
+      },
+      {
+        name: "labels",
+        type: "string[]",
+        description: "First and last labels under the axis.",
+      },
+      {
+        name: "height",
+        type: "number",
+        default: "7",
+        description: "Rows in the plot.",
+      },
+      {
+        name: "variant",
+        type: '"line" | "area"',
+        default: '"area"',
+        description: "Area fills down from the cap with ░.",
+      },
+      {
+        name: "progress",
+        type: "number",
+        default: "1",
+        description: "0–1. How many columns are revealed.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-waffle",
+    title: "Waffle",
+    name: "GraphWaffle",
+    description:
+      "One hundred cells. Value is how many are lit. A pie, without the pie.",
+    registry: "graph-waffle",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "value",
+        type: "number",
+        description: "Share from 0 to 1.",
+      },
+      {
+        name: "cells",
+        type: "number",
+        default: "100",
+        description: "Total cells in the grid.",
+      },
+      {
+        name: "columns",
+        type: "number",
+        default: "10",
+        description: "Cells per row.",
+      },
+      {
+        name: "caption",
+        type: "string",
+        description: "Muted line under the percent.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-diff",
+    title: "Diff",
+    name: "GraphDiff",
+    description: "Plus, minus, keep. A ledger for a changelog or a bundle.",
+    registry: "graph-diff",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "rows",
+        type: "DiffRow[]",
+        description: "label, value, and optional sign: add, remove, or keep.",
+      },
+      {
+        name: "footer",
+        type: "DiffRow",
+        description: "Total row under a rule.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
     slug: "graph-frame",
     title: "Frame",
     name: "Graph",

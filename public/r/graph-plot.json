@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "graph-frame",
-  "title": "Frame",
-  "description": "Dashed ASCII frame, title, corners, and motion helpers.",
+  "name": "graph-plot",
+  "title": "Plot",
+  "description": "Line or area made of columns. Cap is █, fill is ░.",
   "dependencies": [
     "motion"
   ],
@@ -18,9 +18,9 @@
       "type": "registry:lib"
     },
     {
-      "path": "registry/default/graph-frame/graph-arrow.tsx",
-      "content": "\"use client\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction GraphArrow({\n  accent = false,\n  stretch = false,\n  className,\n}: {\n  accent?: boolean\n  stretch?: boolean\n  className?: string\n}) {\n  return (\n    <div\n      aria-hidden=\"true\"\n      className={cn(\n        \"flex min-w-6 items-center gap-1\",\n        stretch && \"min-w-10 flex-1\",\n        accent ? \"text-graph-accent\" : \"text-graph-frame\",\n        className\n      )}\n    >\n      {stretch ? (\n        <span className=\"h-px min-w-6 flex-1 border-t border-dashed border-current\" />\n      ) : (\n        <span>- - -</span>\n      )}\n      <span className=\"shrink-0\">▶</span>\n    </div>\n  )\n}\n\nexport { GraphArrow }\n",
-      "type": "registry:ui"
+      "path": "registry/default/graph-plot/graph-plot.tsx",
+      "content": "\"use client\"\n\nimport { motion, useReducedMotion } from \"motion/react\"\n\nimport {\n  Graph,\n  GraphBody,\n  GraphRule,\n} from \"@/registry/default/graph-frame/graph-frame\"\nimport {\n  clamp01,\n  fillDelay,\n  graphTransition,\n} from \"@/registry/default/graph-frame/graph-motion\"\nimport { cn } from \"@/lib/utils\"\n\ntype GraphPlotProps = {\n  title: string\n  data: number[]\n  labels?: string[]\n  height?: number\n  variant?: \"line\" | \"area\"\n  progress?: number\n  className?: string\n}\n\nfunction formatTick(value: number) {\n  if (Number.isInteger(value)) {\n    return String(value)\n  }\n\n  return value.toFixed(1)\n}\n\nfunction GraphPlot({\n  title,\n  data,\n  labels,\n  height = 7,\n  variant = \"area\",\n  progress = 1,\n  className,\n}: GraphPlotProps) {\n  const reduce = useReducedMotion()\n  const max = Math.max(...data, 0)\n  const min = Math.min(0, ...data)\n  const range = max - min || 1\n  const end = labels?.[labels.length - 1]\n  const start = labels?.[0]\n  const yLabel = formatTick(max)\n  const revealed = Math.round(clamp01(progress) * data.length)\n  const lastLive = Math.max(0, revealed - 1)\n\n  return (\n    <Graph title={title} className={className}>\n      <GraphBody className=\"flex flex-col gap-3 overflow-x-auto\">\n        <div className=\"flex gap-3\">\n          <div\n            className=\"flex w-[4ch] shrink-0 flex-col justify-between py-px text-right text-graph-muted tabular-nums\"\n            style={{ height: `${height}em` }}\n          >\n            <span>{yLabel}</span>\n            <span>{formatTick(min)}</span>\n          </div>\n          <div\n            aria-hidden=\"true\"\n            className=\"flex min-w-0 items-end gap-px select-none\"\n            style={{ height: `${height}em` }}\n          >\n            {data.map((value, column) => {\n              const level = Math.round(((value - min) / range) * (height - 1))\n              const live = column === lastLive && column < revealed\n              const shown = column < revealed\n\n              return (\n                <span className=\"flex h-full flex-col justify-end\" key={column}>\n                  {Array.from({ length: height }, (_, row) => {\n                    const fromBottom = height - 1 - row\n                    const isCap = shown && fromBottom === level\n                    const isFill =\n                      shown && variant === \"area\" && fromBottom < level\n                    const glyph = isCap ? \"█\" : isFill ? \"░\" : \" \"\n                    const tone = isCap\n                      ? live\n                        ? \"text-graph-accent\"\n                        : \"text-foreground\"\n                      : isFill\n                        ? \"text-graph-muted\"\n                        : \"text-transparent\"\n\n                    return (\n                      <motion.span\n                        className={cn(\"h-[1em] w-[1ch] text-center\", tone)}\n                        initial={\n                          reduce || !shown || glyph === \" \"\n                            ? false\n                            : { opacity: 0 }\n                        }\n                        key={row}\n                        transition={graphTransition(reduce, {\n                          delay: fillDelay(reduce, column),\n                        })}\n                        viewport={{ once: true }}\n                        whileInView={{ opacity: 1 }}\n                      >\n                        {glyph}\n                      </motion.span>\n                    )\n                  })}\n                </span>\n              )\n            })}\n          </div>\n        </div>\n        {start || end ? (\n          <>\n            <div className=\"flex gap-3\">\n              <span className=\"invisible w-[4ch] shrink-0 tabular-nums\">\n                {yLabel}\n              </span>\n              <GraphRule className=\"flex-1\" />\n            </div>\n            <div className=\"flex gap-3\">\n              <span className=\"invisible w-[4ch] shrink-0 tabular-nums\">\n                {yLabel}\n              </span>\n              <div className=\"flex flex-1 justify-between text-graph-muted\">\n                <span>{start}</span>\n                {end && end !== start ? <span>{end}</span> : null}\n              </div>\n            </div>\n          </>\n        ) : null}\n        <span className=\"sr-only\">\n          {variant} plot, {data.length} points, min {formatTick(min)}, max{\" \"}\n          {formatTick(max)}\n        </span>\n      </GraphBody>\n    </Graph>\n  )\n}\n\nexport { GraphPlot }\nexport type { GraphPlotProps }\n",
+      "type": "registry:component"
     }
   ],
   "cssVars": {
@@ -67,6 +67,5 @@
       "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
     }
   },
-  "docs": "Primitive used by every graph. Install this, or skip it — every other item includes it.",
-  "type": "registry:ui"
+  "type": "registry:component"
 }

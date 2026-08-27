@@ -1,7 +1,6 @@
 import Link from "next/link"
 
 import { SiteContainer } from "@/components/site/container"
-import { LogoMark } from "@/components/site/logo"
 import { GITHUB_URL } from "@/lib/github"
 
 function SiteFooter() {
@@ -10,13 +9,8 @@ function SiteFooter() {
       <SiteContainer className="flex flex-col gap-8">
         <div className="graph-rule" />
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
-          <Link
-            aria-label="Homepage"
-            className="flex items-center gap-2.5 text-foreground"
-            href="/"
-          >
-            <LogoMark className="size-5" />
-            <span>markdown graphs</span>
+          <Link className="text-foreground" href="/">
+            markdown graphs
           </Link>
           <nav aria-label="Footer">
             <ul className="flex flex-wrap gap-6" role="list">

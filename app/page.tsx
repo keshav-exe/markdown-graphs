@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { GraphTable } from "@/components/graphs"
+import { GraphFunnel, GraphTable, GraphTree } from "@/components/graphs"
 import { SiteContainer } from "@/components/site/container"
 import { Hero } from "@/components/site/hero"
 import { Principles } from "@/components/site/principles"
@@ -36,6 +36,52 @@ export default function Page() {
               href="/docs/graph-table"
             >
               Open table docs
+            </Link>
+          </p>
+          <div className="grid gap-8 lg:grid-cols-2">
+            <GraphTree
+              nodes={[
+                {
+                  label: "registry/default",
+                  children: [
+                    {
+                      label: "graph-frame",
+                      children: [
+                        { label: "graph-frame.tsx", meta: "ui" },
+                        { label: "graph-motion.ts", meta: "lib" },
+                      ],
+                    },
+                    {
+                      label: "graph-tree",
+                      children: [
+                        {
+                          label: "graph-tree.tsx",
+                          meta: "ui",
+                          accent: true,
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ]}
+              title="REGISTRY"
+            />
+            <GraphFunnel
+              stage="ship"
+              steps={[
+                { label: "docs", value: 12400, display: "12,400" },
+                { label: "copy", value: 4100, display: "4,100" },
+                { label: "ship", value: 860, display: "860" },
+              ]}
+              title="INSTALL"
+            />
+          </div>
+          <p>
+            <Link
+              className="text-foreground underline-offset-4 hover:underline"
+              href="/docs"
+            >
+              All components
             </Link>
           </p>
         </SiteContainer>

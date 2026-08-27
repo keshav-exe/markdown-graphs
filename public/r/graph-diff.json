@@ -1,8 +1,8 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
-  "name": "graph-frame",
-  "title": "Frame",
-  "description": "Dashed ASCII frame, title, corners, and motion helpers.",
+  "name": "graph-diff",
+  "title": "Diff",
+  "description": "Plus, minus, keep. A ledger, not a table.",
   "dependencies": [
     "motion"
   ],
@@ -18,9 +18,9 @@
       "type": "registry:lib"
     },
     {
-      "path": "registry/default/graph-frame/graph-arrow.tsx",
-      "content": "\"use client\"\n\nimport { cn } from \"@/lib/utils\"\n\nfunction GraphArrow({\n  accent = false,\n  stretch = false,\n  className,\n}: {\n  accent?: boolean\n  stretch?: boolean\n  className?: string\n}) {\n  return (\n    <div\n      aria-hidden=\"true\"\n      className={cn(\n        \"flex min-w-6 items-center gap-1\",\n        stretch && \"min-w-10 flex-1\",\n        accent ? \"text-graph-accent\" : \"text-graph-frame\",\n        className\n      )}\n    >\n      {stretch ? (\n        <span className=\"h-px min-w-6 flex-1 border-t border-dashed border-current\" />\n      ) : (\n        <span>- - -</span>\n      )}\n      <span className=\"shrink-0\">▶</span>\n    </div>\n  )\n}\n\nexport { GraphArrow }\n",
-      "type": "registry:ui"
+      "path": "registry/default/graph-diff/graph-diff.tsx",
+      "content": "\"use client\"\n\nimport { motion, useReducedMotion } from \"motion/react\"\n\nimport {\n  Graph,\n  GraphBody,\n  GraphRule,\n} from \"@/registry/default/graph-frame/graph-frame\"\nimport {\n  fadeUp,\n  staggerList,\n} from \"@/registry/default/graph-frame/graph-motion\"\nimport { cn } from \"@/lib/utils\"\n\ntype DiffSign = \"add\" | \"remove\" | \"keep\"\n\ntype DiffRow = {\n  label: string\n  value: string\n  sign?: DiffSign\n}\n\ntype GraphDiffProps = {\n  title: string\n  rows: DiffRow[]\n  footer?: DiffRow\n  className?: string\n}\n\nconst signGlyph: Record<DiffSign, string> = {\n  add: \"+\",\n  remove: \"-\",\n  keep: \" \",\n}\n\nfunction DiffLine({\n  row,\n  variants,\n}: {\n  row: DiffRow\n  variants: ReturnType<typeof fadeUp>\n}) {\n  const sign = row.sign ?? \"keep\"\n\n  return (\n    <motion.div\n      className=\"grid grid-cols-[1.25rem_minmax(0,1fr)_8ch] items-baseline gap-x-3\"\n      variants={variants}\n    >\n      <span\n        aria-hidden=\"true\"\n        className={cn(\n          \"text-center select-none\",\n          sign === \"add\" && \"text-graph-accent\",\n          sign === \"remove\" && \"text-graph-muted\",\n          sign === \"keep\" && \"text-graph-frame\"\n        )}\n      >\n        {signGlyph[sign]}\n      </span>\n      <span\n        className={cn(\n          sign === \"add\" && \"text-graph-accent\",\n          sign === \"remove\" && \"text-graph-muted\",\n          sign === \"keep\" && \"text-foreground\"\n        )}\n      >\n        {row.label}\n      </span>\n      <span\n        className={cn(\n          \"text-right tabular-nums\",\n          sign === \"add\" && \"text-graph-accent\",\n          sign === \"remove\" && \"text-graph-muted\",\n          sign === \"keep\" && \"text-foreground\"\n        )}\n      >\n        {row.value}\n      </span>\n    </motion.div>\n  )\n}\n\nfunction GraphDiff({ title, rows, footer, className }: GraphDiffProps) {\n  const reduce = useReducedMotion()\n  const item = fadeUp(reduce)\n  const list = staggerList(reduce, 0.04)\n\n  return (\n    <Graph title={title} className={className}>\n      <GraphBody className=\"flex flex-col gap-3\">\n        <motion.ul\n          role=\"list\"\n          className=\"flex flex-col gap-2\"\n          initial={reduce ? false : \"hidden\"}\n          variants={list}\n          viewport={{ once: true, amount: 0.4 }}\n          whileInView=\"show\"\n        >\n          {rows.map((row) => (\n            <li key={row.label}>\n              <DiffLine row={row} variants={item} />\n            </li>\n          ))}\n        </motion.ul>\n        {footer ? (\n          <>\n            <GraphRule />\n            <motion.div\n              initial={reduce ? false : \"hidden\"}\n              variants={list}\n              viewport={{ once: true }}\n              whileInView=\"show\"\n            >\n              <DiffLine row={footer} variants={item} />\n            </motion.div>\n          </>\n        ) : null}\n      </GraphBody>\n    </Graph>\n  )\n}\n\nexport { GraphDiff }\nexport type { DiffRow, DiffSign, GraphDiffProps }\n",
+      "type": "registry:component"
     }
   ],
   "cssVars": {
@@ -67,6 +67,5 @@
       "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
     }
   },
-  "docs": "Primitive used by every graph. Install this, or skip it — every other item includes it.",
-  "type": "registry:ui"
+  "type": "registry:component"
 }
