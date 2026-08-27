@@ -39,6 +39,15 @@ function SiteFooter() {
                   Source
                 </a>
               </li>
+              <li>
+                <a
+                  className="font-normal text-muted-foreground hover:text-foreground"
+                  href="https://x.com/kshvbgde"
+                  rel="noreferrer"
+                >
+                  X
+                </a>
+              </li>
             </ul>
           </nav>
         </div>

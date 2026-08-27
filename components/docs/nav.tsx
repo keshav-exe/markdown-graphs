@@ -85,11 +85,43 @@ function NavItem({
   )
 }
 
+function ScrollFade({ edge }: { edge: "top" | "bottom" }) {
+  const isTop = edge === "top"
+  const mask = `linear-gradient(to ${isTop ? "bottom" : "top"}, black, transparent)`
+
+  return (
+    <div
+      aria-hidden
+      className={cn(
+        "pointer-events-none absolute inset-x-0 z-10 h-10",
+        isTop ? "top-0" : "bottom-0"
+      )}
+    >
+      <div
+        className={cn(
+          "absolute inset-0",
+          isTop
+            ? "bg-linear-to-b from-background from-20% to-background/0"
+            : "bg-linear-to-t from-background from-20% to-background/0"
+        )}
+      />
+      <div
+        className="absolute inset-0 backdrop-blur-[8px]"
+        style={{ maskImage: mask, WebkitMaskImage: mask }}
+      />
+    </div>
+  )
+}
+
 function DocsSidebar() {
   return (
     <aside className="w-52 shrink-0 max-lg:hidden">
-      <div className="sticky top-0 max-h-dvh overflow-y-auto py-10">
-        <DocsNav />
+      <div className="sticky top-0 isolate max-h-dvh">
+        <div className="max-h-dvh scrollbar-none overflow-y-auto py-10">
+          <DocsNav />
+        </div>
+        <ScrollFade edge="top" />
+        <ScrollFade edge="bottom" />
       </div>
     </aside>
   )
