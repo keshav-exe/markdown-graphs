@@ -27,6 +27,7 @@ export type ComponentDoc = {
 export const getStarted: NavLink[] = [
   { href: "/docs", label: "Introduction" },
   { href: "/docs/installation", label: "Installation" },
+  { href: "/docs/examples", label: "Examples" },
 ]
 
 const catalog: ComponentDoc[] = [

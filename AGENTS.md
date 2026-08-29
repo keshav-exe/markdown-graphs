@@ -12,7 +12,8 @@ ASCII-framed React diagrams for MDX. Source is copied via shadcn registry, not n
 Nested agent notes:
 
 - [`registry/default/AGENTS.md`](registry/default/AGENTS.md) — how to build a graph
-- [`lib/docs/AGENTS.md`](lib/docs/AGENTS.md) — catalog, examples, **New** marks, OG
+- [`lib/docs/AGENTS.md`](lib/docs/AGENTS.md) — catalog, examples, recipes, **New** marks, OG
+- [`skills/markdown-graphs/SKILL.md`](skills/markdown-graphs/SKILL.md) — skill users copy into `.cursor/skills/`
 
 ## Adding a graph
 

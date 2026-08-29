@@ -13,7 +13,9 @@ import { Search01Icon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { HeaderButton } from "@/components/site/header-button"
+import { SiteCorners } from "@/components/site/corners"
 import { components, getStarted } from "@/lib/docs/catalog"
+import { recipes } from "@/lib/docs/recipes"
 import { cn } from "@/lib/utils"
 
 type Hit = {
@@ -31,6 +33,14 @@ const HITS: Hit[] = [
     detail: item.href,
     group: "Get started",
     haystack: `${item.label} ${item.href}`.toLowerCase(),
+  })),
+  ...recipes.map((item) => ({
+    href: `/docs/examples#${item.slug}`,
+    title: item.title,
+    detail: item.blurb,
+    group: "Examples",
+    haystack:
+      `${item.title} ${item.blurb} ${item.story} ${item.tags.join(" ")}`.toLowerCase(),
   })),
   ...components.map((item) => ({
     href: `/docs/${item.slug}`,
@@ -193,14 +203,15 @@ function SiteSearch() {
           className={cn(
             "graph-motion fixed inset-0 z-50 flex flex-col bg-background",
             "sm:inset-auto sm:top-[18%] sm:left-1/2 sm:w-full sm:max-w-lg sm:-translate-x-1/2",
-            "sm:border sm:border-border",
+            "sm:site-rail",
             "origin-top transition-[opacity,transform] duration-200 ease-out-cubic",
             "data-starting-style:scale-95 data-starting-style:opacity-0",
             "data-ending-style:scale-95 data-ending-style:opacity-0 data-ending-style:duration-150"
           )}
         >
+          <SiteCorners className="max-sm:hidden" />
           <Dialog.Title className="sr-only">Search</Dialog.Title>
-          <div className="flex items-center gap-3 border-b border-border px-4">
+          <div className="flex items-center gap-3 border-b border-dashed border-site-rail px-4">
             <HugeiconsIcon
               className="size-5 shrink-0 text-graph-muted sm:size-4"
               icon={Search01Icon}
@@ -213,6 +224,8 @@ function SiteSearch() {
               }
               aria-autocomplete="list"
               aria-controls="search-results"
+              aria-expanded={open}
+              aria-label="Search"
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"

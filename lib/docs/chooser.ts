@@ -1,4 +1,5 @@
 import type { ComponentDoc } from "@/lib/docs/catalog"
+import { recipesMarkdown } from "@/lib/docs/recipes"
 import { SITE_URL } from "@/lib/site"
 
 export const CHOOSER: Record<string, { when: string; not: string }> = {
@@ -7,7 +8,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
     not: "Bars, rankings, and sparklines have their own components.",
   },
   "graph-flow": {
-    when: "Good for a pipeline or a path through a system.",
+    when: "Good for a pipeline, a request path, or walking through a change.",
     not: "A dated list is Timeline. A schedule with start and end is Gantt.",
   },
   "graph-bars": {
@@ -39,7 +40,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
     not: "A timeline or a table.",
   },
   "graph-timeline": {
-    when: "Good for dated events, with one of them marked current.",
+    when: "Good for steps in order, with one marked as current.",
     not: "A schedule with start and end dates is Gantt.",
   },
   "graph-stack": {
@@ -51,7 +52,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
     not: "A ranked list is Rank. A process diagram is Flow.",
   },
   "graph-gantt": {
-    when: "Good for items with a start and end on a shared track.",
+    when: "Good for work that overlaps on a shared calendar.",
     not: "A dated log is Timeline.",
   },
   "graph-plot": {
@@ -63,7 +64,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
     not: "Labeled parts of a whole is Stack.",
   },
   "graph-diff": {
-    when: "Good for rows that were added, removed, or kept.",
+    when: "Good for showing what was added, removed, or kept.",
     not: "A list of numeric before and after is Slope.",
   },
   "graph-invoice": {
@@ -71,7 +72,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
     not: "A generic table is Table.",
   },
   "graph-compare": {
-    when: "Good for a feature matrix with checks and dashes.",
+    when: "Good for putting two options side by side.",
     not: "Numeric ranks are Rank.",
   },
   "graph-stat": {
@@ -99,7 +100,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
     not: "Parts of a whole is Stack.",
   },
   "graph-uptime": {
-    when: "Good for a status per day: ok, degraded, down, or empty.",
+    when: "Good for a status per day, or the blast radius of an outage.",
     not: "A heatmap or an activity grid.",
   },
   "graph-slope": {
@@ -162,5 +163,7 @@ Files land under @/registry/default.
 | Component | Slug | Use for | Not for |
 | --- | --- | --- | --- |
 ${rows.join("\n")}
+
+${recipesMarkdown(host)}
 `
 }

@@ -16,8 +16,8 @@ function Hero() {
   const list = staggerList(reduce, 0.09)
 
   return (
-    <section className="pt-16 pb-12 sm:pt-24 sm:pb-16">
-      <SiteContainer>
+    <section>
+      <SiteContainer borderTop={false}>
         <motion.div
           className="flex flex-col items-start gap-8"
           initial={reduce ? false : "hidden"}
@@ -34,7 +34,8 @@ function Hero() {
             <p className="max-w-[48ch] text-pretty text-muted-foreground">
               React components for tables, charts, and diagrams in MDX. They
               look like monospace text: dashed frames and block characters, not
-              SVG. Copy the source into your shadcn project and pick an accent.
+              SVG. Copy the source into your shadcn project. They sit next to
+              prose — in docs, posts, and anything an agent writes down.
             </p>
           </motion.div>
           <motion.div

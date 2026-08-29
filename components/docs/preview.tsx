@@ -3,6 +3,7 @@
 import { useState, type ReactNode } from "react"
 
 import { CopyButton } from "@/components/docs/copy-button"
+import { FrameBox } from "@/components/site/corners"
 import { useAccent } from "@/hooks/use-accent"
 import { accentCss } from "@/lib/accent"
 import { cn } from "@/lib/utils"
@@ -67,12 +68,12 @@ function ComponentPreview({
         </div>
       </div>
 
-      <div className="relative min-w-0 overflow-x-auto border border-border dark:border-border">
+      <FrameBox className="min-w-0">
         {tab === "preview" ? (
-          <div className="p-4 sm:p-8">{children}</div>
+          <div className="overflow-x-auto p-4 sm:p-8">{children}</div>
         ) : (
           <>
-            <div className="absolute top-2 right-2">
+            <div className="absolute top-2 right-2 z-20">
               <CopyButton label="Copy code" text={source} />
             </div>
             <pre className="overflow-x-auto p-4 text-muted-foreground sm:p-8">
@@ -80,7 +81,7 @@ function ComponentPreview({
             </pre>
           </>
         )}
-      </div>
+      </FrameBox>
     </section>
   )
 }

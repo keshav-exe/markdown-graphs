@@ -2,6 +2,7 @@
 
 import type { CSSProperties } from "react"
 
+import { MonoLabel } from "@/components/docs/mono-label"
 import { useAccent } from "@/hooks/use-accent"
 import { accents, setAccent } from "@/lib/accent"
 import { cn } from "@/lib/utils"
@@ -48,9 +49,7 @@ function AccentPicker() {
 
   return (
     <div className="flex flex-col gap-2">
-      <p className="font-mono tracking-wide text-graph-muted uppercase">
-        Accent
-      </p>
+      <MonoLabel>Accent</MonoLabel>
       <div
         aria-label="Accent color"
         className="flex flex-wrap items-center gap-1"

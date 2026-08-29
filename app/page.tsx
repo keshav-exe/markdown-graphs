@@ -17,6 +17,7 @@ import { AccentPicker } from "@/components/site/accent-picker"
 import { SiteContainer } from "@/components/site/container"
 import { Hero } from "@/components/site/hero"
 import { Principles } from "@/components/site/principles"
+import { Scenarios } from "@/components/site/scenarios"
 import { pageMeta, websiteJsonLd } from "@/lib/seo"
 import { SITE_DESCRIPTION } from "@/lib/site"
 
@@ -70,7 +71,7 @@ export default function Page() {
     <main id="main">
       <JsonLd data={websiteJsonLd()} />
       <Hero />
-      <section className="py-12 sm:py-16">
+      <section>
         <SiteContainer className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             <h2 className="max-w-[35ch] text-2xl font-semibold tracking-tight text-balance">
@@ -172,6 +173,7 @@ export default function Page() {
           </p>
         </SiteContainer>
       </section>
+      <Scenarios />
       <Principles />
     </main>
   )

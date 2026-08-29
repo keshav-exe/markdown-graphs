@@ -17,7 +17,7 @@ const principles = [
 
 function Principles() {
   return (
-    <section className="py-12 sm:py-16">
+    <section>
       <SiteContainer className="flex flex-col gap-10">
         <h2 className="max-w-[35ch] text-2xl font-semibold tracking-tight text-balance">
           How they work

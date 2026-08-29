@@ -1,8 +1,10 @@
 "use client"
 
-import { useState } from "react"
+import { useLayoutEffect, useRef, useState } from "react"
 
-import { CopyButton } from "@/components/docs/copy-button"
+import { CopyMark, useCopied } from "@/components/docs/copy-button"
+import { MonoLabel } from "@/components/docs/mono-label"
+import { FrameBox } from "@/components/site/corners"
 import { useAccent } from "@/hooks/use-accent"
 import { useOrigin } from "@/lib/docs/origin"
 import { accentCss } from "@/lib/accent"
@@ -13,6 +15,8 @@ import { GITHUB_TREE, GITHUB_URL } from "@/lib/github"
 import { cn } from "@/lib/utils"
 
 type InstallTab = "cli" | "manual" | "agent"
+
+const COLLAPSED_HEIGHT = 256
 
 type InstallCommandProps = {
   name: string
@@ -108,9 +112,7 @@ function ManualInstall({ name }: { name: string }) {
       <CopyBlock label="CSS" value={css} />
 
       <div className="flex flex-col gap-2">
-        <p className="font-mono tracking-wide text-graph-muted uppercase">
-          Files
-        </p>
+        <MonoLabel>Files</MonoLabel>
         <ul
           className="flex flex-col gap-1 font-mono text-muted-foreground"
           role="list"
@@ -141,36 +143,113 @@ function ManualInstall({ name }: { name: string }) {
   )
 }
 
-function CopyBlock({ label, value }: { label: string; value: string }) {
+function CopyToggle({
+  label,
+  onClick,
+}: {
+  label: string
+  onClick: () => void
+}) {
   return (
-    <div className="flex min-w-0 flex-col gap-2">
-      <p className="font-mono tracking-wide text-graph-muted uppercase">
+    <div className="flex justify-center py-2">
+      <button
+        className="relative px-2 py-1 font-mono tracking-wide text-muted-foreground uppercase hover:text-foreground"
+        onClick={onClick}
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
+        />
         {label}
-      </p>
-      <div className="relative min-w-0 border border-border dark:border-border">
-        <div className="absolute top-2 right-2">
-          <CopyButton label={`Copy ${label}`} text={value} />
-        </div>
-        <pre className="overflow-x-auto p-4 pr-12 text-pretty whitespace-pre-wrap text-muted-foreground">
-          <code>{value}</code>
-        </pre>
-      </div>
+      </button>
+    </div>
+  )
+}
+
+function CopyBlock({ label, value }: { label: string; value: string }) {
+  const { copied, copy } = useCopied()
+  const [open, setOpen] = useState(false)
+  const [full, setFull] = useState(0)
+  const preRef = useRef<HTMLPreElement>(null)
+  const boxRef = useRef<HTMLDivElement>(null)
+  const likelyLong = value.length > 400 || value.split("\n").length > 8
+  const overflows = full > COLLAPSED_HEIGHT
+  const collapsed = !open && (overflows || (full === 0 && likelyLong))
+  const maxHeight = collapsed ? COLLAPSED_HEIGHT : full || undefined
+
+  useLayoutEffect(() => {
+    const el = preRef.current
+    if (!el) {
+      return
+    }
+
+    const measure = () => setFull(el.scrollHeight)
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [value])
+
+  function collapse() {
+    setOpen(false)
+    boxRef.current?.scrollIntoView({ block: "nearest" })
+  }
+
+  return (
+    <div className="flex min-w-0 flex-col gap-2" ref={boxRef}>
+      <MonoLabel>{label}</MonoLabel>
+      <FrameBox className="min-w-0">
+        <button
+          aria-label={copied ? "Copied" : `Copy ${label}`}
+          className="w-full min-w-0 text-left hover:bg-muted/40"
+          onClick={() => copy(value)}
+          type="button"
+        >
+          <div
+            className="graph-motion overflow-hidden transition-[max-height] duration-300 ease-out-cubic"
+            style={{ maxHeight }}
+          >
+            <pre
+              className="p-4 pr-12 text-pretty whitespace-pre-wrap text-muted-foreground"
+              ref={preRef}
+            >
+              <code>{value}</code>
+            </pre>
+          </div>
+        </button>
+        <span className="pointer-events-none absolute top-2 right-2 z-20 text-muted-foreground">
+          <CopyMark copied={copied} />
+        </span>
+        {collapsed ? (
+          <CopyToggle label="Show all" onClick={() => setOpen(true)} />
+        ) : null}
+        {open && (overflows || likelyLong) ? (
+          <CopyToggle label="Show less" onClick={collapse} />
+        ) : null}
+      </FrameBox>
     </div>
   )
 }
 
 function Command({ label, value }: { label: string; value: string }) {
+  const { copied, copy } = useCopied()
+
   return (
     <div className="flex min-w-0 flex-col gap-2">
-      <p className="font-mono tracking-wide text-graph-muted uppercase">
-        {label}
-      </p>
-      <div className="flex min-w-0 items-center gap-2 border border-border px-3 py-2 dark:border-border">
+      <MonoLabel>{label}</MonoLabel>
+      <FrameBox
+        aria-label={copied ? "Copied" : `Copy ${label} command`}
+        as="button"
+        className="flex w-full min-w-0 items-center gap-2 px-3 py-2 text-left text-muted-foreground hover:bg-muted/40"
+        onClick={() => copy(value)}
+        type="button"
+      >
         <pre className="min-w-0 flex-1 overflow-x-auto text-muted-foreground">
           <code>{value}</code>
         </pre>
-        <CopyButton label={`Copy ${label} command`} text={value} />
-      </div>
+        <CopyMark copied={copied} />
+      </FrameBox>
     </div>
   )
 }

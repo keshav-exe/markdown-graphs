@@ -7,40 +7,28 @@ import { HugeiconsIcon } from "@hugeicons/react"
 
 import { cn } from "@/lib/utils"
 
-function CopyButton({
-  text,
-  label = "Copy",
-  caption,
-}: {
-  text: string
-  label?: string
-  caption?: string
-}) {
+function useCopied(ms = 1500) {
   const [copied, setCopied] = useState(false)
-  const reduce = useReducedMotion()
 
-  async function onCopy() {
+  async function copy(text: string) {
     await navigator.clipboard.writeText(text)
     setCopied(true)
-    window.setTimeout(() => setCopied(false), 1500)
+    window.setTimeout(() => setCopied(false), ms)
   }
 
+  return { copied, copy }
+}
+
+function CopyMark({ copied, caption }: { copied: boolean; caption?: string }) {
+  const reduce = useReducedMotion()
+
   return (
-    <button
-      aria-label={copied ? "Copied" : label}
+    <span
       className={cn(
-        "relative text-muted-foreground hover:text-foreground active:scale-[0.96] motion-reduce:active:scale-100",
-        caption
-          ? "flex h-8 shrink-0 items-center gap-2"
-          : "flex size-8 items-center justify-center"
+        "flex items-center",
+        caption ? "h-8 gap-2" : "size-8 justify-center"
       )}
-      onClick={onCopy}
-      type="button"
     >
-      <span
-        aria-hidden="true"
-        className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
-      />
       <AnimatePresence initial={false} mode="popLayout">
         <motion.span
           key={copied ? "check" : "copy"}
@@ -63,8 +51,40 @@ function CopyButton({
         </motion.span>
       </AnimatePresence>
       {caption ? <span>{copied ? "Copied" : caption}</span> : null}
+    </span>
+  )
+}
+
+function CopyButton({
+  text,
+  label = "Copy",
+  caption,
+}: {
+  text: string
+  label?: string
+  caption?: string
+}) {
+  const { copied, copy } = useCopied()
+
+  return (
+    <button
+      aria-label={copied ? "Copied" : label}
+      className={cn(
+        "relative text-muted-foreground hover:text-foreground active:scale-[0.96] motion-reduce:active:scale-100",
+        caption
+          ? "flex h-8 shrink-0 items-center gap-2"
+          : "flex size-8 items-center justify-center"
+      )}
+      onClick={() => copy(text)}
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        className="absolute top-1/2 left-1/2 size-[max(100%,3rem)] -translate-1/2 pointer-fine:hidden"
+      />
+      <CopyMark copied={copied} caption={caption} />
     </button>
   )
 }
 
-export { CopyButton }
+export { CopyButton, CopyMark, useCopied }

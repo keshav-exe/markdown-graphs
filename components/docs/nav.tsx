@@ -8,6 +8,7 @@ import { Cancel01Icon, MenuIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { AccentPicker } from "@/components/site/accent-picker"
+import { MonoLabel } from "@/components/docs/mono-label"
 import { components, getStarted } from "@/lib/docs/catalog"
 import { isNewSlug } from "@/lib/docs/new"
 import { cn } from "@/lib/utils"
@@ -39,7 +40,7 @@ function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
         </div>
       </nav>
 
-      <div className="px-2">
+      <div className="px-4">
         <AccentPicker />
       </div>
     </div>
@@ -48,10 +49,8 @@ function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
 
 function NavGroup({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="flex flex-col gap-2">
-      <p className="px-2 font-mono tracking-wide text-graph-muted uppercase">
-        {label}
-      </p>
+    <div className="flex flex-col">
+      <MonoLabel className="px-4 py-3">{label}</MonoLabel>
       <ul className="flex flex-col" role="list">
         {children}
       </ul>
@@ -78,8 +77,8 @@ function NavItem({
       <Link
         aria-current={active ? "page" : undefined}
         className={cn(
-          "flex items-center justify-between gap-2 px-2 py-2.5 text-muted-foreground hover:bg-muted hover:text-foreground sm:py-1.5",
-          active && "bg-muted text-foreground"
+          "flex items-center justify-between gap-2 px-4 py-2 text-muted-foreground hover:bg-muted/50 hover:text-foreground",
+          active && "bg-muted text-foreground hover:bg-muted"
         )}
         href={href}
         onClick={onNavigate}
@@ -125,14 +124,12 @@ function ScrollFade({ edge }: { edge: "top" | "bottom" }) {
 
 function DocsSidebar() {
   return (
-    <aside className="w-52 shrink-0 max-lg:hidden">
-      <div className="sticky top-14 isolate max-h-[calc(100dvh-3.5rem)] sm:top-16 sm:max-h-[calc(100dvh-4rem)]">
-        <div className="max-h-[calc(100dvh-3.5rem)] scrollbar-none overflow-y-auto py-10 sm:max-h-[calc(100dvh-4rem)]">
-          <DocsNav />
-        </div>
-        <ScrollFade edge="top" />
-        <ScrollFade edge="bottom" />
+    <aside className="sticky top-14 isolate max-h-[calc(100dvh-3.5rem)] w-64 shrink-0 border-r border-dashed border-site-rail max-lg:hidden sm:top-16 sm:max-h-[calc(100dvh-4rem)]">
+      <div className="max-h-[calc(100dvh-3.5rem)] scrollbar-none overflow-y-auto py-10 sm:max-h-[calc(100dvh-4rem)]">
+        <DocsNav />
       </div>
+      <ScrollFade edge="top" />
+      <ScrollFade edge="bottom" />
     </aside>
   )
 }

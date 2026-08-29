@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/",
     "/docs",
     "/docs/installation",
+    "/docs/examples",
     "/llms.txt",
     ...components.map((item) => `/docs/${item.slug}`),
   ]

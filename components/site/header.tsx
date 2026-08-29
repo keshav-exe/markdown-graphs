@@ -9,15 +9,20 @@ import { HeaderButton } from "@/components/site/header-button"
 import { SiteSearch } from "@/components/site/search"
 import { ThemeToggle } from "@/components/site/theme-toggle"
 import { GithubStarLink } from "@/components/site/github-star"
-import { SiteContainer } from "@/components/site/container"
+import { SiteCorners } from "@/components/site/corners"
 import { cn } from "@/lib/utils"
 
 function SiteHeader({ stars }: { stars: number | null }) {
   return (
-    <header className="sticky top-0 z-40 bg-background/40 backdrop-blur-sm">
-      <SiteContainer>
-        <div className="flex h-14 items-center gap-4 sm:h-16 sm:gap-6">
-          <Link className="shrink-0 text-foreground" href="/">
+    <header className="sticky top-0 z-40 border-b border-dashed border-site-rail bg-background/40 backdrop-blur-sm">
+      <div className="relative isolate mx-auto w-full max-w-6xl border-x border-dashed border-site-rail px-4 sm:px-6 lg:px-8">
+        <SiteCorners corners={["tl", "tr"]} />
+        <div className="flex items-center gap-4 py-4">
+          <Link
+            aria-label="Homepage"
+            className="shrink-0 text-foreground"
+            href="/"
+          >
             markdown graphs
           </Link>
 
@@ -29,6 +34,14 @@ function SiteHeader({ stars }: { stars: number | null }) {
                   href="/docs"
                 >
                   library
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="text-muted-foreground hover:text-foreground"
+                  href="/docs/examples"
+                >
+                  examples
                 </Link>
               </li>
             </ul>
@@ -91,6 +104,19 @@ function SiteHeader({ stars }: { stars: number | null }) {
                         library
                       </Dialog.Close>
                     </li>
+                    <li>
+                      <Dialog.Close
+                        nativeButton={false}
+                        render={
+                          <Link
+                            className="text-2xl text-foreground"
+                            href="/docs/examples"
+                          />
+                        }
+                      >
+                        examples
+                      </Dialog.Close>
+                    </li>
 
                     <li>
                       <div className="text-2xl">
@@ -103,7 +129,7 @@ function SiteHeader({ stars }: { stars: number | null }) {
             </Dialog.Root>
           </div>
         </div>
-      </SiteContainer>
+      </div>
     </header>
   )
 }

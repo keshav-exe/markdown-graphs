@@ -20,9 +20,13 @@ Chooser
 - two to four numbers, no trend → GraphStat
 - elapsed, how long ago, or the time of day → GraphTimer
 - time left until a date → GraphCountdown
+- walking through a change → GraphFlow, then GraphTimeline
+- pick A vs B → GraphCompare
+- what a PR did → GraphDiff, then GraphSlope
+- overlapping work this week → GraphGantt
 
 Mood
-Typed, not illustrated. Quiet monospace figures that sit next to prose. Restraint over decoration. Do not restyle the frame. Default is one accent; palette is opt-in.`
+Typed, not illustrated. Quiet monospace figures that sit next to prose. Two graphs per section is enough. Restraint over decoration. Do not restyle the frame. Default is one accent; palette is opt-in.`
 
 export function installCli(origin: string, registry: string) {
   const host = origin || "<origin>"
