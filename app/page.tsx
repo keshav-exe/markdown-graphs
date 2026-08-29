@@ -16,8 +16,6 @@ import { JsonLd } from "@/components/seo/json-ld"
 import { AccentPicker } from "@/components/site/accent-picker"
 import { SiteContainer } from "@/components/site/container"
 import { Hero } from "@/components/site/hero"
-import { Principles } from "@/components/site/principles"
-import { Scenarios } from "@/components/site/scenarios"
 import { pageMeta, websiteJsonLd } from "@/lib/seo"
 import { SITE_DESCRIPTION } from "@/lib/site"
 
@@ -75,11 +73,12 @@ export default function Page() {
         <SiteContainer className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             <h2 className="max-w-[35ch] text-2xl font-semibold tracking-tight text-balance">
-              Every graph uses the same frame
+              What are these?
             </h2>
             <p className="max-w-[48ch] text-pretty text-muted-foreground">
-              Activity grids, calendars, and status strips included. Install one
-              component or pull in the whole set.
+              React components for charts, tables, and diagrams. Same dashed
+              frame and glyph set across thirty figures. Install one or the full
+              set through shadcn.
             </p>
           </div>
           <AccentPicker />
@@ -163,18 +162,22 @@ export default function Page() {
               title="UPTIME"
             />
           </div>
-          <p>
+          <div className="flex flex-wrap gap-x-6 gap-y-2">
             <Link
               className="text-foreground underline-offset-4 hover:underline"
               href="/docs"
             >
               All components
             </Link>
-          </p>
+            <Link
+              className="text-foreground underline-offset-4 hover:underline"
+              href="/docs/examples"
+            >
+              Examples
+            </Link>
+          </div>
         </SiteContainer>
       </section>
-      <Scenarios />
-      <Principles />
     </main>
   )
 }

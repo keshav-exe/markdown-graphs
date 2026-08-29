@@ -177,24 +177,40 @@ const previews: Record<string, ReactNode[]> = {
   ],
 }
 
-function RecipeFigures({ recipe }: { recipe: Recipe }) {
+function RecipeFigures({
+  recipe,
+  showLinks = true,
+}: {
+  recipe: Recipe
+  showLinks?: boolean
+}) {
   const figures = previews[recipe.slug] ?? []
 
   return (
     <div className="flex flex-col gap-8">
-      {recipe.graphs.map((graph, index) => (
-        <div className="flex flex-col gap-2" key={`${graph.slug}-${index}`}>
-          {figures[index]}
-          <p className="font-mono text-graph-muted">
-            <Link
-              className="hover:text-foreground hover:underline"
-              href={`/docs/${graph.slug}`}
-            >
-              {titles[graph.slug] ?? graph.slug}
-            </Link>
-          </p>
-        </div>
-      ))}
+      {recipe.graphs.map((graph, index) => {
+        const name = titles[graph.slug] ?? graph.slug
+
+        return (
+          <figure className="flex flex-col gap-2" key={`${graph.slug}-${index}`}>
+            {figures[index]}
+            <figcaption className="font-mono text-sm text-graph-muted">
+              {showLinks ? (
+                <Link
+                  className="text-foreground hover:underline"
+                  href={`/docs/${graph.slug}`}
+                >
+                  {name}
+                </Link>
+              ) : (
+                <span className="text-foreground">{name}</span>
+              )}
+              {" · "}
+              {graph.label}
+            </figcaption>
+          </figure>
+        )
+      })}
     </div>
   )
 }

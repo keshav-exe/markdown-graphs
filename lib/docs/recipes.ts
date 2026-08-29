@@ -4,6 +4,7 @@ export type RecipeTag = "plan" | "debug" | "tradeoff" | "ship"
 
 export type RecipeGraph = {
   slug: string
+  label: string
   code: string
 }
 
@@ -29,6 +30,7 @@ export const recipes: Recipe[] = [
     graphs: [
       {
         slug: "graph-flow",
+        label: "request path",
         code: `import { GraphFlow } from "@/registry/default/graph-flow/graph-flow"
 
 <GraphFlow
@@ -53,6 +55,7 @@ export const recipes: Recipe[] = [
       },
       {
         slug: "graph-timeline",
+        label: "rollout plan",
         code: `import { GraphTimeline } from "@/registry/default/graph-timeline/graph-timeline"
 
 <GraphTimeline
@@ -77,6 +80,7 @@ export const recipes: Recipe[] = [
     graphs: [
       {
         slug: "graph-timeline",
+        label: "timeline",
         code: `import { GraphTimeline } from "@/registry/default/graph-timeline/graph-timeline"
 
 <GraphTimeline
@@ -90,6 +94,7 @@ export const recipes: Recipe[] = [
       },
       {
         slug: "graph-uptime",
+        label: "uptime strip",
         code: `import { GraphUptime } from "@/registry/default/graph-uptime/graph-uptime"
 
 <GraphUptime
@@ -126,6 +131,7 @@ export const recipes: Recipe[] = [
     graphs: [
       {
         slug: "graph-compare",
+        label: "feature matrix",
         code: `import { GraphCompare } from "@/registry/default/graph-compare/graph-compare"
 
 <GraphCompare
@@ -142,6 +148,7 @@ export const recipes: Recipe[] = [
       },
       {
         slug: "graph-rank",
+        label: "bundle size",
         code: `import { GraphRank } from "@/registry/default/graph-rank/graph-rank"
 
 <GraphRank
@@ -165,6 +172,7 @@ export const recipes: Recipe[] = [
     graphs: [
       {
         slug: "graph-diff",
+        label: "files changed",
         code: `import { GraphDiff } from "@/registry/default/graph-diff/graph-diff"
 
 <GraphDiff
@@ -179,6 +187,7 @@ export const recipes: Recipe[] = [
       },
       {
         slug: "graph-slope",
+        label: "coverage",
         code: `import { GraphSlope } from "@/registry/default/graph-slope/graph-slope"
 
 <GraphSlope
@@ -204,6 +213,7 @@ export const recipes: Recipe[] = [
     graphs: [
       {
         slug: "graph-gantt",
+        label: "calendar",
         code: `import { GraphGantt } from "@/registry/default/graph-gantt/graph-gantt"
 
 <GraphGantt
@@ -220,6 +230,7 @@ export const recipes: Recipe[] = [
       },
       {
         slug: "graph-stat",
+        label: "board counts",
         code: `import { GraphStat } from "@/registry/default/graph-stat/graph-stat"
 
 <GraphStat
@@ -243,6 +254,7 @@ export const recipes: Recipe[] = [
     graphs: [
       {
         slug: "graph-meter",
+        label: "job progress",
         code: `import { GraphMeter } from "@/registry/default/graph-meter/graph-meter"
 
 <GraphMeter
@@ -253,6 +265,7 @@ export const recipes: Recipe[] = [
       },
       {
         slug: "graph-kpi",
+        label: "rows migrated",
         code: `import { GraphKpi } from "@/registry/default/graph-kpi/graph-kpi"
 
 <GraphKpi
