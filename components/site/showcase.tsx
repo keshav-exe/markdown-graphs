@@ -24,7 +24,7 @@ import {
 } from "@/lib/site/showcase"
 import { cn } from "@/lib/utils"
 
-type ShowcaseTab = "live" | "jsx" | "markdown"
+type ShowcaseTab = "tsx" | "markdown"
 
 const previews: Record<string, ReactNode> = {
   "graph-table": (
@@ -140,7 +140,7 @@ const previews: Record<string, ReactNode> = {
 
 function ShowcaseBlock({ slug }: { slug: string }) {
   const item = getShowcaseItem(slug)
-  const [tab, setTab] = useState<ShowcaseTab>("live")
+  const [tab, setTab] = useState<ShowcaseTab>("tsx")
 
   if (!item) {
     return null
@@ -167,8 +167,6 @@ function ShowcaseFigure({
   tab: ShowcaseTab
   setTab: (tab: ShowcaseTab) => void
 }) {
-  const copy = tab === "markdown" ? item.markdown : item.jsx
-
   return (
     <div className="flex min-w-0 flex-col gap-2">
       <div
@@ -178,8 +176,7 @@ function ShowcaseFigure({
       >
         {(
           [
-            ["live", "Live"],
-            ["jsx", "JSX"],
+            ["tsx", "TSX"],
             ["markdown", "Markdown"],
           ] as const
         ).map(([id, label]) => (
@@ -202,23 +199,15 @@ function ShowcaseFigure({
           </button>
         ))}
       </div>
-      {tab === "live" ? (
+      {tab === "tsx" ? (
         <div className="min-w-0">{preview}</div>
       ) : (
         <FrameBox className="min-w-0">
           <div className="absolute top-2 right-2 z-20">
-            <CopyButton
-              label={`Copy ${tab === "markdown" ? "Markdown" : "JSX"}`}
-              text={copy}
-            />
+            <CopyButton label="Copy Markdown" text={item.markdown} />
           </div>
-          <pre
-            className={cn(
-              "scrollbar-graph max-h-72 overflow-auto p-4 pr-12 text-pretty whitespace-pre-wrap text-muted-foreground sm:p-6",
-              tab === "markdown" && "font-mono text-sm"
-            )}
-          >
-            <code>{copy}</code>
+          <pre className="scrollbar-graph max-h-72 overflow-auto p-4 pr-12 font-mono text-sm text-pretty whitespace-pre-wrap text-muted-foreground sm:p-6">
+            <code>{item.markdown}</code>
           </pre>
         </FrameBox>
       )}
