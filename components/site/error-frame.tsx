@@ -4,8 +4,8 @@ import type { ReactNode } from "react"
 import Link from "next/link"
 
 import { Button } from "@/components/ui/button"
+import { SiteRule } from "@/components/site/corners"
 import { Graph, GraphBody } from "@/registry/default/graph-frame/graph-frame"
-import { SiteContainer } from "@/components/site/container"
 
 function ErrorFrame({
   code,
@@ -21,27 +21,33 @@ function ErrorFrame({
   action?: ReactNode
 }) {
   return (
-    <main className="flex flex-1 items-center py-16 sm:py-24" id="main">
-      <SiteContainer className="flex justify-center">
-        <Graph className="w-full max-w-md" title={code}>
-          <GraphBody className="flex flex-col gap-6">
-            <div className="flex flex-col gap-2">
-              <p className="text-foreground">{title}</p>
-              <p className="max-w-[40ch] text-pretty text-graph-muted">
-                {body}
-              </p>
-              {hint ? (
-                <p className="font-mono text-graph-frame tabular-nums">
-                  {hint}
+    <main className="flex flex-1 flex-col" id="main">
+      <div className="relative isolate mx-auto flex w-full max-w-6xl flex-1 items-center px-4 sm:px-6 lg:px-8">
+        <SiteRule className="left-0" orientation="y" />
+        <SiteRule className="right-0" orientation="y" />
+        <div className="flex w-full justify-center py-16 sm:py-24">
+          <Graph className="w-full max-w-md" title={code}>
+            <GraphBody className="flex flex-col gap-6">
+              <div className="flex flex-col gap-2">
+                <p className="text-foreground">{title}</p>
+                <p className="max-w-[40ch] text-pretty text-graph-muted">
+                  {body}
                 </p>
+                {hint ? (
+                  <p className="font-mono text-graph-frame tabular-nums">
+                    {hint}
+                  </p>
+                ) : null}
+              </div>
+              {action ? (
+                <div className="flex flex-wrap items-center gap-3">
+                  {action}
+                </div>
               ) : null}
-            </div>
-            {action ? (
-              <div className="flex flex-wrap items-center gap-3">{action}</div>
-            ) : null}
-          </GraphBody>
-        </Graph>
-      </SiteContainer>
+            </GraphBody>
+          </Graph>
+        </div>
+      </div>
     </main>
   )
 }

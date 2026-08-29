@@ -1,14 +1,19 @@
 import type { ReactNode } from "react"
 
 import { DocsMobileNav, DocsSidebar } from "@/components/docs/nav"
-import { SiteCorners } from "@/components/site/corners"
+import { SiteCorners, SiteRule } from "@/components/site/corners"
 
 function DocsLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="relative isolate mx-auto flex w-full max-w-6xl min-w-0 flex-col border-x border-dashed border-site-rail">
-      <SiteCorners />
-      <div className="border-b border-dashed border-site-rail px-4 py-3 sm:px-6 lg:hidden lg:px-8">
-        <DocsMobileNav />
+    <div className="relative isolate mx-auto flex w-full max-w-6xl min-w-0 flex-col">
+      <SiteRule className="left-0" orientation="y" />
+      <SiteRule className="right-0" orientation="y" />
+      <div className="relative lg:hidden">
+        <SiteRule className="bottom-0" />
+        <SiteCorners corners={["bl", "br"]} />
+        <div className="px-4 py-3 sm:px-6 lg:px-8">
+          <DocsMobileNav />
+        </div>
       </div>
       <div className="flex min-w-0">
         <DocsSidebar />

@@ -390,6 +390,24 @@ html.dark[data-accent="prism"] {
   );
 }
 
+@utility site-rule {
+  height: 1px;
+  background-image: repeating-linear-gradient(
+    to right,
+    var(--site-rail) 0 2px,
+    transparent 2px 7px
+  );
+}
+
+@utility site-rule-y {
+  width: 1px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--site-rail) 0 2px,
+    transparent 2px 7px
+  );
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

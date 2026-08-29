@@ -3,6 +3,7 @@ import { CHOOSER } from "@/lib/docs/chooser"
 export type NavLink = {
   href: string
   label: string
+  isNew?: boolean
 }
 
 export type PropRow = {
@@ -28,6 +29,7 @@ export const getStarted: NavLink[] = [
   { href: "/docs", label: "Introduction" },
   { href: "/docs/installation", label: "Installation" },
   { href: "/docs/examples", label: "Examples" },
+  { href: "/docs/skill", label: "Skill", isNew: true },
 ]
 
 const catalog: ComponentDoc[] = [

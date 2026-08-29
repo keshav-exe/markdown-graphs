@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 
 import { CopyPage } from "@/components/docs/copy-page"
-import { SiteCorners } from "@/components/site/corners"
+import { SiteCorners, SiteRule } from "@/components/site/corners"
 import type { PageCopy } from "@/lib/docs/prompt"
 import { cn } from "@/lib/utils"
 
@@ -25,7 +25,8 @@ function DocsPageHeader({
   copy,
 }: DocsPageHeaderProps) {
   return (
-    <header className="relative isolate -mx-4 flex flex-col gap-3 border-b border-dashed border-site-rail px-4 pb-8 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+    <header className="relative isolate -mx-4 flex flex-col gap-3 px-4 pb-8 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
+      <SiteRule className="bottom-0" />
       <SiteCorners corners={["bl", "br"]} />
       <div className="flex items-start justify-between gap-6">
         <h1

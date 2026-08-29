@@ -4,11 +4,13 @@ import Link from "next/link"
 import { InstallCommand } from "@/components/docs/install"
 import { DocsPageHeader } from "@/components/docs/page-header"
 import { JsonLd } from "@/components/seo/json-ld"
-import { SiteCorners } from "@/components/site/corners"
+import { SiteCorners, SiteMark, SiteRule } from "@/components/site/corners"
 import { components, getComponent } from "@/lib/docs/catalog"
 import { isNewSlug } from "@/lib/docs/new"
 import { docsJsonLd, pageMeta } from "@/lib/seo"
 import { cn } from "@/lib/utils"
+import { HugeiconsIcon } from "@hugeicons/react"
+import { ArrowRight02Icon } from "@hugeicons/core-free-icons"
 
 export const metadata: Metadata = pageMeta({
   title: "Introduction",
@@ -29,7 +31,7 @@ export default function DocsPage() {
   ].join("\n")
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-6 lg:gap-8">
       <JsonLd data={docsJsonLd()} />
       <DocsPageHeader
         copy={{
@@ -50,7 +52,15 @@ export default function DocsPage() {
             Examples
           </Link>{" "}
           are short write-ups with two graphs each — a refactor, an incident, a
-          tradeoff.
+          tradeoff.{" "}
+          <Link
+            className="text-foreground underline-offset-4 hover:underline"
+            href="/docs/skill"
+          >
+            Skill
+          </Link>{" "}
+          is the SKILL.md that tells an agent to use those instead of drawing
+          SVG.
         </p>
       </DocsPageHeader>
 
@@ -73,33 +83,49 @@ export default function DocsPage() {
 
       <div className="flex flex-col gap-6">
         <h2 className="text-xl font-semibold tracking-tight">Components</h2>
-        <div className="relative isolate -mx-4 border-y border-dashed border-site-rail sm:-mx-6 lg:-mx-8">
+        <div className="relative isolate -mx-4 sm:-mx-6 lg:-mx-8">
+          <SiteRule className="top-0" />
+          <SiteRule className="bottom-0" />
           <SiteCorners />
+          <SiteMark className="top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 max-sm:hidden" />
+          <SiteMark className="bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 max-sm:hidden" />
           <dl className="grid sm:grid-cols-2">
             {components.map((item) => (
-              <div
+              <Link
+                href={`/docs/${item.slug}`}
+                key={item.slug}
                 className={cn(
-                  "flex flex-col gap-2 px-4 py-5 sm:px-6",
+                  "group flex flex-col gap-3 justify-between h-full px-4 py-5 sm:px-6",
                   "max-sm:[&:not(:first-child)]:border-t max-sm:[&:not(:first-child)]:border-dashed max-sm:[&:not(:first-child)]:border-site-rail",
                   "sm:[&:nth-child(n+3)]:border-t sm:[&:nth-child(n+3)]:border-dashed sm:[&:nth-child(n+3)]:border-site-rail",
                   "sm:[&:nth-child(odd)]:border-r sm:[&:nth-child(odd)]:border-dashed sm:[&:nth-child(odd)]:border-site-rail"
                 )}
-                key={item.slug}
               >
-                <dt className="flex items-center gap-2 font-medium text-foreground">
-                  <Link className="hover:underline" href={`/docs/${item.slug}`}>
+                <div className="flex flex-col gap-2">
+                  <dt className="flex items-center gap-2 font-medium text-foreground">
                     {item.title}
-                  </Link>
-                  {isNewSlug(item.slug) ? (
-                    <span className="font-mono text-[10px] tracking-wide text-graph-accent uppercase">
-                      new
-                    </span>
-                  ) : null}
-                </dt>
-                <dd className="max-w-[40ch] text-pretty text-muted-foreground">
-                  {item.description}
-                </dd>
-              </div>
+
+                    {isNewSlug(item.slug) ? (
+                      <span className="font-mono text-[10px] tracking-wide text-graph-accent uppercase">
+                        new
+                      </span>
+                    ) : null}
+                  </dt>
+
+                  <dd className="max-w-[40ch] text-pretty text-muted-foreground">
+                    {item.description}
+                  </dd>
+                </div>
+
+                <div className="flex items-center justify-end gap-2">
+                  <HugeiconsIcon
+                    icon={ArrowRight02Icon}
+                    size={20}
+                    strokeWidth={2}
+                    className="transition-all duration-300 group-hover:translate-x-1"
+                  />
+                </div>
+              </Link>
             ))}
           </dl>
         </div>

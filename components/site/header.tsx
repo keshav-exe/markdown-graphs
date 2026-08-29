@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { Dialog } from "@base-ui/react/dialog"
 import { Cancel01Icon, MenuIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
@@ -9,14 +10,22 @@ import { HeaderButton } from "@/components/site/header-button"
 import { SiteSearch } from "@/components/site/search"
 import { ThemeToggle } from "@/components/site/theme-toggle"
 import { GithubStarLink } from "@/components/site/github-star"
-import { SiteCorners } from "@/components/site/corners"
+import { SiteCorners, SiteMark, SiteRule } from "@/components/site/corners"
 import { cn } from "@/lib/utils"
 
 function SiteHeader({ stars }: { stars: number | null }) {
+  const docs = usePathname().startsWith("/docs")
+
   return (
-    <header className="sticky top-0 z-40 border-b border-dashed border-site-rail bg-background/40 backdrop-blur-sm">
-      <div className="relative isolate mx-auto w-full max-w-6xl border-x border-dashed border-site-rail px-4 sm:px-6 lg:px-8">
-        <SiteCorners corners={["tl", "tr"]} />
+    <header className="sticky top-0 z-40 bg-background/40 backdrop-blur-sm">
+      <SiteRule className="bottom-0 z-20" />
+      <div className="relative isolate mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+        <SiteRule className="left-0 z-20" orientation="y" />
+        <SiteRule className="right-0 z-20" orientation="y" />
+        <SiteCorners />
+        {docs ? (
+          <SiteMark className="bottom-0 left-64 -translate-x-1/2 translate-y-1/2 max-lg:hidden" />
+        ) : null}
         <div className="flex items-center gap-4 py-4">
           <Link
             aria-label="Homepage"

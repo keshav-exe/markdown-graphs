@@ -6,7 +6,6 @@ import { DocsPageHeader } from "@/components/docs/page-header"
 import { NamespaceSetup } from "@/components/docs/namespace"
 import { JsonLd } from "@/components/seo/json-ld"
 import { getComponent } from "@/lib/docs/catalog"
-import { SKILL_URL } from "@/lib/docs/recipes"
 import { installationJsonLd, pageMeta } from "@/lib/seo"
 
 export const metadata: Metadata = pageMeta({
@@ -49,13 +48,13 @@ import { GraphTable } from "@/registry/default/graph-table/graph-table"
 
 ## Agents
 
-Optional. $ORIGIN/llms.txt is the chooser and recipes in one file. Copy skills/markdown-graphs from the repo into .cursor/skills/markdown-graphs.`
+Optional. $ORIGIN/docs/skill is a SKILL.md that picks a graph for a write-up. Same files in Cursor, Claude Code, Codex, OpenCode, or any agent that loads Agent Skills. $ORIGIN/llms.txt is the chooser and recipes in one file.`
 
 export default function InstallationPage() {
   const table = getComponent("graph-table")
 
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-6 lg:gap-8">
       <JsonLd data={installationJsonLd()} />
       <DocsPageHeader
         copy={{
@@ -74,7 +73,7 @@ export default function InstallationPage() {
         title="Installation"
       />
 
-      <div className="flex flex-col gap-12">
+      <div className="flex flex-col gap-6 lg:gap-8">
         <section className="flex flex-col gap-4">
           <h2 className="text-xl font-semibold tracking-tight">
             One component
@@ -120,20 +119,24 @@ export default function InstallationPage() {
         <section className="flex flex-col gap-4">
           <h2 className="text-xl font-semibold tracking-tight">Agents</h2>
           <p className="text-pretty text-muted-foreground">
-            Optional.{" "}
+            Optional. A SKILL.md that picks a graph when a write-up would scan
+            faster with a figure. Same files in Cursor, Claude Code, Codex,
+            OpenCode, or any agent that loads Agent Skills.{" "}
+            <Link
+              className="text-foreground underline-offset-4 hover:underline"
+              href="/docs/skill"
+            >
+              Skill
+            </Link>
+            .{" "}
             <Link
               className="text-foreground underline-offset-4 hover:underline"
               href="/llms.txt"
             >
               /llms.txt
             </Link>{" "}
-            is every graph plus the recipes, in one file. Copy{" "}
-            <code className="font-mono">skills/markdown-graphs</code> from the
-            repo into{" "}
-            <code className="font-mono">.cursor/skills/markdown-graphs</code> if
-            you want a project skill.
+            is every graph plus the recipes, in one file.
           </p>
-          <Command label="Skill" value={SKILL_URL} />
         </section>
       </div>
     </div>

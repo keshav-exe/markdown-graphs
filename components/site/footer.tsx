@@ -6,7 +6,10 @@ import { GITHUB_URL } from "@/lib/github"
 function SiteFooter() {
   return (
     <footer>
-      <SiteContainer className="flex flex-col gap-8">
+      <SiteContainer
+        className="flex flex-col gap-8"
+        corners={["tl", "tr", "bl", "br"]}
+      >
         <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
           <Link aria-label="Homepage" className="text-foreground" href="/">
             markdown graphs
@@ -35,6 +38,14 @@ function SiteFooter() {
                   href="/docs/installation"
                 >
                   Installation
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="font-normal text-muted-foreground hover:text-foreground"
+                  href="/docs/skill"
+                >
+                  Skill
                 </Link>
               </li>
               <li>

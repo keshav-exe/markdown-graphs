@@ -151,7 +151,7 @@ function CopyToggle({
   onClick: () => void
 }) {
   return (
-    <div className="flex justify-center py-2">
+    <div className="flex justify-center py-2 graph-frame">
       <button
         className="relative px-2 py-1 font-mono tracking-wide text-muted-foreground uppercase hover:text-foreground"
         onClick={onClick}

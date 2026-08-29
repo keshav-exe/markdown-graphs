@@ -1,5 +1,4 @@
 import { SITE_URL } from "@/lib/site"
-import { GITHUB_URL } from "@/lib/github"
 
 export type RecipeTag = "plan" | "debug" | "tradeoff" | "ship"
 
@@ -17,9 +16,6 @@ export type Recipe = {
   featured?: boolean
   graphs: RecipeGraph[]
 }
-
-export const SKILL_PATH = "skills/markdown-graphs"
-export const SKILL_URL = `${GITHUB_URL}/tree/main/${SKILL_PATH}`
 
 export const recipes: Recipe[] = [
   {
@@ -314,6 +310,6 @@ Two graphs per write-up is enough. Prose between them. Copy the JSX from the exa
 
 ${lines.join("\n")}
 
-Skill to copy into .cursor/skills/markdown-graphs: ${SKILL_URL}
+Skill: ${host}/docs/skill
 `
 }

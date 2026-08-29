@@ -8,6 +8,7 @@ import { Cancel01Icon, MenuIcon } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
 import { AccentPicker } from "@/components/site/accent-picker"
+import { SiteRule } from "@/components/site/corners"
 import { MonoLabel } from "@/components/docs/mono-label"
 import { components, getStarted } from "@/lib/docs/catalog"
 import { isNewSlug } from "@/lib/docs/new"
@@ -20,7 +21,12 @@ function DocsNav({ onNavigate }: { onNavigate?: () => void }) {
         <div className="flex flex-col gap-8">
           <NavGroup label="Get started">
             {getStarted.map((item) => (
-              <NavItem href={item.href} key={item.href} onNavigate={onNavigate}>
+              <NavItem
+                href={item.href}
+                isNew={item.isNew}
+                key={item.href}
+                onNavigate={onNavigate}
+              >
                 {item.label}
               </NavItem>
             ))}
@@ -124,7 +130,8 @@ function ScrollFade({ edge }: { edge: "top" | "bottom" }) {
 
 function DocsSidebar() {
   return (
-    <aside className="sticky top-14 isolate max-h-[calc(100dvh-3.5rem)] w-64 shrink-0 border-r border-dashed border-site-rail max-lg:hidden sm:top-16 sm:max-h-[calc(100dvh-4rem)]">
+    <aside className="sticky top-14 isolate max-h-[calc(100dvh-3.5rem)] w-64 shrink-0 max-lg:hidden sm:top-16 sm:max-h-[calc(100dvh-4rem)]">
+      <SiteRule className="right-0" orientation="y" />
       <div className="max-h-[calc(100dvh-3.5rem)] scrollbar-none overflow-y-auto py-10 sm:max-h-[calc(100dvh-4rem)]">
         <DocsNav />
       </div>

@@ -5,29 +5,38 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 function GraphCorners({ mark = "+" }: { mark?: string }) {
+  const corner =
+    "pointer-events-none absolute z-10 flex size-4 items-center justify-center bg-background font-mono text-sm leading-none text-graph-frame select-none"
+
   return (
     <>
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 left-0 z-10 block -translate-x-1/2 -translate-y-1/2 bg-background px-0.5 text-graph-frame"
+        className={cn(corner, "top-0 left-0 -translate-x-1/2 -translate-y-1/2")}
       >
         {mark}
       </span>
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute top-0 right-0 z-10 block translate-x-1/2 -translate-y-1/2 bg-background px-0.5 text-graph-frame"
+        className={cn(corner, "top-0 right-0 translate-x-1/2 -translate-y-1/2")}
       >
         {mark}
       </span>
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-0 left-0 z-10 block -translate-x-1/2 translate-y-1/2 bg-background px-0.5 text-graph-frame"
+        className={cn(
+          corner,
+          "bottom-0 left-0 -translate-x-1/2 translate-y-1/2"
+        )}
       >
         {mark}
       </span>
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute right-0 bottom-0 z-10 block translate-x-1/2 translate-y-1/2 bg-background px-0.5 text-graph-frame"
+        className={cn(
+          corner,
+          "right-0 bottom-0 translate-x-1/2 translate-y-1/2"
+        )}
       >
         {mark}
       </span>

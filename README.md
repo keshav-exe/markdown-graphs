@@ -2,7 +2,7 @@
 
 React components for ASCII-style tables, charts, and diagrams in MDX. Each graph sits in a dashed frame with a title on the top edge. One accent color by default; drawing graphs can take `palette="duo"` or `palette="multi"`. You copy the source into your project — this is not an npm package.
 
-[Docs](https://mdx-graphs.kshv.me/docs) · [Examples](https://mdx-graphs.kshv.me/docs/examples) · [Install](https://mdx-graphs.kshv.me/docs/installation) · [GitHub](https://github.com/keshav-exe/markdown-graphs)
+[Docs](https://mdx-graphs.kshv.me/docs) · [Examples](https://mdx-graphs.kshv.me/docs/examples) · [Install](https://mdx-graphs.kshv.me/docs/installation) · [Skill](https://mdx-graphs.kshv.me/docs/skill) · [GitHub](https://github.com/keshav-exe/markdown-graphs)
 
 ## Install
 
@@ -77,7 +77,7 @@ pnpm dlx shadcn@latest add @markdown-graphs/graph-table
 
 Each docs page has CLI, manual, and agent install tabs. Copy page puts the markdown (install, prompt, examples, props) on the clipboard.
 
-Composed write-ups (refactor, incident, tradeoff, PR, sprint, migration) live on [Examples](https://mdx-graphs.kshv.me/docs/examples). Agents can fetch [`/llms.txt`](https://mdx-graphs.kshv.me/llms.txt) or copy [`skills/markdown-graphs`](skills/markdown-graphs) into `.cursor/skills/markdown-graphs`.
+Composed write-ups (refactor, incident, tradeoff, PR, sprint, migration) live on [Examples](https://mdx-graphs.kshv.me/docs/examples). The [skill](https://mdx-graphs.kshv.me/docs/skill) tells an agent which graph to put next to the prose. Agents can also fetch [`/llms.txt`](https://mdx-graphs.kshv.me/llms.txt).
 
 ## Design
 

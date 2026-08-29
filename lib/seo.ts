@@ -117,6 +117,27 @@ export function componentJsonLd(item: ComponentDoc) {
   }
 }
 
+export function skillJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        headline: "Skill",
+        description:
+          "A SKILL.md that picks a markdown graph when a write-up would scan faster with a figure.",
+        url: `${SITE_URL}/docs/skill`,
+        author,
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Docs", path: "/docs" },
+        { name: "Skill", path: "/docs/skill" },
+      ]),
+    ],
+  }
+}
+
 export function installationJsonLd() {
   return {
     "@context": "https://schema.org",

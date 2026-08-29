@@ -32,7 +32,7 @@ const extra = [
 
 export default function ExamplesPage() {
   return (
-    <div className="flex flex-col gap-12">
+    <div className="flex flex-col gap-6 lg:gap-8">
       <JsonLd
         data={{
           "@context": "https://schema.org",
@@ -83,14 +83,21 @@ export default function ExamplesPage() {
       <RecipeList />
 
       <p className="max-w-[56ch] text-pretty text-muted-foreground">
-        Every graph in one file:{" "}
+        Give this to an agent:{" "}
+        <Link
+          className="text-foreground underline-offset-4 hover:underline"
+          href="/docs/skill"
+        >
+          Skill
+        </Link>
+        . Every graph in one file:{" "}
         <Link
           className="text-foreground underline-offset-4 hover:underline"
           href="/llms.txt"
         >
           /llms.txt
         </Link>
-        . Same facts as the docs, meant for a prompt or a skill.
+        .
       </p>
     </div>
   )

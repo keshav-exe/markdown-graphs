@@ -32,7 +32,10 @@ const HITS: Hit[] = [
     title: item.label,
     detail: item.href,
     group: "Get started",
-    haystack: `${item.label} ${item.href}`.toLowerCase(),
+    haystack:
+      item.href === "/docs/skill"
+        ? "skill /docs/skill cursor claude codex opencode agent skill.md recipes"
+        : `${item.label} ${item.href}`.toLowerCase(),
   })),
   ...recipes.map((item) => ({
     href: `/docs/examples#${item.slug}`,

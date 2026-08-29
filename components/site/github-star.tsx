@@ -26,16 +26,16 @@ function GithubStarLink({
       href={GITHUB_URL}
       rel="noreferrer"
     >
-      <HugeiconsIcon
-        className="size-5 shrink-0 sm:size-4 fill-foreground"
-        icon={StarIcon}
-        size={20}
-        strokeWidth={1.5}
-      />
-      <span>on GitHub</span>
-      {count ? (
-        <span className="text-foreground tabular-nums">[{count}]</span>
-      ) : null}
+      <span>GitHub</span>
+      {count ? <span className="flex items-center gap-1 text-yellow-500 tabular-nums">
+        [{count}]
+        <HugeiconsIcon
+          className="size-5 shrink-0 sm:size-4 fill-yellow-500"
+          icon={StarIcon}
+          size={20}
+          strokeWidth={2}
+        />
+      </span> : null}
     </a>
   )
 }

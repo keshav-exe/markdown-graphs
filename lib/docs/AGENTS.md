@@ -4,16 +4,18 @@ Sidenav, `/docs/[slug]`, install copy, and props tables all read from here. Addi
 
 ## Files
 
-| File                                  | Role                                                             |
-| ------------------------------------- | ---------------------------------------------------------------- |
-| `catalog.ts`                          | `components[]` — slug, title, name, description, registry, props |
-| `files.ts`                            | Source paths shown on the Manual / GitHub install tabs           |
-| `new.ts`                              | `NEW_SLUGS` — which sidenav links get a **new** mark             |
-| `recipes.ts`                          | Composed write-ups on `/docs/examples` and `/llms.txt`           |
-| `components/docs/examples.tsx`        | `examplesBySlug[slug]`                                           |
-| `components/docs/recipe-card.tsx`     | Live previews for recipes                                        |
-| `components/docs/nav.tsx`             | Renders `isNewSlug(item.slug)`                                   |
-| `app/docs/[slug]/opengraph-image.tsx` | Per-page OG. Uses catalog title + description                    |
+| File                                  | Role                                                                            |
+| ------------------------------------- | ------------------------------------------------------------------------------- |
+| `catalog.ts`                          | `components[]` — slug, title, name, description, registry, props                |
+| `files.ts`                            | Source paths shown on the Manual / GitHub install tabs                          |
+| `new.ts`                              | `NEW_SLUGS` — which sidenav links get a **new** mark                            |
+| `recipes.ts`                          | Composed write-ups on `/docs/examples` and `/llms.txt`                          |
+| `skill.ts`                            | Agent skill copy, chooser table, example prompts, curl install on `/docs/skill` |
+| `skill-files.ts`                      | Reads `skills/markdown-graphs` for `/skill.md` and the docs page                |
+| `components/docs/examples.tsx`        | `examplesBySlug[slug]`                                                          |
+| `components/docs/recipe-card.tsx`     | Live previews for recipes                                                       |
+| `components/docs/nav.tsx`             | Renders `isNewSlug(item.slug)`                                                  |
+| `app/docs/[slug]/opengraph-image.tsx` | Per-page OG. Uses catalog title + description                                   |
 
 ## New marks
 
