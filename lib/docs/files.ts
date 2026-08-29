@@ -12,6 +12,11 @@ export const registryFiles: Record<string, string[]> = {
     "registry/default/graph-frame/graph-motion.ts",
     "registry/default/graph-table/graph-table.tsx",
   ],
+  "graph-sheet": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-sheet/graph-sheet.tsx",
+  ],
   "graph-flow": [
     "registry/default/graph-frame/graph-frame.tsx",
     "registry/default/graph-frame/graph-motion.ts",
@@ -54,6 +59,11 @@ export const registryFiles: Record<string, string[]> = {
     "registry/default/graph-frame/graph-motion.ts",
     "registry/default/graph-timeline/graph-timeline.tsx",
   ],
+  "graph-check": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-check/graph-check.tsx",
+  ],
   "graph-stack": [
     "registry/default/graph-frame/graph-frame.tsx",
     "registry/default/graph-frame/graph-motion.ts",
@@ -93,6 +103,11 @@ export const registryFiles: Record<string, string[]> = {
     "registry/default/graph-frame/graph-frame.tsx",
     "registry/default/graph-frame/graph-motion.ts",
     "registry/default/graph-compare/graph-compare.tsx",
+  ],
+  "graph-matrix": [
+    "registry/default/graph-frame/graph-frame.tsx",
+    "registry/default/graph-frame/graph-motion.ts",
+    "registry/default/graph-matrix/graph-matrix.tsx",
   ],
   "graph-stat": [
     "registry/default/graph-frame/graph-frame.tsx",
@@ -203,6 +218,15 @@ export const graphUtilitiesCss = `@theme inline {
   height: 1px;
   background-image: repeating-linear-gradient(
     to right,
+    var(--graph-frame) 0 2px,
+    transparent 2px 7px
+  );
+}
+
+@utility graph-rule-y {
+  width: 1px;
+  background-image: repeating-linear-gradient(
+    to bottom,
     var(--graph-frame) 0 2px,
     transparent 2px 7px
   );

@@ -68,7 +68,7 @@ function GraphTree({ title, nodes, corner, className }: GraphTreeProps) {
 
   return (
     <Graph title={title} className={className} corner={corner}>
-      <GraphBody className="overflow-x-auto">
+      <GraphBody className="graph-scroll-x">
         <motion.ul
           role="list"
           className="flex min-w-max flex-col gap-1"

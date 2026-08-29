@@ -10,11 +10,12 @@ import { useOrigin } from "@/lib/docs/origin"
 import { accentCss } from "@/lib/accent"
 import type { ComponentDoc } from "@/lib/docs/catalog"
 import { graphUtilitiesCss, registryFiles } from "@/lib/docs/files"
+import { mdxExample } from "@/lib/docs/ascii"
 import { agentPrompt } from "@/lib/docs/prompt"
 import { GITHUB_TREE, GITHUB_URL } from "@/lib/github"
 import { cn } from "@/lib/utils"
 
-type InstallTab = "cli" | "manual" | "agent"
+type InstallTab = "cli" | "manual" | "agent" | "mdx"
 
 const COLLAPSED_HEIGHT = 256
 
@@ -31,6 +32,16 @@ function InstallCommand({ name, doc, example }: InstallCommandProps) {
   const [tab, setTab] = useState<InstallTab>("cli")
   const origin = useOrigin()
   const prompt = agentPrompt({ origin, registry: name, doc, example })
+  const mdx = mdxExample(name)
+  const tabs: [InstallTab, string][] = [
+    ["cli", "CLI"],
+    ["manual", "Manual"],
+    ["agent", "Agent"],
+  ]
+
+  if (mdx) {
+    tabs.push(["mdx", "MDX"])
+  }
 
   return (
     <div className="flex flex-col gap-4">
@@ -39,13 +50,7 @@ function InstallCommand({ name, doc, example }: InstallCommandProps) {
         className="flex flex-wrap items-center gap-1"
         role="tablist"
       >
-        {(
-          [
-            ["cli", "CLI"],
-            ["manual", "Manual"],
-            ["agent", "Agent"],
-          ] as const
-        ).map(([id, label]) => (
+        {tabs.map(([id, label]) => (
           <button
             key={id}
             aria-selected={tab === id}
@@ -69,6 +74,8 @@ function InstallCommand({ name, doc, example }: InstallCommandProps) {
         <CliInstall name={name} />
       ) : tab === "manual" ? (
         <ManualInstall name={name} />
+      ) : tab === "mdx" && mdx ? (
+        <MdxInstall markdown={mdx.markdown} />
       ) : (
         <CopyBlock label="Prompt" value={prompt} />
       )}
@@ -143,6 +150,20 @@ function ManualInstall({ name }: { name: string }) {
   )
 }
 
+function MdxInstall({ markdown }: { markdown: string }) {
+  return (
+    <div className="flex flex-col gap-6">
+      <p className="text-pretty text-muted-foreground">
+        Paste this fenced block into a Markdown file that cannot import the
+        React component — README, GitHub, Linear, PR comments, a bare `.md`.
+        Monospace keeps the frame aligned. Swap labels, keep the frame. Do not
+        invent a different drawing.
+      </p>
+      <CopyBlock label="Markdown" value={markdown} />
+    </div>
+  )
+}
+
 function CopyToggle({
   label,
   onClick,
@@ -151,9 +172,9 @@ function CopyToggle({
   onClick: () => void
 }) {
   return (
-    <div className="flex justify-center py-2 graph-frame">
+    <div className="flex justify-center graph-frame py-2">
       <button
-        className="relative px-2 py-1 font-mono tracking-wide text-muted-foreground uppercase hover:text-foreground"
+        className="relative px-2 py-1 font-mono w-full tracking-wide text-muted-foreground uppercase hover:text-foreground"
         onClick={onClick}
         type="button"
       >
@@ -211,7 +232,7 @@ function CopyBlock({ label, value }: { label: string; value: string }) {
             style={{ maxHeight }}
           >
             <pre
-              className="p-4 pr-12 text-pretty whitespace-pre-wrap text-muted-foreground"
+              className="scrollbar-graph max-h-72 overflow-auto p-4 pr-12 text-pretty whitespace-pre-wrap text-muted-foreground"
               ref={preRef}
             >
               <code>{value}</code>
@@ -245,7 +266,7 @@ function Command({ label, value }: { label: string; value: string }) {
         onClick={() => copy(value)}
         type="button"
       >
-        <pre className="min-w-0 flex-1 overflow-x-auto text-muted-foreground">
+        <pre className="graph-scroll-x min-w-0 flex-1 text-muted-foreground">
           <code>{value}</code>
         </pre>
         <CopyMark copied={copied} />

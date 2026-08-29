@@ -70,13 +70,13 @@ function ComponentPreview({
 
       <FrameBox className="min-w-0">
         {tab === "preview" ? (
-          <div className="overflow-x-auto p-4 sm:p-8">{children}</div>
+          <div className="graph-scroll-x p-4 sm:p-8">{children}</div>
         ) : (
           <>
             <div className="absolute top-2 right-2 z-20">
               <CopyButton label="Copy code" text={source} />
             </div>
-            <pre className="overflow-x-auto p-4 text-muted-foreground sm:p-8">
+            <pre className="scrollbar-graph max-h-96 overflow-auto p-4 text-muted-foreground sm:p-8">
               <code>{source}</code>
             </pre>
           </>

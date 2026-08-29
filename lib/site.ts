@@ -2,7 +2,7 @@ export const SITE_URL = "https://mdx-graphs.kshv.me"
 export const SITE_NAME = "Markdown Graphs"
 export const SITE_NAME_SHORT = "markdown graphs"
 export const SITE_DESCRIPTION =
-  "React components for graphs and charts that look like markdown. Install via shadcn into a Tailwind project, then import in MDX or React."
+  "Monospace charts and tables for MDX and React. Install via shadcn, or paste the ASCII twin into a README."
 export const SITE_TWITTER = "@kshvbgde"
 export const SITE_AUTHOR = {
   name: "Keshav Bagaade",

@@ -45,6 +45,7 @@ pnpm dlx shadcn@latest add @markdown-graphs/graph-table
 | Component | Registry item     | Use for                                    |
 | --------- | ----------------- | ------------------------------------------ |
 | Table     | `graph-table`     | Data tables with optional footer totals    |
+| Sheet     | `graph-sheet`     | Tables with section titles                 |
 | Flow      | `graph-flow`      | Process diagrams on a dashed arrow         |
 | Bars      | `graph-bars`      | Two bar groups, side by side               |
 | Cells     | `graph-cells`     | Filled / empty grids                       |
@@ -52,6 +53,7 @@ pnpm dlx shadcn@latest add @markdown-graphs/graph-table
 | Spark     | `graph-spark`     | Sparkline from block characters            |
 | Tree      | `graph-tree`      | File or org trees                          |
 | Timeline  | `graph-timeline`  | Dated events, one row current              |
+| Check     | `graph-check`     | Punch list, `[x]` / `[ ]`                  |
 | Stack     | `graph-stack`     | Parts of a whole, glyphs instead of colors |
 | Funnel    | `graph-funnel`    | Steps that get narrower                    |
 | Gantt     | `graph-gantt`     | Schedule on a character track              |
@@ -60,6 +62,7 @@ pnpm dlx shadcn@latest add @markdown-graphs/graph-table
 | Diff      | `graph-diff`      | Add / remove / keep rows                   |
 | Invoice   | `graph-invoice`   | From, bill-to, line items, totals          |
 | Compare   | `graph-compare`   | Feature matrix (`✓` / `–`)                 |
+| Matrix    | `graph-matrix`    | Exact numbers on both axes                 |
 | Stat      | `graph-stat`      | Large figures with labels                  |
 | Spec      | `graph-spec`      | Label / value sheets                       |
 | Activity  | `graph-activity`  | GitHub-style contribution grid             |
@@ -77,7 +80,7 @@ pnpm dlx shadcn@latest add @markdown-graphs/graph-table
 
 Each docs page has CLI, manual, and agent install tabs. Copy page puts the markdown (install, prompt, examples, props) on the clipboard.
 
-Composed write-ups (refactor, incident, tradeoff, PR, sprint, migration) live on [Examples](https://mdx-graphs.kshv.me/docs/examples). The [skill](https://mdx-graphs.kshv.me/docs/skill) tells an agent which graph to put next to the prose. Agents can also fetch [`/llms.txt`](https://mdx-graphs.kshv.me/llms.txt).
+Composed write-ups (refactor, incident, tradeoff, PR, sprint, migration) live on [Examples](https://mdx-graphs.kshv.me/docs/examples). The [skill](https://mdx-graphs.kshv.me/docs/skill) tells an agent which graph to put next to the prose — JSX in React, fenced ASCII in plain Markdown. Agents can also fetch [`/llms.txt`](https://mdx-graphs.kshv.me/llms.txt) for the chooser and the twins.
 
 ## Design
 

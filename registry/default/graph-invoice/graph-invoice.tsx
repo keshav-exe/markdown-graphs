@@ -105,7 +105,7 @@ function GraphInvoice({
           </dl>
         ) : null}
 
-        <div className="@container overflow-x-auto">
+        <div className="@container graph-scroll-x">
           <table className="w-full min-w-lg border-separate border-spacing-0">
             <thead>
               <tr>

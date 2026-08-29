@@ -8,7 +8,9 @@
       "type": "registry:ui",
       "title": "Frame",
       "description": "Dashed ASCII frame, title, corners, and motion helpers.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -75,6 +77,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       },
       "docs": "Primitive used by every graph. Install this, or skip it — every other item includes it."
@@ -84,7 +90,9 @@
       "type": "registry:component",
       "title": "Table",
       "description": "Framed data table with optional footer totals.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -147,6 +155,87 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "graph-sheet",
+      "type": "registry:component",
+      "title": "Sheet",
+      "description": "Grouped table with section titles.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-sheet/graph-sheet.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-accent-2": "var(--graph-accent-2)",
+          "color-graph-accent-3": "var(--graph-accent-3)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-accent-2": "oklch(0.58 0.14 70)",
+          "graph-accent-3": "oklch(0.5 0.12 165)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-accent-2": "oklch(0.78 0.12 70)",
+          "graph-accent-3": "oklch(0.78 0.1 165)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -155,7 +244,9 @@
       "type": "registry:component",
       "title": "Flow",
       "description": "Typed process diagram with dashed arrows.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -222,6 +313,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -230,7 +325,9 @@
       "type": "registry:component",
       "title": "Bars",
       "description": "Before/after bar comparison with a processor in the middle.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -297,6 +394,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -305,7 +406,9 @@
       "type": "registry:component",
       "title": "Rank",
       "description": "A list of labels with a bar of characters and a number on the right.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -368,6 +471,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -376,7 +483,9 @@
       "type": "registry:component",
       "title": "Cells",
       "description": "Filled and empty cell grids for comparing density.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -439,6 +548,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -447,7 +560,9 @@
       "type": "registry:component",
       "title": "Meter",
       "description": "Percentage meter drawn with characters, not a progress bar.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -510,6 +625,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -518,7 +637,9 @@
       "type": "registry:component",
       "title": "Spark",
       "description": "Sparkline made of block glyphs.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -581,6 +702,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -589,7 +714,9 @@
       "type": "registry:component",
       "title": "Tree",
       "description": "File or org tree with branch glyphs.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -652,6 +779,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -660,7 +791,9 @@
       "type": "registry:component",
       "title": "Timeline",
       "description": "Vertical changelog. Current row is the accent.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -723,6 +856,87 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "graph-check",
+      "type": "registry:component",
+      "title": "Check",
+      "description": "Punch list. Done rows mark [x].",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-check/graph-check.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-accent-2": "var(--graph-accent-2)",
+          "color-graph-accent-3": "var(--graph-accent-3)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-accent-2": "oklch(0.58 0.14 70)",
+          "graph-accent-3": "oklch(0.5 0.12 165)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-accent-2": "oklch(0.78 0.12 70)",
+          "graph-accent-3": "oklch(0.78 0.1 165)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -731,7 +945,9 @@
       "type": "registry:component",
       "title": "Stack",
       "description": "Share of a whole. Glyphs stand in for series color.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -794,6 +1010,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -802,7 +1022,9 @@
       "type": "registry:component",
       "title": "Funnel",
       "description": "Conversion steps. Percent is versus the first row.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -865,6 +1087,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -873,7 +1099,9 @@
       "type": "registry:component",
       "title": "Gantt",
       "description": "A schedule in dashes and blocks.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -936,6 +1164,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -944,7 +1176,9 @@
       "type": "registry:component",
       "title": "Plot",
       "description": "Line or area made of columns. Cap is █, fill is ░.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1007,6 +1241,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1015,7 +1253,9 @@
       "type": "registry:component",
       "title": "Waffle",
       "description": "A hundred cells. Value is how many are lit.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1078,6 +1318,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1086,7 +1330,9 @@
       "type": "registry:component",
       "title": "Diff",
       "description": "Plus, minus, keep. A ledger, not a table.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1149,6 +1395,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1157,7 +1407,9 @@
       "type": "registry:component",
       "title": "Invoice",
       "description": "Document table for invoices and quotes. From, bill-to, line items, totals.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1220,6 +1472,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1228,7 +1484,9 @@
       "type": "registry:component",
       "title": "Compare",
       "description": "Feature matrix. Cells are text or true/false, drawn as ✓ and –.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1291,6 +1549,87 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        }
+      }
+    },
+    {
+      "name": "graph-matrix",
+      "type": "registry:component",
+      "title": "Matrix",
+      "description": "Exact numbers on both axes.",
+      "dependencies": [
+        "motion"
+      ],
+      "files": [
+        {
+          "path": "registry/default/graph-frame/graph-frame.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/default/graph-frame/graph-motion.ts",
+          "type": "registry:lib"
+        },
+        {
+          "path": "registry/default/graph-matrix/graph-matrix.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "cssVars": {
+        "theme": {
+          "color-graph-accent": "var(--graph-accent)",
+          "color-graph-accent-2": "var(--graph-accent-2)",
+          "color-graph-accent-3": "var(--graph-accent-3)",
+          "color-graph-frame": "var(--graph-frame)",
+          "color-graph-muted": "var(--graph-muted)",
+          "color-graph-faint": "var(--graph-faint)",
+          "color-contrast-14": "var(--contrast-14)",
+          "color-contrast-23": "var(--contrast-23)",
+          "color-contrast-45": "var(--contrast-45)",
+          "color-contrast-70": "var(--contrast-70)"
+        },
+        "light": {
+          "graph-accent": "oklch(0.5 0.18 255)",
+          "graph-accent-2": "oklch(0.58 0.14 70)",
+          "graph-accent-3": "oklch(0.5 0.12 165)",
+          "graph-frame": "oklch(0.205 0 0 / 0.28)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.82 0 0)",
+          "contrast-14": "oklch(0.88 0 0)",
+          "contrast-23": "oklch(0.76 0 0)",
+          "contrast-45": "oklch(0.48 0 0)",
+          "contrast-70": "oklch(0.28 0 0)"
+        },
+        "dark": {
+          "graph-accent": "oklch(0.7 0.12 255)",
+          "graph-accent-2": "oklch(0.78 0.12 70)",
+          "graph-accent-3": "oklch(0.78 0.1 165)",
+          "graph-frame": "oklch(0.48 0 0)",
+          "graph-muted": "oklch(0.52 0 0)",
+          "graph-faint": "oklch(0.28 0 0)",
+          "contrast-14": "oklch(0.22 0 0)",
+          "contrast-23": "oklch(0.34 0 0)",
+          "contrast-45": "oklch(0.62 0 0)",
+          "contrast-70": "oklch(0.84 0 0)"
+        }
+      },
+      "css": {
+        "@utility graph-frame": {
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px), repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)",
+          "background-repeat": "repeat-x, repeat-y, repeat-x, repeat-y",
+          "background-position": "0 0, 100% 0, 0 100%, 0 0",
+          "background-size": "100% 1px, 1px 100%, 100% 1px, 1px 100%"
+        },
+        "@utility graph-rule": {
+          "height": "1px",
+          "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1299,7 +1638,9 @@
       "type": "registry:component",
       "title": "Stat",
       "description": "A row of large numbers with labels. Use it for KPIs, not as a chart.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1362,6 +1703,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1370,7 +1715,9 @@
       "type": "registry:component",
       "title": "KPI",
       "description": "One large number with a sparkline under it.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1433,6 +1780,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1441,7 +1792,9 @@
       "type": "registry:component",
       "title": "Spec",
       "description": "Aligned label and value rows. Spec sheets, shipping labels, type samples.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1504,6 +1857,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1512,7 +1869,9 @@
       "type": "registry:component",
       "title": "Activity",
       "description": "GitHub-style contribution grid from dated counts.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1575,6 +1934,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1583,7 +1946,9 @@
       "type": "registry:component",
       "title": "Heatmap",
       "description": "Labeled 2d intensity matrix. Same glyphs as Activity.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1646,6 +2011,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1654,7 +2023,9 @@
       "type": "registry:component",
       "title": "Calendar",
       "description": "One month as a seven-column grid. Mark days with the accent.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1717,6 +2088,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1725,7 +2100,9 @@
       "type": "registry:component",
       "title": "Waterfall",
       "description": "Running total as floating bars. Start, in, out, end.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1788,6 +2165,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1796,7 +2177,9 @@
       "type": "registry:component",
       "title": "Uptime",
       "description": "One glyph per day. ok, degraded, down, or empty.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1859,6 +2242,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1867,7 +2254,9 @@
       "type": "registry:component",
       "title": "Slope",
       "description": "Two figures per row with an arrow between.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -1930,6 +2319,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -1938,7 +2331,9 @@
       "type": "registry:component",
       "title": "Bullet",
       "description": "Actual versus target on a shared track. The marker is the target.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -2001,6 +2396,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -2009,7 +2408,9 @@
       "type": "registry:component",
       "title": "Timer",
       "description": "Elapsed time, how long ago, or the time of day. The numbers update every second.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -2076,6 +2477,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -2084,7 +2489,9 @@
       "type": "registry:component",
       "title": "Countdown",
       "description": "Time left until a date. After that it shows a short label you pass in.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -2151,6 +2558,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       }
     },
@@ -2159,7 +2570,9 @@
       "type": "registry:block",
       "title": "All graphs",
       "description": "Every markdown graph component, plus the frame primitives.",
-      "dependencies": ["motion"],
+      "dependencies": [
+        "motion"
+      ],
       "files": [
         {
           "path": "registry/default/graph-frame/graph-frame.tsx",
@@ -2179,6 +2592,10 @@
         },
         {
           "path": "registry/default/graph-table/graph-table.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/graph-sheet/graph-sheet.tsx",
           "type": "registry:component"
         },
         {
@@ -2214,6 +2631,10 @@
           "type": "registry:component"
         },
         {
+          "path": "registry/default/graph-check/graph-check.tsx",
+          "type": "registry:component"
+        },
+        {
           "path": "registry/default/graph-stack/graph-stack.tsx",
           "type": "registry:component"
         },
@@ -2243,6 +2664,10 @@
         },
         {
           "path": "registry/default/graph-compare/graph-compare.tsx",
+          "type": "registry:component"
+        },
+        {
+          "path": "registry/default/graph-matrix/graph-matrix.tsx",
           "type": "registry:component"
         },
         {
@@ -2346,6 +2771,10 @@
         "@utility graph-rule": {
           "height": "1px",
           "background-image": "repeating-linear-gradient(to right, var(--graph-frame) 0 2px, transparent 2px 7px)"
+        },
+        "@utility graph-rule-y": {
+          "width": "1px",
+          "background-image": "repeating-linear-gradient(to bottom, var(--graph-frame) 0 2px, transparent 2px 7px)"
         }
       },
       "docs": "Installs the full library into registry/default."

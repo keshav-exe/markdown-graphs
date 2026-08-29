@@ -48,7 +48,7 @@ import { GraphTable } from "@/registry/default/graph-table/graph-table"
 
 ## Agents
 
-Optional. $ORIGIN/docs/skill is a SKILL.md that picks a graph for a write-up. Same files in Cursor, Claude Code, Codex, OpenCode, or any agent that loads Agent Skills. $ORIGIN/llms.txt is the chooser and recipes in one file.`
+Optional. $ORIGIN/docs/skill is a SKILL.md that picks a graph for a write-up. Same files in Cursor, Claude Code, Codex, OpenCode, or any agent that loads Agent Skills. $ORIGIN/llms.txt is the chooser, recipes, and fenced ASCII twins (plain Markdown) in one file.`
 
 export default function InstallationPage() {
   const table = getComponent("graph-table")

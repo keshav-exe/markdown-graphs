@@ -12,7 +12,7 @@ ASCII-framed React diagrams for MDX. Source is copied via shadcn registry, not n
 Nested agent notes:
 
 - [`registry/default/AGENTS.md`](registry/default/AGENTS.md) — how to build a graph
-- [`lib/docs/AGENTS.md`](lib/docs/AGENTS.md) — catalog, examples, recipes, **New** marks, OG
+- [`lib/docs/AGENTS.md`](lib/docs/AGENTS.md) — catalog, examples, recipes, **New** marks, OG, ASCII/MDX
 - [`skills/markdown-graphs/SKILL.md`](skills/markdown-graphs/SKILL.md) — Agent Skills file; copy into `.cursor/skills`, `.claude/skills`, `.agents/skills`, or `.opencode/skills`
 
 ## Adding a graph
@@ -27,7 +27,8 @@ Do the full list. Docs pages are generated from the catalog; there is no per-com
 6. **Replace** `NEW_SLUGS` in `lib/docs/new.ts` with this drop’s slugs. Do not append to last drop’s list.
 7. Row in the README component table
 8. Homepage (`app/page.tsx`) only if it earns a slot
-9. `pnpm registry:build` so `public/r/` matches source
+9. ASCII twin in `lib/ascii` + `MDX_SLUGS` if the figure is a character grid (see `lib/docs/AGENTS.md`)
+10. `pnpm registry:build` so `public/r/` matches source
 
 OG images are `opengraph-image.tsx` via `lib/og`. They prerender at `next build` from the catalog. Do not commit PNGs or add a pre-commit generator. A new catalog row is enough.
 

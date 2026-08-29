@@ -3,6 +3,7 @@ export {
   GraphBody,
   GraphCorners,
   GraphRule,
+  GraphRuleY,
   GraphTick,
   GraphTitle,
   GraphTrack,
@@ -23,6 +24,7 @@ export {
   trackMarks,
 } from "@/registry/default/graph-frame/graph-motion"
 export { GraphTable } from "@/registry/default/graph-table/graph-table"
+export { GraphSheet } from "@/registry/default/graph-sheet/graph-sheet"
 export { GraphFlow } from "@/registry/default/graph-flow/graph-flow"
 export { GraphBars } from "@/registry/default/graph-bars/graph-bars"
 export { GraphRank } from "@/registry/default/graph-rank/graph-rank"
@@ -31,6 +33,7 @@ export { GraphMeter } from "@/registry/default/graph-meter/graph-meter"
 export { GraphSpark } from "@/registry/default/graph-spark/graph-spark"
 export { GraphTree } from "@/registry/default/graph-tree/graph-tree"
 export { GraphTimeline } from "@/registry/default/graph-timeline/graph-timeline"
+export { GraphCheck } from "@/registry/default/graph-check/graph-check"
 export { GraphStack } from "@/registry/default/graph-stack/graph-stack"
 export { GraphFunnel } from "@/registry/default/graph-funnel/graph-funnel"
 export { GraphGantt } from "@/registry/default/graph-gantt/graph-gantt"
@@ -39,6 +42,7 @@ export { GraphPlot } from "@/registry/default/graph-plot/graph-plot"
 export { GraphWaffle } from "@/registry/default/graph-waffle/graph-waffle"
 export { GraphInvoice } from "@/registry/default/graph-invoice/graph-invoice"
 export { GraphCompare } from "@/registry/default/graph-compare/graph-compare"
+export { GraphMatrix } from "@/registry/default/graph-matrix/graph-matrix"
 export { GraphStat } from "@/registry/default/graph-stat/graph-stat"
 export { GraphKpi } from "@/registry/default/graph-kpi/graph-kpi"
 export { GraphSpec } from "@/registry/default/graph-spec/graph-spec"
@@ -58,6 +62,10 @@ export type {
   GraphPalette,
 } from "@/registry/default/graph-frame/graph-motion"
 export type { GraphTableProps } from "@/registry/default/graph-table/graph-table"
+export type {
+  GraphSheetProps,
+  SheetSection,
+} from "@/registry/default/graph-sheet/graph-sheet"
 export type {
   FlowNode,
   FlowRow,
@@ -86,6 +94,10 @@ export type {
   TimelineEvent,
   TimelineState,
 } from "@/registry/default/graph-timeline/graph-timeline"
+export type {
+  CheckItem,
+  GraphCheckProps,
+} from "@/registry/default/graph-check/graph-check"
 export type {
   GraphStackProps,
   StackRow,
@@ -118,6 +130,10 @@ export type {
   CompareRow,
   GraphCompareProps,
 } from "@/registry/default/graph-compare/graph-compare"
+export type {
+  GraphMatrixProps,
+  MatrixRow,
+} from "@/registry/default/graph-matrix/graph-matrix"
 export type {
   GraphStatProps,
   StatItem,

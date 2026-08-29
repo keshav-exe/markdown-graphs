@@ -251,7 +251,7 @@ function SiteSearch() {
             </Dialog.Close>
           </div>
           <div
-            className="min-h-0 flex-1 overflow-y-auto p-2 sm:max-h-[min(24rem,60vh)]"
+            className="scrollbar-graph min-h-0 flex-1 overflow-y-auto p-2 sm:max-h-[min(24rem,60vh)]"
             id="search-results"
             role="listbox"
           >

@@ -54,7 +54,7 @@ function GraphCompare({
 
   return (
     <Graph title={title} className={className} corner={corner}>
-      <GraphBody className="overflow-x-auto">
+      <GraphBody className="graph-scroll-x">
         <div className="flex min-w-lg flex-col gap-3">
           <div
             className="grid items-end gap-x-4"

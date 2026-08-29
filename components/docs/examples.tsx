@@ -9,6 +9,7 @@ import {
   GraphBullet,
   GraphCalendar,
   GraphCells,
+  GraphCheck,
   GraphCompare,
   GraphCountdown,
   GraphDiff,
@@ -18,10 +19,12 @@ import {
   GraphHeatmap,
   GraphInvoice,
   GraphKpi,
+  GraphMatrix,
   GraphMeter,
   GraphPlot,
   GraphRank,
   GraphRule,
+  GraphSheet,
   GraphSlope,
   GraphSpark,
   GraphSpec,
@@ -120,6 +123,110 @@ const tableExamples: Example[] = [
           ["no animation at all", "you open it hundreds of times"],
         ]}
         title="TASTE, EXPLAINED"
+      />
+    ),
+  },
+]
+
+const sheetExamples: Example[] = [
+  {
+    title: "RFC",
+    description:
+      "Section titles sit above their rows. Same columns throughout.",
+    code: `import { GraphSheet } from "@/registry/default/graph-sheet/graph-sheet"
+
+<GraphSheet
+  title="RFC"
+  headers={["Item", "Owner", "Status"]}
+  align={["left", "left", "left"]}
+  sections={[
+    {
+      title: "Scope",
+      rows: [
+        ["CLI copies files", "priya", "done"],
+        ["Docs previews", "jon", "now"],
+      ],
+    },
+    {
+      title: "Out of scope",
+      rows: [
+        ["npm package", "—", "later"],
+        ["Figma kit", "—", "later"],
+      ],
+    },
+  ]}
+/>`,
+    preview: (
+      <GraphSheet
+        align={["left", "left", "left"]}
+        headers={["Item", "Owner", "Status"]}
+        sections={[
+          {
+            title: "Scope",
+            rows: [
+              ["CLI copies files", "priya", "done"],
+              ["Docs previews", "jon", "now"],
+            ],
+          },
+          {
+            title: "Out of scope",
+            rows: [
+              ["npm package", "—", "later"],
+              ["Figma kit", "—", "later"],
+            ],
+          },
+        ]}
+        title="RFC"
+      />
+    ),
+  },
+  {
+    title: "Surface",
+    description: "Grouped API table. Footer is optional.",
+    code: `import { GraphSheet } from "@/registry/default/graph-sheet/graph-sheet"
+
+<GraphSheet
+  title="SURFACE"
+  headers={["Name", "Kind", "Stable"]}
+  align={["left", "left", "left"]}
+  sections={[
+    {
+      title: "Frame",
+      rows: [
+        ["Graph", "primitive", "yes"],
+        ["GraphBody", "primitive", "yes"],
+      ],
+    },
+    {
+      title: "Charts",
+      rows: [
+        ["GraphTable", "component", "yes"],
+        ["GraphSheet", "component", "new"],
+      ],
+    },
+  ]}
+/>`,
+    preview: (
+      <GraphSheet
+        align={["left", "left", "left"]}
+        headers={["Name", "Kind", "Stable"]}
+        sections={[
+          {
+            title: "Frame",
+            rows: [
+              ["Graph", "primitive", "yes"],
+              ["GraphBody", "primitive", "yes"],
+            ],
+          },
+          {
+            title: "Charts",
+            rows: [
+              ["GraphTable", "component", "yes"],
+              ["GraphSheet", "component", "new"],
+            ],
+          },
+        ]}
+        title="SURFACE"
       />
     ),
   },
@@ -602,6 +709,57 @@ const timelineExamples: Example[] = [
           { date: "14:40", label: "write the postmortem", state: "next" },
         ]}
         title="INCIDENT"
+      />
+    ),
+  },
+]
+
+const checkExamples: Example[] = [
+  {
+    title: "Launch",
+    description: "Done rows mark [x]. A note sits under the open item.",
+    code: `import { GraphCheck } from "@/registry/default/graph-check/graph-check"
+
+<GraphCheck
+  title="LAUNCH"
+  items={[
+    { label: "freeze tokens", done: true },
+    { label: "ship registry json", done: true },
+    { label: "write the postmortem", note: "still open" },
+  ]}
+/>`,
+    preview: (
+      <GraphCheck
+        items={[
+          { label: "freeze tokens", done: true },
+          { label: "ship registry json", done: true },
+          { label: "write the postmortem", note: "still open" },
+        ]}
+        title="LAUNCH"
+      />
+    ),
+  },
+  {
+    title: "Review",
+    description: "A punch list with a note on the last row.",
+    code: `import { GraphCheck } from "@/registry/default/graph-check/graph-check"
+
+<GraphCheck
+  title="REVIEW"
+  items={[
+    { label: "title is a sentence", done: true },
+    { label: "numbers are tabular", done: true },
+    { label: "motion respects reduced", note: "check the timer" },
+  ]}
+/>`,
+    preview: (
+      <GraphCheck
+        items={[
+          { label: "title is a sentence", done: true },
+          { label: "numbers are tabular", done: true },
+          { label: "motion respects reduced", note: "check the timer" },
+        ]}
+        title="REVIEW"
       />
     ),
   },
@@ -1135,6 +1293,63 @@ const compareExamples: Example[] = [
           { label: "Themable", values: [false, false, true] },
         ]}
         title="RENDER"
+      />
+    ),
+  },
+]
+
+const matrixExamples: Example[] = [
+  {
+    title: "Detect",
+    description: "Confusion matrix. The live row uses the accent.",
+    code: `import { GraphMatrix } from "@/registry/default/graph-matrix/graph-matrix"
+
+<GraphMatrix
+  title="DETECT"
+  columns={["Pos", "Neg"]}
+  accent="Pos"
+  rows={[
+    { label: "Pos", values: [41, 3] },
+    { label: "Neg", values: [2, 54] },
+  ]}
+/>`,
+    preview: (
+      <GraphMatrix
+        accent="Pos"
+        columns={["Pos", "Neg"]}
+        rows={[
+          { label: "Pos", values: [41, 3] },
+          { label: "Neg", values: [2, 54] },
+        ]}
+        title="DETECT"
+      />
+    ),
+  },
+  {
+    title: "Latency",
+    description: "p95 by region. Numbers stay right-aligned.",
+    code: `import { GraphMatrix } from "@/registry/default/graph-matrix/graph-matrix"
+
+<GraphMatrix
+  title="P95"
+  columns={["iad", "sfo", "nrt"]}
+  accent="write"
+  rows={[
+    { label: "read", values: [12, 18, 41] },
+    { label: "write", values: [28, 33, 67] },
+    { label: "queue", values: [4, 6, 9] },
+  ]}
+/>`,
+    preview: (
+      <GraphMatrix
+        accent="write"
+        columns={["iad", "sfo", "nrt"]}
+        rows={[
+          { label: "read", values: [12, 18, 41] },
+          { label: "write", values: [28, 33, 67] },
+          { label: "queue", values: [4, 6, 9] },
+        ]}
+        title="P95"
       />
     ),
   },
@@ -1879,6 +2094,7 @@ const frameExamples: Example[] = [
 
 export const examplesBySlug: Record<string, Example[]> = {
   "graph-table": tableExamples,
+  "graph-sheet": sheetExamples,
   "graph-flow": flowExamples,
   "graph-bars": barsExamples,
   "graph-rank": rankExamples,
@@ -1887,6 +2103,7 @@ export const examplesBySlug: Record<string, Example[]> = {
   "graph-spark": sparkExamples,
   "graph-tree": treeExamples,
   "graph-timeline": timelineExamples,
+  "graph-check": checkExamples,
   "graph-stack": stackExamples,
   "graph-funnel": funnelExamples,
   "graph-gantt": ganttExamples,
@@ -1895,6 +2112,7 @@ export const examplesBySlug: Record<string, Example[]> = {
   "graph-diff": diffExamples,
   "graph-invoice": invoiceExamples,
   "graph-compare": compareExamples,
+  "graph-matrix": matrixExamples,
   "graph-stat": statExamples,
   "graph-kpi": kpiExamples,
   "graph-spec": specExamples,

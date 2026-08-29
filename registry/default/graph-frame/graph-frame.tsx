@@ -78,6 +78,16 @@ function GraphRule({ className, ...props }: React.ComponentProps<"div">) {
   )
 }
 
+function GraphRuleY({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      aria-hidden="true"
+      className={cn("graph-rule-y self-stretch", className)}
+      {...props}
+    />
+  )
+}
+
 function GraphTrack({ className, ...props }: React.ComponentProps<"span">) {
   return (
     <span
@@ -130,6 +140,7 @@ export {
   GraphBody,
   GraphCorners,
   GraphRule,
+  GraphRuleY,
   GraphTick,
   GraphTitle,
   GraphTrack,

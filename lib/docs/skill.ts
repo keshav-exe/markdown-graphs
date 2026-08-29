@@ -99,6 +99,13 @@ export const skillChooser: SkillChooserRow[] = [
     ],
   },
   {
+    writing: "An RFC or a launch list",
+    graphs: [
+      { name: "GraphSheet", slug: "graph-sheet" },
+      { name: "GraphCheck", slug: "graph-check" },
+    ],
+  },
+  {
     writing: "Nested files",
     graphs: [{ name: "GraphTree", slug: "graph-tree" }],
   },
@@ -106,6 +113,7 @@ export const skillChooser: SkillChooserRow[] = [
 
 export const skillRules = [
   "At most two graphs in a section. Prose between them.",
+  "React / importable MDX: JSX. Plain Markdown: official fenced twin from /llms.txt. Do not invent ASCII.",
   "Titles: short uppercase, drawn as [ TITLE ].",
   "Labels: lowercase, plain (auth middleware, not AuthMiddleware Layer).",
   "Copy props from docs or recipes. Do not invent APIs, extra hues, or chart libraries.",
@@ -132,7 +140,7 @@ Use markdown graphs for the before/after request path and the week-by-week rollo
     hint: "GraphTimeline, then GraphUptime",
     prompt: `Draft a tight postmortem: p95 crossed 800ms at 14:02, we rolled back the cache flag at 14:11, the write-up is still open.
 
-Use markdown graphs — a timeline of the night, then which days users felt it. No SVG or ASCII art charts.`,
+Use markdown graphs — a timeline of the night, then which days users felt it. No SVG.`,
   },
   {
     label: "Pull request",
@@ -147,6 +155,13 @@ Use markdown graphs — a timeline of the night, then which days users felt it. 
     prompt: `We're choosing a queue: BullMQ vs SQS. Write the tradeoff for the RFC.
 
 Use markdown graphs — a feature matrix, then bundle size only if it matters. Don't draw SVG.`,
+  },
+  {
+    label: "README",
+    hint: "Fenced twins, not JSX",
+    prompt: `Add a launch section to the README. It's a .md file, no React.
+
+Use markdown graphs — a punch list (GraphCheck twin) and a grouped table if it earns it. Paste the official fenced ASCII from llms.txt. Don't paste JSX.`,
   },
 ]
 
@@ -163,15 +178,15 @@ export function skillCopyFromRepo(dir: string) {
 
 export function skillPrompt(origin: string, dir = ".agents/skills") {
   const host = origin || SITE_URL
-  return `Copy the markdown graphs skill into this project. It is a SKILL.md (Agent Skills). It tells you when to put a framed graph next to the prose, which component to pick, and how to write the JSX. Do not draw SVG or Markdown ASCII art if the component exists.
+  return `Copy the markdown graphs skill into this project. It is a SKILL.md (Agent Skills). It tells you when to put a framed graph next to the prose, which component to pick, and whether to write JSX or paste the official fenced ASCII twin. Do not draw SVG. Do not invent ASCII art.
 
 Put it in the skills folder this agent already reads (${dir}/markdown-graphs). If this repo uses a different skills directory (.cursor/skills, .claude/skills, .agents/skills, .opencode/skills), use that instead.
 
 ${skillCurl(host, dir)}
 
-If the graph files are missing, install them first:
+If the graph files are missing and the host is React, install them first:
 
 pnpm dlx shadcn@latest add ${host}/r/all.json
 
-Fetch ${host}/llms.txt for the full chooser. Copy JSX from ${host}/docs/examples.`
+Fetch ${host}/llms.txt for the chooser and the MDX ASCII twins. Copy JSX from ${host}/docs/examples when the file can import components.`
 }

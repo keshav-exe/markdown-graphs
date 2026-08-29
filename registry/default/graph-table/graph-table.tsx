@@ -17,6 +17,15 @@ import { cn } from "@/lib/utils"
 
 type GraphAlign = "left" | "right"
 
+function RuleY() {
+  return (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-y-0 left-0 graph-rule-y"
+    />
+  )
+}
+
 type GraphTableProps = {
   title: string
   headers: string[]
@@ -43,7 +52,7 @@ function GraphTable({
   return (
     <Graph title={title} className={className} corner={corner}>
       <GraphBody className="px-3 py-6 sm:px-6 sm:py-8">
-        <div className="@container overflow-x-auto">
+        <div className="@container graph-scroll-x">
           <table className="w-full min-w-lg border-separate border-spacing-0">
             <thead>
               <tr>
@@ -51,13 +60,14 @@ function GraphTable({
                   <th
                     key={header}
                     className={cn(
-                      "px-3 pb-3 font-normal whitespace-nowrap text-foreground",
+                      "relative px-3 pb-3 font-normal whitespace-nowrap text-foreground",
                       (align?.[index] ?? (index === 0 ? "left" : "right")) ===
                         "right"
                         ? "text-right"
                         : "text-left"
                     )}
                   >
+                    {index > 0 ? <RuleY /> : null}
                     {header}
                   </th>
                 ))}
@@ -80,13 +90,14 @@ function GraphTable({
                     <td
                       key={cellIndex}
                       className={cn(
-                        "px-3 py-2.5 whitespace-nowrap",
+                        "relative px-3 py-2.5 whitespace-nowrap",
                         (align?.[cellIndex] ??
                           (cellIndex === 0 ? "left" : "right")) === "right"
                           ? "text-right tabular-nums"
                           : "text-left"
                       )}
                     >
+                      {cellIndex > 0 ? <RuleY /> : null}
                       {cell}
                     </td>
                   ))}
@@ -105,13 +116,14 @@ function GraphTable({
                     <td
                       key={cellIndex}
                       className={cn(
-                        "px-3 pt-1 whitespace-nowrap",
+                        "relative px-3 pt-1 whitespace-nowrap",
                         (align?.[cellIndex] ??
                           (cellIndex === 0 ? "left" : "right")) === "right"
                           ? "text-right tabular-nums"
                           : "text-left"
                       )}
                     >
+                      {cellIndex > 0 ? <RuleY /> : null}
                       {cell}
                     </td>
                   ))}

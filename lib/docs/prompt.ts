@@ -1,3 +1,4 @@
+import { mdxExample } from "@/lib/docs/ascii"
 import type { ComponentDoc, PropRow } from "@/lib/docs/catalog"
 
 export const DESIGN_AND_MOOD = `Design
@@ -22,8 +23,16 @@ Chooser
 - time left until a date → GraphCountdown
 - walking through a change → GraphFlow, then GraphTimeline
 - pick A vs B → GraphCompare
+- exact numbers on both axes → GraphMatrix
+- a table with section titles → GraphSheet
+- a punch list → GraphCheck
 - what a PR did → GraphDiff, then GraphSlope
 - overlapping work this week → GraphGantt
+
+Host
+- React, or MDX that can import the components → JSX from the examples.
+- Plain Markdown (README, GitHub, Linear, PR comments, .md) → official fenced ASCII twin from /llms.txt ## MDX, or the docs MDX tab. Swap labels, keep the frame. Do not invent ASCII. Do not paste JSX.
+- No twin: GraphFlow, GraphPlot, GraphActivity, GraphHeatmap, GraphCalendar, GraphTimer, GraphCountdown, GraphFrame. Pick another or skip.
 
 Mood
 Typed, not illustrated. Quiet monospace figures that sit next to prose. Two graphs per section is enough. Restraint over decoration. Do not restyle the frame. Default is one accent; palette is opt-in.`
@@ -145,6 +154,18 @@ export function pageMarkdown({
       "",
       agentPrompt({ origin, registry: name, doc, example: examples?.[0]?.code })
     )
+
+    const mdx = mdxExample(name)
+    if (mdx) {
+      parts.push(
+        "",
+        "## MDX",
+        "",
+        "Plain Markdown (README, GitHub, Linear, PR comments). Paste the fence. Do not paste JSX.",
+        "",
+        mdx.markdown
+      )
+    }
   }
 
   if (examples && examples.length > 0) {

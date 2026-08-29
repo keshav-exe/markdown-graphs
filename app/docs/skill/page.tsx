@@ -39,7 +39,7 @@ export default async function SkillPage() {
     "",
     "## What it does",
     "",
-    "When the agent is explaining a path, an incident, a tradeoff, or a PR, it puts at most two framed graphs next to the prose. Titles stay short and uppercase. Labels stay lowercase. No SVG, no extra hues, no dumping every graph it knows.",
+    "When the agent is explaining a path, an incident, a tradeoff, or a PR, it puts at most two framed graphs next to the prose. React or importable MDX gets JSX. Plain Markdown (README, GitHub, Linear) gets the official fenced twin from /llms.txt. Titles stay short and uppercase. Labels stay lowercase. No SVG, no homemade ASCII, no extra hues, no dumping every graph it knows.",
     "",
     "## Files",
     "",
@@ -104,7 +104,7 @@ export default async function SkillPage() {
           Before a wall of bullets, the skill asks if a framed figure would scan
           faster. Skip it if the whole point is one sentence.
         </p>
-        <div className="-mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+        <div className="-mx-4 graph-scroll-x sm:-mx-6 lg:-mx-8">
           <div className="min-w-full px-4 sm:px-6 lg:px-8">
             <table className="w-full border-separate border-spacing-0">
               <thead>
@@ -165,9 +165,9 @@ export default async function SkillPage() {
           ))}
         </ul>
         <p className="max-w-[56ch] text-pretty text-muted-foreground">
-          Do not draw the chart in SVG or Markdown ASCII art if the component
-          exists. Do not restyle the frame. Do not dump every graph into one
-          reply.
+          Do not draw the chart in SVG. In plain Markdown, paste the official
+          fenced twin from /llms.txt — do not invent ASCII, and do not paste
+          JSX. Do not restyle the frame. Do not dump every graph into one reply.
         </p>
       </section>
 
@@ -195,7 +195,7 @@ export default async function SkillPage() {
           >
             /llms.txt
           </Link>{" "}
-          is the full chooser if the skill is not installed.
+          is the chooser plus the MDX ASCII twins if the skill is not installed.
         </p>
         <CopyBlock label="SKILL.md" value={source} />
       </section>

@@ -390,6 +390,57 @@ html.dark[data-accent="prism"] {
   );
 }
 
+@utility graph-rule-y {
+  width: 1px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    var(--graph-frame) 0 2px,
+    transparent 2px 7px
+  );
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar-graph {
+  scrollbar-width: thin;
+  scrollbar-color: var(--graph-frame) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--graph-frame);
+    border-radius: 0;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: var(--graph-muted);
+    }
+  }
+}
+
+@utility graph-scroll-x {
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @utility site-rule {
   height: 1px;
   background-image: repeating-linear-gradient(
@@ -414,7 +465,30 @@ html.dark[data-accent="prism"] {
   }
   html {
     @apply font-sans antialiased;
+    scrollbar-width: thin;
+    scrollbar-color: var(--graph-frame) transparent;
   }
+
+  html::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  html::-webkit-scrollbar-thumb {
+    background-color: var(--graph-frame);
+    border-radius: 0;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    html::-webkit-scrollbar-thumb:hover {
+      background-color: var(--graph-muted);
+    }
+  }
+
   body {
     @apply bg-background text-foreground;
   }

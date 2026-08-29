@@ -16,6 +16,7 @@ import { JsonLd } from "@/components/seo/json-ld"
 import { AccentPicker } from "@/components/site/accent-picker"
 import { SiteContainer } from "@/components/site/container"
 import { Hero } from "@/components/site/hero"
+import { ShowcaseSection } from "@/components/site/showcase"
 import { pageMeta, websiteJsonLd } from "@/lib/seo"
 import { SITE_DESCRIPTION } from "@/lib/site"
 
@@ -69,16 +70,15 @@ export default function Page() {
     <main id="main">
       <JsonLd data={websiteJsonLd()} />
       <Hero />
+      <ShowcaseSection />
       <section>
         <SiteContainer className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             <h2 className="max-w-[35ch] text-2xl font-semibold tracking-tight text-balance">
-              What are these?
+              Palette and motion
             </h2>
             <p className="max-w-[48ch] text-pretty text-muted-foreground">
-              React components for charts, tables, and diagrams. Same dashed
-              frame and glyph set across thirty figures. Install one or the full
-              set through shadcn.
+              Accent and motion. These figures have no MDX twin.
             </p>
           </div>
           <AccentPicker />
@@ -174,6 +174,12 @@ export default function Page() {
               href="/docs/examples"
             >
               Examples
+            </Link>
+            <Link
+              className="text-foreground underline-offset-4 hover:underline"
+              href="/llms.txt"
+            >
+              llms.txt
             </Link>
           </div>
         </SiteContainer>

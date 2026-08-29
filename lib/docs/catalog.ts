@@ -82,6 +82,55 @@ const catalog: ComponentDoc[] = [
     ],
   },
   {
+    slug: "graph-sheet",
+    title: "Sheet",
+    name: "GraphSheet",
+    description:
+      "A table with section titles. API surfaces, RFCs, grouped specs.",
+    registry: "graph-sheet",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "headers",
+        type: "string[]",
+        description: "Column headings. Sentence case.",
+      },
+      {
+        name: "sections",
+        type: "SheetSection[]",
+        description: "Each section has a title and rows of cells.",
+      },
+      {
+        name: "footer",
+        type: "ReactNode[]",
+        description: "Optional totals row under a rule.",
+      },
+      {
+        name: "align",
+        type: '("left" | "right")[]',
+        default: "left, then right",
+        description:
+          "Per-column alignment. Defaults to left on the first column.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
     slug: "graph-flow",
     title: "Flow",
     name: "GraphFlow",
@@ -397,6 +446,37 @@ const catalog: ComponentDoc[] = [
         name: "events",
         type: "TimelineEvent[]",
         description: "date, label, and optional state: done, now, or next.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-check",
+    title: "Check",
+    name: "GraphCheck",
+    description: "Punch list. Done rows mark [x], the rest stay [ ].",
+    registry: "graph-check",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "items",
+        type: "CheckItem[]",
+        description: "label, optional done, optional note under the label.",
       },
       {
         name: "corner",
@@ -811,6 +891,48 @@ const catalog: ComponentDoc[] = [
         name: "accent",
         type: "string",
         description: "Column name to highlight. Other columns recede.",
+      },
+      {
+        name: "corner",
+        type: "string",
+        default: '"+"',
+        description: "Character at each corner of the frame.",
+      },
+      {
+        name: "className",
+        type: "string",
+        description: "Passed to the outer frame.",
+      },
+    ],
+  },
+  {
+    slug: "graph-matrix",
+    title: "Matrix",
+    name: "GraphMatrix",
+    description:
+      "Exact numbers on both axes. Confusion matrices, latency by region.",
+    registry: "graph-matrix",
+    dependencies: ["motion"],
+    props: [
+      {
+        name: "title",
+        type: "string",
+        description: "Caption drawn on the top edge of the frame.",
+      },
+      {
+        name: "columns",
+        type: "string[]",
+        description: "Column headings across the top.",
+      },
+      {
+        name: "rows",
+        type: "MatrixRow[]",
+        description: "label plus one number or string per column.",
+      },
+      {
+        name: "accent",
+        type: "string",
+        description: "Row label to highlight. Other rows recede.",
       },
       {
         name: "corner",
@@ -1439,7 +1561,9 @@ const PALETTE_SLUGS = new Set([
   "graph-waffle",
   "graph-diff",
   "graph-compare",
+  "graph-matrix",
   "graph-kpi",
+  "graph-check",
   "graph-activity",
   "graph-heatmap",
   "graph-calendar",

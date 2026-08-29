@@ -3,6 +3,7 @@ export {
   GraphBody,
   GraphCorners,
   GraphRule,
+  GraphRuleY,
   GraphTick,
   GraphTitle,
   GraphTrack,
@@ -28,6 +29,7 @@ export type {
   GraphPalette,
 } from "./graph-frame/graph-motion"
 export { GraphTable } from "./graph-table/graph-table"
+export { GraphSheet } from "./graph-sheet/graph-sheet"
 export { GraphFlow } from "./graph-flow/graph-flow"
 export { GraphBars } from "./graph-bars/graph-bars"
 export { GraphRank } from "./graph-rank/graph-rank"
@@ -36,6 +38,7 @@ export { GraphMeter } from "./graph-meter/graph-meter"
 export { GraphSpark } from "./graph-spark/graph-spark"
 export { GraphTree } from "./graph-tree/graph-tree"
 export { GraphTimeline } from "./graph-timeline/graph-timeline"
+export { GraphCheck } from "./graph-check/graph-check"
 export { GraphStack } from "./graph-stack/graph-stack"
 export { GraphFunnel } from "./graph-funnel/graph-funnel"
 export { GraphGantt } from "./graph-gantt/graph-gantt"
@@ -44,6 +47,7 @@ export { GraphPlot } from "./graph-plot/graph-plot"
 export { GraphWaffle } from "./graph-waffle/graph-waffle"
 export { GraphInvoice } from "./graph-invoice/graph-invoice"
 export { GraphCompare } from "./graph-compare/graph-compare"
+export { GraphMatrix } from "./graph-matrix/graph-matrix"
 export { GraphStat } from "./graph-stat/graph-stat"
 export { GraphKpi } from "./graph-kpi/graph-kpi"
 export { GraphSpec } from "./graph-spec/graph-spec"

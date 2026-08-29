@@ -1,11 +1,16 @@
 import type { ComponentDoc } from "@/lib/docs/catalog"
+import { MDX_SKIP_SLUGS, isMdxSlug, mdxExample } from "@/lib/docs/ascii"
 import { recipesMarkdown } from "@/lib/docs/recipes"
 import { SITE_URL } from "@/lib/site"
 
 export const CHOOSER: Record<string, { when: string; not: string }> = {
   "graph-table": {
     when: "Good when the numbers belong in a spreadsheet.",
-    not: "Bars, rankings, and sparklines have their own components.",
+    not: "Grouped sections are Sheet. Label/value rows are Spec.",
+  },
+  "graph-sheet": {
+    when: "Good when a table needs section titles — an API, an RFC, a spec with groups.",
+    not: "A flat table is Table. Label/value rows are Spec.",
   },
   "graph-flow": {
     when: "Good for a pipeline, a request path, or walking through a change.",
@@ -41,7 +46,11 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
   },
   "graph-timeline": {
     when: "Good for steps in order, with one marked as current.",
-    not: "A schedule with start and end dates is Gantt.",
+    not: "A punch list is Check. A schedule with start and end is Gantt.",
+  },
+  "graph-check": {
+    when: "Good for a punch list. Done is [x], the rest stay [ ].",
+    not: "Dated steps are Timeline.",
   },
   "graph-stack": {
     when: "Good for parts of a whole on one track.",
@@ -73,7 +82,11 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
   },
   "graph-compare": {
     when: "Good for putting two options side by side.",
-    not: "Numeric ranks are Rank.",
+    not: "Exact numbers on both axes are Matrix. Numeric ranks are Rank.",
+  },
+  "graph-matrix": {
+    when: "Good when both axes are labels and the cells are exact numbers.",
+    not: "Intensities are Heatmap. Yes/no features are Compare.",
   },
   "graph-stat": {
     when: "Good for two to four large numbers, with no sparkline.",
@@ -81,7 +94,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
   },
   "graph-spec": {
     when: "Good for aligned label and value rows, like a spec sheet.",
-    not: "Large headline numbers are Stat. A table with headers is Table.",
+    not: "Large headline numbers are Stat. A table with headers is Table. Grouped sections are Sheet.",
   },
   "graph-activity": {
     when: "Good for daily counts over months, like a contribution grid.",
@@ -89,7 +102,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
   },
   "graph-heatmap": {
     when: "Good for a labeled grid of intensities.",
-    not: "A contribution calendar is Activity.",
+    not: "Exact numbers on both axes are Matrix. A contribution calendar is Activity.",
   },
   "graph-calendar": {
     when: "Good for one month with a few days marked.",
@@ -126,7 +139,7 @@ export const CHOOSER: Record<string, { when: string; not: string }> = {
 }
 
 export function chooserMarkdown(
-  items: Pick<ComponentDoc, "slug" | "name" | "description">[],
+  items: Pick<ComponentDoc, "slug" | "name" | "title" | "description">[],
   origin = SITE_URL
 ) {
   const host = origin || SITE_URL
@@ -139,10 +152,37 @@ export function chooserMarkdown(
       return `| ${item.name} | ${item.slug} | ${when} | ${not} |`
     })
 
+  const skip = MDX_SKIP_SLUGS.map((slug) => slug.replace("graph-", "")).join(
+    ", "
+  )
+
+  const twins = items
+    .filter((item) => isMdxSlug(item.slug))
+    .map((item) => {
+      const mdx = mdxExample(item.slug)
+      if (!mdx) {
+        return ""
+      }
+
+      return `### ${item.title} (\`${item.name}\`, \`${item.slug}\`)
+
+${host}/docs/${item.slug}
+
+${mdx.markdown}`
+    })
+    .filter(Boolean)
+    .join("\n\n")
+
   return `# markdown graphs
 
 ASCII-framed React diagrams for MDX. Source is copied via shadcn registry, not npm.
 ${host}
+
+## Host
+
+- React, or MDX that can import \`@/registry/default/...\`: copy JSX from ${host}/docs/examples. Install via shadcn.
+- Plain Markdown that cannot run React (README, GitHub, Linear, Slack, PR comments, \`.md\`): paste a fenced twin from ## MDX. Swap labels, keep the frame. Do not invent ASCII. Do not paste JSX.
+- No twin (${skip}): pick a graph that has a twin, or skip the figure.
 
 ## Rules
 
@@ -163,6 +203,12 @@ Files land under @/registry/default.
 | Component | Slug | Use for | Not for |
 | --- | --- | --- | --- |
 ${rows.join("\n")}
+
+## MDX
+
+Official fenced ASCII twins. Paste into plain Markdown. Monospace keeps the frame aligned.
+
+${twins}
 
 ${recipesMarkdown(host)}
 `

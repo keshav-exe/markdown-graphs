@@ -26,15 +26,14 @@ function Hero() {
         >
           <motion.div className="flex flex-col gap-4" variants={item}>
             <p className="font-mono tracking-wide text-graph-muted uppercase">
-              React · shadcn
+              React · MDX
             </p>
             <h1 className="max-w-[20ch] text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
               Markdown graphs
             </h1>
             <p className="max-w-[48ch] text-pretty text-muted-foreground">
-              React components for graphs and charts that look like markdown.
-              Dashed frames, block glyphs, one accent. Install via shadcn into
-              a Tailwind project, then import them in MDX or React.
+              Monospace charts and tables in a dashed frame. Install with
+              shadcn. Import in MDX, or paste the ASCII twin into a README.
             </p>
           </motion.div>
           <motion.div
