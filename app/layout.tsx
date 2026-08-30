@@ -5,6 +5,8 @@ import { Analytics } from "@vercel/analytics/next"
 
 import { SiteFooter } from "@/components/site/footer"
 import { SiteHeader } from "@/components/site/header"
+import { DesktopHint } from "@/components/site/desktop-hint"
+import { SiteToaster } from "@/components/site/toast"
 import { ThemeProvider } from "@/components/theme-provider"
 import { accentBlockingScript, DEFAULT_ACCENT_ID } from "@/lib/accent"
 import { getGithubStars } from "@/lib/github"
@@ -90,9 +92,11 @@ export default async function RootLayout({
           </a>
           <div className="isolate flex min-h-dvh flex-col">
             <SiteHeader stars={stars} />
+            <DesktopHint />
             <div className="flex-1">{children}</div>
             <SiteFooter />
           </div>
+          <SiteToaster />
         </ThemeProvider>
         <Analytics />
       </body>

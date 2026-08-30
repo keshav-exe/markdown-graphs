@@ -51,6 +51,14 @@ function SiteFooter() {
               <li>
                 <Link
                   className="font-normal text-muted-foreground hover:text-foreground"
+                  href="/sponsor"
+                >
+                  Sponsor
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="font-normal text-muted-foreground hover:text-foreground"
                   href="/llms.txt"
                 >
                   llms.txt

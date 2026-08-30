@@ -181,6 +181,12 @@ export default function Page() {
             >
               llms.txt
             </Link>
+            <Link
+              className="text-foreground underline-offset-4 hover:underline"
+              href="/sponsor"
+            >
+              Sponsor
+            </Link>
           </div>
         </SiteContainer>
       </section>

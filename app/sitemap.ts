@@ -6,6 +6,7 @@ import { SITE_URL } from "@/lib/site"
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
+    "/sponsor",
     "/docs",
     "/docs/installation",
     "/docs/examples",

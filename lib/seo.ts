@@ -117,6 +117,26 @@ export function componentJsonLd(item: ComponentDoc) {
   }
 }
 
+export function sponsorJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        name: "Sponsor",
+        description:
+          "Four cells on the homepage, next to the title. $100 each per month. 100k+ impressions on X.",
+        url: `${SITE_URL}/sponsor`,
+        author,
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Sponsor", path: "/sponsor" },
+      ]),
+    ],
+  }
+}
+
 export function skillJsonLd() {
   return {
     "@context": "https://schema.org",
