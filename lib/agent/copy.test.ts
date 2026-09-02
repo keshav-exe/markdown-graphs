@@ -3,6 +3,9 @@ import { describe, expect, it } from "vitest"
 import {
   ABOUT_PARAS,
   CONTACT_PARAS,
+  HOME_API,
+  HOME_BRAND,
+  HOME_CLI,
   HOME_READ,
   HOME_WHAT,
   HOME_WRITE,
@@ -21,7 +24,14 @@ describe("trust copy length", () => {
 
 describe("homepage copy", () => {
   it("has at least 500 characters of prose", () => {
-    const text = [HOME_WHAT, HOME_WRITE, HOME_READ].join(" ")
+    const text = [
+      HOME_WHAT,
+      HOME_WRITE,
+      HOME_READ,
+      HOME_API,
+      HOME_CLI,
+      HOME_BRAND,
+    ].join(" ")
     expect(text.length).toBeGreaterThanOrEqual(500)
   })
 

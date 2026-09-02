@@ -28,6 +28,21 @@ type Hit = {
 
 const HITS: Hit[] = [
   {
+    href: "/developers",
+    title: "Markdown Graphs API",
+    detail: "/developers",
+    group: "Get started",
+    haystack:
+      "markdown graphs api developer openapi json catalog health rate limit deprecation",
+  },
+  {
+    href: "/agents.md",
+    title: "agents.md",
+    detail: "/agents.md",
+    group: "Get started",
+    haystack: "agents md markdown for agents skill llms machine readable",
+  },
+  {
     href: "/agents",
     title: "For agents",
     detail: "/agents",

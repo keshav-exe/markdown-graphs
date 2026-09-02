@@ -15,6 +15,15 @@ export const HOME_INSTALL = `pnpm dlx shadcn@latest add ${SITE_URL}/r/all.json`
 export const HOME_NEXT =
   "Then copy the skill from /skill.md. Fetch /llms.txt if the skill is not installed. The catalog is /docs. OpenAPI is /openapi.json."
 
+export const HOME_API =
+  "The Markdown Graphs JSON catalog lives at /api/v1/components. OpenAPI is at /openapi.json. The developer portal is /developers. Rate limit headers are on every API response: 1000 GET requests per hour."
+
+export const HOME_CLI =
+  "Install graphs with the official shadcn CLI — not an npm package of components. One command copies the source into your registry."
+
+export const HOME_BRAND =
+  "Markdown Graphs (mdx-graphs.kshv.me) is the canonical site. The GitHub repo is keshav-exe/markdown-graphs. Search for “Markdown Graphs” or “mdx-graphs” to find docs, the API, and the agent skill."
+
 export function homeMarkdown(origin = SITE_URL) {
   const host = origin || SITE_URL
 
@@ -38,15 +47,23 @@ ${HOME_INSTALL}
 
 ${HOME_NEXT}
 
+${HOME_API}
+
+${HOME_CLI}
+
+${HOME_BRAND}
+
 ## Links
 
+- Developer API: ${host}/developers
+- OpenAPI: ${host}/openapi.json
+- JSON catalog: ${host}/api/v1/components
 - For agents: ${host}/agents
+- agents.md: ${host}/agents.md
 - Docs: ${host}/docs
 - Examples: ${host}/docs/examples
 - Skill: ${host}/docs/skill
 - llms.txt: ${host}/llms.txt
-- OpenAPI: ${host}/openapi.json
-- JSON catalog: ${host}/api/v1/components
 - Sitemap: ${host}/sitemap.xml
 `
 }
@@ -65,6 +82,20 @@ export const CONTACT_PARAS = [
   "There is no support desk and no SLA. If a graph is wrong, open an issue with the slug and the props you passed. If you want a homepage cell, use the sponsor page and the same email. For the skill or the registry, start on /docs/skill or /openapi.json.",
 ] as const
 
+export const DEVELOPERS_PARAS = [
+  "Markdown Graphs exposes a read-only JSON API for agents and integrators. Version 1 is prefixed at /api/v1/. No API keys. Responses include RateLimit-* headers (1000 GET requests per hour). Errors are RFC 9457 application/problem+json with code, detail, and recovery links.",
+  "Start at /api/v1 for the endpoint index, /api/v1/health for a health check, and /api/v1/components for the full graph catalog. OpenAPI 3.1 is at /openapi.json. RFC 9727 API catalog is at /.well-known/api-catalog.",
+  "Install graph source files with the shadcn CLI: pnpm dlx shadcn@latest add https://mdx-graphs.kshv.me/r/all.json. That is the official CLI path — there is no separate npm package of React components.",
+  "Agent resources: /agents and /agents.md for the write/read story, /skill.md for the skill file, /llms.txt for the chooser and ASCII twins. Deprecation policy: /developers/deprecation.",
+] as const
+
+export const DEPRECATION_PARAS = [
+  "Markdown Graphs API version 1 is stable under the /api/v1/ URL prefix. Breaking changes ship as /api/v2/ with at least six months notice on this page and in the OpenAPI description.",
+  "When an endpoint or field is deprecated, responses may include Deprecation: true and Sunset: <HTTP-date> headers. After the sunset date the route returns 410 Gone with application/problem+json.",
+  "The shadcn registry JSON under /r/ follows the same semver as the site. Registry item slugs are not removed without a replacement slug documented in the OpenAPI changelog.",
+  "Subscribe to GitHub releases on keshav-exe/markdown-graphs for API and registry changes. Mail hi@kshv.me if you depend on a private integration.",
+] as const
+
 export const PRIVACY_PARAS = [
   "Markdown Graphs does not have accounts, logins, or user profiles. Copying a graph into your repo does not send us the file.",
   "The site is hosted on Vercel. Vercel Analytics records page views. We do not run ads, and we do not sell visitor data.",
@@ -72,6 +103,33 @@ export const PRIVACY_PARAS = [
   `Mail to ${SITE_EMAIL} is ordinary email. Do not send secrets. The registry JSON under /r/ and the skill files are public.`,
   "If this policy changes, the new text replaces this page. There is no separate legal entity behind the project beyond the author named on /about.",
 ] as const
+
+export function developersMarkdown(origin = SITE_URL) {
+  const host = origin || SITE_URL
+
+  return `# Markdown Graphs Developer API
+
+${DEVELOPERS_PARAS.join("\n\n")}
+
+## Endpoints
+
+- API index: ${host}/api/v1
+- Health: ${host}/api/v1/health
+- Catalog: ${host}/api/v1/components
+- OpenAPI: ${host}/openapi.json
+- Deprecation: ${host}/developers/deprecation
+`
+}
+
+export function deprecationMarkdown(origin = SITE_URL) {
+  return `# Markdown Graphs API deprecation
+
+${DEPRECATION_PARAS.join("\n\n")}
+
+- Developer API: ${origin}/developers
+- OpenAPI: ${origin}/openapi.json
+`
+}
 
 export function aboutMarkdown(origin = SITE_URL) {
   return `# About Markdown Graphs

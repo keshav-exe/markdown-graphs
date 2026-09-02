@@ -1,8 +1,9 @@
 import { components } from "@/lib/docs/catalog"
 import { toComponentJson } from "@/lib/agent/openapi"
+import { jsonOk, methodNotAllowed } from "@/lib/http/api"
 
 export async function GET() {
-  return Response.json(
+  return jsonOk(
     {
       components: components.map(toComponentJson),
     },
@@ -12,4 +13,8 @@ export async function GET() {
       },
     }
   )
+}
+
+export async function POST() {
+  return methodNotAllowed("/api/v1/components")
 }

@@ -195,14 +195,29 @@ Do not use it for a one-sentence note, a pie chart, or a drawing that needs SVG.
 
 ## Machine-readable
 
+- Markdown Graphs Developer API: ${host}/developers
 - OpenAPI: ${host}/openapi.json
+- API index: ${host}/api/v1
+- Health: ${host}/api/v1/health
 - JSON catalog: ${host}/api/v1/components
 - One graph: ${host}/api/v1/components/<slug>
+- agents.md: ${host}/agents.md
 - Skill: ${host}/skill.md
 - Recipes: ${host}/skill/recipes.md
 - Registry item: ${host}/r/<slug>.json
+- Deprecation policy: ${host}/developers/deprecation
 - Sitemap: ${host}/sitemap.xml
 - For agents: ${host}/agents
+
+## CLI
+
+Install graphs with the official shadcn CLI (not npm):
+
+pnpm dlx shadcn@latest add ${host}/r/<slug>.json
+
+Copy all graphs:
+
+pnpm dlx shadcn@latest add ${host}/r/all.json
 
 ## Host
 

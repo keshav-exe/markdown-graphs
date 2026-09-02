@@ -48,7 +48,12 @@ export const metadata: Metadata = {
     "markdown graphs",
     "MDX graphs",
     "ASCII charts",
+    "Markdown Graphs API",
   ],
+  publisher: SITE_NAME,
+  alternates: {
+    canonical: "/",
+  },
   authors: [{ name: SITE_AUTHOR.name, url: SITE_AUTHOR.url }],
   creator: SITE_AUTHOR.name,
   openGraph: {

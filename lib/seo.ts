@@ -45,10 +45,43 @@ const author = {
   sameAs: [SITE_AUTHOR.x, GITHUB_URL],
 }
 
+export function developersJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebAPI",
+        name: "Markdown Graphs API",
+        description:
+          "Read-only JSON catalog and machine-readable docs for Markdown Graphs.",
+        url: `${SITE_URL}/developers`,
+        documentation: `${SITE_URL}/openapi.json`,
+        provider: organizationNode(),
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "Markdown Graphs API", path: "/developers" },
+      ]),
+    ],
+  }
+}
+
+function organizationNode() {
+  return {
+    "@type": "Organization" as const,
+    name: SITE_NAME,
+    alternateName: ["mdx-graphs", SITE_NAME_SHORT, "markdown-graphs"],
+    url: SITE_URL,
+    logo: `${SITE_URL}/opengraph-image`,
+    sameAs: [GITHUB_URL, SITE_AUTHOR.x],
+  }
+}
+
 export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@graph": [
+      organizationNode(),
       {
         "@type": "WebSite",
         name: SITE_NAME,
@@ -56,7 +89,12 @@ export function websiteJsonLd() {
         url: SITE_URL,
         description: SITE_DESCRIPTION,
         inLanguage: "en",
-        publisher: author,
+        publisher: organizationNode(),
+        potentialAction: {
+          "@type": "SearchAction",
+          target: `${SITE_URL}/docs?q={search_term_string}`,
+          "query-input": "required name=search_term_string",
+        },
       },
       {
         "@type": "SoftwareApplication",

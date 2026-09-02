@@ -19,6 +19,14 @@ function SiteFooter() {
               <li>
                 <Link
                   className="font-normal text-muted-foreground hover:text-foreground"
+                  href="/developers"
+                >
+                  Developer API
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="font-normal text-muted-foreground hover:text-foreground"
                   href="/agents"
                 >
                   For agents

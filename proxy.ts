@@ -8,7 +8,7 @@ import {
 } from "@/lib/http/accept"
 
 const SKIP =
-  /^\/(api\/|_next\/|_vercel\/|r\/|llms\.txt$|skill\.md$|skill\/|openapi\.json$|sitemap\.xml$|robots\.txt$|\.well-known\/)/
+  /^\/(api\/|_next\/|_vercel\/|r\/|llms\.txt$|skill\.md$|agents\.md$|skill\/|openapi\.json$|sitemap\.xml$|robots\.txt$|\.well-known\/)/
 
 function markdownDestination(pathname: string) {
   const clean = pathname.replace(/\.md$/i, "") || "/"

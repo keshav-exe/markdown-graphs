@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { GraphFlow } from "@/components/graphs"
+import { AgentsFlowDemo } from "@/components/site/agents-flow-demo"
 import { Button } from "@/components/ui/button"
 import { SiteContainer } from "@/components/site/container"
 
@@ -28,25 +28,7 @@ function AgentsSection() {
               How agents use this
             </Button>
           </div>
-          <GraphFlow
-            rows={[
-              {
-                nodes: [
-                  { label: "write-up" },
-                  { label: "chooser" },
-                  { label: "JSX or twin", tone: "accent" },
-                ],
-              },
-              {
-                nodes: [
-                  { label: "open the file" },
-                  { label: "read the frame" },
-                  { label: "edit labels", tone: "accent" },
-                ],
-              },
-            ]}
-            title="LOOP"
-          />
+          <AgentsFlowDemo />
         </div>
       </SiteContainer>
     </section>

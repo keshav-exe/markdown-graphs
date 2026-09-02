@@ -2,6 +2,9 @@ import Link from "next/link"
 
 import { SiteContainer } from "@/components/site/container"
 import {
+  HOME_API,
+  HOME_BRAND,
+  HOME_CLI,
   HOME_INSTALL,
   HOME_NEXT,
   HOME_READ,
@@ -40,11 +43,20 @@ function HomeIntro() {
             <p className="text-muted-foreground">{HOME_READ}</p>
           </div>
           <div className="flex flex-col gap-3">
+            <h3 className="text-xl font-semibold tracking-tight">API</h3>
+            <p className="text-muted-foreground">{HOME_API}</p>
+          </div>
+          <div className="flex flex-col gap-3">
+            <h3 className="text-xl font-semibold tracking-tight">CLI</h3>
+            <p className="text-muted-foreground">{HOME_CLI}</p>
+          </div>
+          <div className="flex flex-col gap-3">
             <h3 className="text-xl font-semibold tracking-tight">Install</h3>
             <pre className="min-w-0 overflow-x-auto font-mono text-sm text-foreground">
               <code>{HOME_INSTALL}</code>
             </pre>
             <p className="text-muted-foreground">{HOME_NEXT}</p>
+            <p className="text-muted-foreground">{HOME_BRAND}</p>
           </div>
         </article>
       </SiteContainer>

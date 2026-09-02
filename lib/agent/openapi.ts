@@ -1,5 +1,5 @@
 import { components } from "@/lib/docs/catalog"
-import { SITE_DESCRIPTION, SITE_URL } from "@/lib/site"
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site"
 import { GITHUB_URL } from "@/lib/github"
 
 const slugs = components.map((item) => item.slug)
@@ -36,6 +36,107 @@ const componentSchema = {
   },
 } as const
 
+const propSchema = {
+  type: "object",
+  required: ["name", "type", "description"],
+  properties: {
+    name: { type: "string" },
+    type: { type: "string" },
+    default: { type: "string" },
+    description: { type: "string" },
+  },
+} as const
+
+const componentDetailSchema = {
+  allOf: [
+    { $ref: "#/components/schemas/Component" },
+    {
+      type: "object",
+      required: ["dependencies", "props"],
+      properties: {
+        dependencies: {
+          type: "array",
+          items: { type: "string" },
+        },
+        props: {
+          type: "array",
+          items: { $ref: "#/components/schemas/Prop" },
+        },
+      },
+    },
+  ],
+} as const
+
+const componentListSchema = {
+  type: "object",
+  required: ["components"],
+  properties: {
+    components: {
+      type: "array",
+      items: { $ref: "#/components/schemas/Component" },
+    },
+  },
+} as const
+
+const apiIndexSchema = {
+  type: "object",
+  required: ["version", "name", "description", "endpoints"],
+  properties: {
+    version: { type: "string", example: "1.0.0" },
+    name: { type: "string", example: "Markdown Graphs API" },
+    description: { type: "string" },
+    deprecation: { type: "string", format: "uri" },
+    openapi: { type: "string", format: "uri" },
+    endpoints: {
+      type: "array",
+      items: {
+        type: "object",
+        required: ["method", "path", "summary"],
+        properties: {
+          method: { type: "string", enum: ["GET"] },
+          path: { type: "string" },
+          summary: { type: "string" },
+          operationId: { type: "string" },
+        },
+      },
+    },
+  },
+} as const
+
+const healthSchema = {
+  type: "object",
+  required: ["ok", "service", "version", "url"],
+  properties: {
+    ok: { type: "boolean", example: true },
+    service: { type: "string", example: "Markdown Graphs" },
+    version: { type: "string", example: "1.0.0" },
+    url: { type: "string", format: "uri" },
+  },
+} as const
+
+const registryItemSchema = {
+  type: "object",
+  required: ["name", "type", "files"],
+  properties: {
+    name: { type: "string" },
+    type: { type: "string", example: "registry:component" },
+    title: { type: "string" },
+    description: { type: "string" },
+    files: {
+      type: "array",
+      items: {
+        type: "object",
+        required: ["path", "content"],
+        properties: {
+          path: { type: "string" },
+          type: { type: "string" },
+          content: { type: "string" },
+        },
+      },
+    },
+  },
+} as const
+
 function problemResponse(description: string) {
   return {
     description,
@@ -47,16 +148,134 @@ function problemResponse(description: string) {
   }
 }
 
+function rateLimitResponse() {
+  return {
+    description: "Rate limit exceeded.",
+    headers: {
+      "Retry-After": {
+        description: "Seconds until the client may retry.",
+        schema: { type: "integer" },
+      },
+      "RateLimit-Limit": {
+        description: "Requests allowed in the current window.",
+        schema: { type: "integer" },
+      },
+      "RateLimit-Remaining": {
+        description: "Requests left in the current window.",
+        schema: { type: "integer" },
+      },
+      "RateLimit-Reset": {
+        description: "Seconds until the window resets.",
+        schema: { type: "integer" },
+      },
+    },
+    content: {
+      "application/problem+json": {
+        schema: { $ref: "#/components/schemas/Problem" },
+      },
+    },
+  }
+}
+
+function rateLimitHeaders() {
+  return {
+    "RateLimit-Policy": {
+      description: "Quota policy: limit;w=window seconds.",
+      schema: { type: "string", example: "1000;w=3600" },
+    },
+    "RateLimit-Limit": {
+      description: "Requests allowed in the current window.",
+      schema: { type: "integer", example: 1000 },
+    },
+    "RateLimit-Remaining": {
+      description: "Requests left in the current window.",
+      schema: { type: "integer" },
+    },
+    "RateLimit-Reset": {
+      description: "Seconds until the window resets.",
+      schema: { type: "integer" },
+    },
+  }
+}
+
+export function apiIndex(origin = SITE_URL) {
+  const host = origin || SITE_URL
+
+  return {
+    version: "1.0.0",
+    name: "Markdown Graphs API",
+    description:
+      "Read-only JSON catalog for Markdown Graphs. No authentication. URL versioned under /api/v1/.",
+    deprecation: `${host}/developers/deprecation`,
+    openapi: `${host}/openapi.json`,
+    endpoints: [
+      {
+        method: "GET" as const,
+        path: "/api/v1/health",
+        summary: "Health check",
+        operationId: "getHealth",
+      },
+      {
+        method: "GET" as const,
+        path: "/api/v1/components",
+        summary: "List every graph",
+        operationId: "listComponents",
+      },
+      {
+        method: "GET" as const,
+        path: "/api/v1/components/{slug}",
+        summary: "Get one graph",
+        operationId: "getComponent",
+      },
+      {
+        method: "GET" as const,
+        path: "/llms.txt",
+        summary: "Chooser and ASCII twins",
+        operationId: "getLlmsTxt",
+      },
+      {
+        method: "GET" as const,
+        path: "/agents.md",
+        summary: "Agents page as markdown",
+        operationId: "getAgentsMd",
+      },
+      {
+        method: "GET" as const,
+        path: "/skill.md",
+        summary: "Agent skill file",
+        operationId: "getSkill",
+      },
+      {
+        method: "GET" as const,
+        path: "/skill/recipes.md",
+        summary: "Skill recipes",
+        operationId: "getSkillRecipes",
+      },
+      {
+        method: "GET" as const,
+        path: "/r/{name}.json",
+        summary: "shadcn registry item",
+        operationId: "getRegistryItem",
+      },
+      {
+        method: "GET" as const,
+        path: "/openapi.json",
+        summary: "This OpenAPI document",
+        operationId: "getOpenApi",
+      },
+    ],
+  }
+}
+
 export function openApiSpec(origin = SITE_URL) {
   const host = origin || SITE_URL
 
   return {
     openapi: "3.1.0",
     info: {
-      title: "Markdown Graphs",
+      title: "Markdown Graphs API",
       summary: SITE_DESCRIPTION,
-      description:
-        "Public read API for the Markdown Graphs catalog, shadcn registry, skill files, and llms.txt. No authentication. Source files are copied with the shadcn CLI; this API does not install them for you.",
+      description: `Public read API for ${SITE_NAME}. Version 1 is URL-prefixed at /api/v1/. Breaking changes ship as /api/v2/ with at least six months notice. Deprecation policy: ${host}/developers/deprecation. Rate limit: 1000 GET requests per hour per client; see RateLimit-* response headers. No authentication. Graph source files are copied with the shadcn CLI; this API does not install them.`,
       version: "1.0.0",
       license: {
         name: "MIT",
@@ -67,13 +286,57 @@ export function openApiSpec(origin = SITE_URL) {
         email: "hi@kshv.me",
         url: host,
       },
+      "x-api-version": "1",
+      "x-deprecation-policy": `${host}/developers/deprecation`,
     },
     servers: [{ url: host, description: "Production" }],
     tags: [
+      { name: "meta", description: "Health and API index." },
       { name: "catalog", description: "Graph list and one graph." },
       { name: "machine", description: "Skill, chooser, registry, OpenAPI." },
     ],
     paths: {
+      "/api/v1": {
+        get: {
+          operationId: "getApiIndex",
+          tags: ["meta"],
+          summary: "API index",
+          description:
+            "Lists every public GET endpoint with operationId values for function calling.",
+          responses: {
+            "200": {
+              description: "API index.",
+              headers: rateLimitHeaders(),
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/ApiIndex" },
+                },
+              },
+            },
+            "429": rateLimitResponse(),
+          },
+        },
+      },
+      "/api/v1/health": {
+        get: {
+          operationId: "getHealth",
+          tags: ["meta"],
+          summary: "Health check",
+          description: "Returns ok when the Markdown Graphs API is reachable.",
+          responses: {
+            "200": {
+              description: "Healthy.",
+              headers: rateLimitHeaders(),
+              content: {
+                "application/json": {
+                  schema: { $ref: "#/components/schemas/Health" },
+                },
+              },
+            },
+            "429": rateLimitResponse(),
+          },
+        },
+      },
       "/api/v1/components": {
         get: {
           operationId: "listComponents",
@@ -84,21 +347,14 @@ export function openApiSpec(origin = SITE_URL) {
           responses: {
             "200": {
               description: "Catalog.",
+              headers: rateLimitHeaders(),
               content: {
                 "application/json": {
-                  schema: {
-                    type: "object",
-                    required: ["components"],
-                    properties: {
-                      components: {
-                        type: "array",
-                        items: { $ref: "#/components/schemas/Component" },
-                      },
-                    },
-                  },
+                  schema: { $ref: "#/components/schemas/ComponentList" },
                 },
               },
             },
+            "429": rateLimitResponse(),
           },
         },
       },
@@ -124,6 +380,7 @@ export function openApiSpec(origin = SITE_URL) {
           responses: {
             "200": {
               description: "One graph.",
+              headers: rateLimitHeaders(),
               content: {
                 "application/json": {
                   schema: { $ref: "#/components/schemas/ComponentDetail" },
@@ -131,6 +388,7 @@ export function openApiSpec(origin = SITE_URL) {
               },
             },
             "404": problemResponse("Unknown slug."),
+            "429": rateLimitResponse(),
           },
         },
       },
@@ -144,11 +402,41 @@ export function openApiSpec(origin = SITE_URL) {
           responses: {
             "200": {
               description: "Markdown.",
+              headers: rateLimitHeaders(),
               content: {
-                "text/markdown": { schema: { type: "string" } },
-                "text/plain": { schema: { type: "string" } },
+                "text/markdown": {
+                  schema: { $ref: "#/components/schemas/MarkdownDocument" },
+                },
+                "text/plain": {
+                  schema: { $ref: "#/components/schemas/MarkdownDocument" },
+                },
               },
             },
+            "429": rateLimitResponse(),
+          },
+        },
+      },
+      "/agents.md": {
+        get: {
+          operationId: "getAgentsMd",
+          tags: ["machine"],
+          summary: "Agents page as markdown",
+          description:
+            "Same content as /agents in markdown for agents that prefer a .md URL.",
+          responses: {
+            "200": {
+              description: "Markdown.",
+              headers: rateLimitHeaders(),
+              content: {
+                "text/markdown": {
+                  schema: { $ref: "#/components/schemas/MarkdownDocument" },
+                },
+                "text/plain": {
+                  schema: { $ref: "#/components/schemas/MarkdownDocument" },
+                },
+              },
+            },
+            "429": rateLimitResponse(),
           },
         },
       },
@@ -162,11 +450,17 @@ export function openApiSpec(origin = SITE_URL) {
           responses: {
             "200": {
               description: "The skill.",
+              headers: rateLimitHeaders(),
               content: {
-                "text/markdown": { schema: { type: "string" } },
-                "text/plain": { schema: { type: "string" } },
+                "text/markdown": {
+                  schema: { $ref: "#/components/schemas/MarkdownDocument" },
+                },
+                "text/plain": {
+                  schema: { $ref: "#/components/schemas/MarkdownDocument" },
+                },
               },
             },
+            "429": rateLimitResponse(),
           },
         },
       },
@@ -179,11 +473,17 @@ export function openApiSpec(origin = SITE_URL) {
           responses: {
             "200": {
               description: "Recipes.",
+              headers: rateLimitHeaders(),
               content: {
-                "text/markdown": { schema: { type: "string" } },
-                "text/plain": { schema: { type: "string" } },
+                "text/markdown": {
+                  schema: { $ref: "#/components/schemas/MarkdownDocument" },
+                },
+                "text/plain": {
+                  schema: { $ref: "#/components/schemas/MarkdownDocument" },
+                },
               },
             },
+            "429": rateLimitResponse(),
           },
         },
       },
@@ -206,13 +506,15 @@ export function openApiSpec(origin = SITE_URL) {
           responses: {
             "200": {
               description: "Registry item.",
+              headers: rateLimitHeaders(),
               content: {
                 "application/json": {
-                  schema: { type: "object", additionalProperties: true },
+                  schema: { $ref: "#/components/schemas/RegistryItem" },
                 },
               },
             },
             "404": problemResponse("Unknown registry name."),
+            "429": rateLimitResponse(),
           },
         },
       },
@@ -225,12 +527,14 @@ export function openApiSpec(origin = SITE_URL) {
           responses: {
             "200": {
               description: "OpenAPI 3.1.",
+              headers: rateLimitHeaders(),
               content: {
                 "application/json": {
-                  schema: { type: "object", additionalProperties: true },
+                  schema: { $ref: "#/components/schemas/OpenApiDocument" },
                 },
               },
             },
+            "429": rateLimitResponse(),
           },
         },
       },
@@ -238,33 +542,26 @@ export function openApiSpec(origin = SITE_URL) {
     components: {
       schemas: {
         Problem: problemSchema,
+        Prop: propSchema,
         Component: componentSchema,
-        ComponentDetail: {
-          allOf: [
-            { $ref: "#/components/schemas/Component" },
-            {
-              type: "object",
-              properties: {
-                dependencies: {
-                  type: "array",
-                  items: { type: "string" },
-                },
-                props: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                    required: ["name", "type", "description"],
-                    properties: {
-                      name: { type: "string" },
-                      type: { type: "string" },
-                      default: { type: "string" },
-                      description: { type: "string" },
-                    },
-                  },
-                },
-              },
-            },
-          ],
+        ComponentDetail: componentDetailSchema,
+        ComponentList: componentListSchema,
+        ApiIndex: apiIndexSchema,
+        Health: healthSchema,
+        RegistryItem: registryItemSchema,
+        MarkdownDocument: {
+          type: "string",
+          description: "UTF-8 markdown body.",
+        },
+        OpenApiDocument: {
+          type: "object",
+          required: ["openapi", "info", "paths"],
+          properties: {
+            openapi: { type: "string", example: "3.1.0" },
+            info: { type: "object" },
+            paths: { type: "object" },
+            components: { type: "object" },
+          },
         },
       },
     },
@@ -285,7 +582,10 @@ export function apiCatalog(origin = SITE_URL) {
           },
         ],
         item: [
+          { href: `${host}/api/v1` },
+          { href: `${host}/api/v1/health` },
           { href: `${host}/api/v1/components` },
+          { href: `${host}/developers` },
           { href: `${host}/llms.txt` },
           { href: `${host}/skill.md` },
         ],

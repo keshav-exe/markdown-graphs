@@ -1,6 +1,8 @@
 import {
   aboutMarkdown,
   contactMarkdown,
+  deprecationMarkdown,
+  developersMarkdown,
   homeMarkdown,
   privacyMarkdown,
 } from "@/lib/agent/copy"
@@ -198,6 +200,8 @@ ${prompts}
 - Examples: ${host}/docs/examples
 - OpenAPI: ${host}/openapi.json
 - JSON catalog: ${host}/api/v1/components
+- Developer API: ${host}/developers
+- agents.md: ${host}/agents.md
 `
 }
 
@@ -221,6 +225,10 @@ export async function markdownForPath(path: string, origin = SITE_URL) {
       return homeMarkdown(host)
     case "/agents":
       return agentsMarkdown(host)
+    case "/developers":
+      return developersMarkdown(host)
+    case "/developers/deprecation":
+      return deprecationMarkdown(host)
     case "/about":
       return aboutMarkdown(host)
     case "/contact":
@@ -253,6 +261,8 @@ export function knownMarkdownPaths() {
   return [
     "/",
     "/agents",
+    "/developers",
+    "/developers/deprecation",
     "/about",
     "/contact",
     "/privacy",

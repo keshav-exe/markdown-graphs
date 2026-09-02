@@ -166,7 +166,7 @@ export default function AgentsPage() {
                 { label: "/skill.md", value: "the skill", accent: true },
                 { label: "/skill/recipes.md", value: "jsx recipes" },
                 { label: "/llms.txt", value: "chooser + twins" },
-                { label: "/docs/examples", value: "worked write-ups" },
+                { label: "/developers", value: "api + openapi" },
               ]}
               title="FETCH"
             />
