@@ -72,7 +72,7 @@ function GraphFunnel({
 
             return (
               <motion.li
-                className="grid grid-cols-[7rem_minmax(0,1fr)_8ch_4ch] items-center gap-x-4"
+                className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)_minmax(0,8ch)_minmax(0,4ch)] items-center gap-x-2 sm:gap-x-4"
                 key={step.label}
                 style={seriesDim(palette, !dim)}
                 variants={item}

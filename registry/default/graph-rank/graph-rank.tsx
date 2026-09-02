@@ -84,7 +84,7 @@ function GraphRank({
             return (
               <motion.li
                 aria-label={`${entry.label} ${shown}`}
-                className="grid grid-cols-[7rem_minmax(0,1fr)_7rem] items-center gap-x-4"
+                className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)_minmax(0,7rem)] items-center gap-x-2 sm:gap-x-4"
                 key={entry.label}
                 variants={item}
               >

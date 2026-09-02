@@ -3,6 +3,8 @@ import type { Metadata } from "next"
 import { components, type ComponentDoc } from "@/lib/docs/catalog"
 import { GITHUB_URL } from "@/lib/github"
 import {
+  AGENTS_DESCRIPTION,
+  DOCS_DESCRIPTION,
   SITE_AUTHOR,
   SITE_DESCRIPTION,
   SITE_NAME,
@@ -38,6 +40,8 @@ const author = {
   "@type": "Person" as const,
   name: SITE_AUTHOR.name,
   url: SITE_AUTHOR.url,
+  jobTitle: SITE_AUTHOR.jobTitle,
+  description: SITE_DESCRIPTION,
   sameAs: [SITE_AUTHOR.x, GITHUB_URL],
 }
 
@@ -47,11 +51,29 @@ export function websiteJsonLd() {
     "@graph": [
       {
         "@type": "WebSite",
-        name: SITE_NAME_SHORT,
+        name: SITE_NAME,
+        alternateName: [SITE_NAME_SHORT, "mdx-graphs"],
         url: SITE_URL,
         description: SITE_DESCRIPTION,
         inLanguage: "en",
         publisher: author,
+      },
+      {
+        "@type": "SoftwareApplication",
+        name: SITE_NAME,
+        alternateName: [SITE_NAME_SHORT, "mdx-graphs"],
+        description: SITE_DESCRIPTION,
+        url: SITE_URL,
+        applicationCategory: "DeveloperApplication",
+        operatingSystem: "Web",
+        license: `${GITHUB_URL}/blob/main/LICENSE`,
+        author,
+        sameAs: [GITHUB_URL, SITE_AUTHOR.x],
+        offers: {
+          "@type": "Offer",
+          price: "0",
+          priceCurrency: "USD",
+        },
       },
       {
         "@type": "SoftwareSourceCode",
@@ -68,13 +90,44 @@ export function websiteJsonLd() {
   }
 }
 
+export function webPageJsonLd({
+  name,
+  description,
+  path,
+}: {
+  name: string
+  description: string
+  path: string
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        name,
+        description,
+        url: `${SITE_URL}${path}`,
+        author,
+        isPartOf: {
+          "@type": "WebSite",
+          name: SITE_NAME,
+          url: SITE_URL,
+        },
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name, path },
+      ]),
+    ],
+  }
+}
+
 export function docsJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "markdown graphs components",
-    description:
-      "ASCII graph components for MDX. Install with the shadcn CLI or copy the files.",
+    description: DOCS_DESCRIPTION,
     url: `${SITE_URL}/docs`,
     mainEntity: {
       "@type": "ItemList",
@@ -145,7 +198,7 @@ export function skillJsonLd() {
         "@type": "TechArticle",
         headline: "Skill",
         description:
-          "A SKILL.md that picks a markdown graph when a write-up would scan faster with a figure.",
+          "A SKILL.md that tells the agent which graph to put next to the prose.",
         url: `${SITE_URL}/docs/skill`,
         author,
       },
@@ -166,7 +219,7 @@ export function installationJsonLd() {
         "@type": "TechArticle",
         headline: "Installation",
         description:
-          "Add markdown graphs with the shadcn CLI, or copy the files by hand.",
+          "Copy the source into a shadcn project. Then give the agent the skill.",
         url: `${SITE_URL}/docs/installation`,
         author,
       },
@@ -174,6 +227,25 @@ export function installationJsonLd() {
         { name: "Home", path: "/" },
         { name: "Docs", path: "/docs" },
         { name: "Installation", path: "/docs/installation" },
+      ]),
+    ],
+  }
+}
+
+export function agentsJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        name: "For agents",
+        description: AGENTS_DESCRIPTION,
+        url: `${SITE_URL}/agents`,
+        author,
+      },
+      breadcrumbJsonLd([
+        { name: "Home", path: "/" },
+        { name: "For agents", path: "/agents" },
       ]),
     ],
   }

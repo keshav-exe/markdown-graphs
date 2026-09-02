@@ -323,6 +323,7 @@ Two graphs per write-up is enough. Prose between them. Copy the JSX from the exa
 
 ${lines.join("\n")}
 
+For agents: ${host}/agents
 Skill: ${host}/docs/skill
 `
 }

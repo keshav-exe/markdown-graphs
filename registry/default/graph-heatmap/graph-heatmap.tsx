@@ -80,7 +80,7 @@ function GraphHeatmap({
   const item = fadeUp(reduce)
   const list = staggerList(reduce, 0.04)
   const peak = max ?? Math.max(0, ...rows.flatMap((row) => row.values), 0)
-  const template = `7rem repeat(${Math.max(columns.length, 1)}, minmax(1.25ch, 1fr))`
+  const template = `minmax(0,7rem) repeat(${Math.max(columns.length, 1)}, minmax(0,1fr))`
   const set = resolveGlyphs(glyphs)
 
   return (

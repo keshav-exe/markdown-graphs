@@ -64,7 +64,7 @@ function GraphGantt({
     <Graph title={title} className={className} corner={corner}>
       <GraphBody className="flex flex-col gap-4">
         {playhead != null ? (
-          <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-x-4">
+          <div className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)] gap-x-2 sm:gap-x-4">
             <span />
             <GraphTrack>
               {Array.from({ length: columns }, (_, index) => (
@@ -110,7 +110,7 @@ function GraphGantt({
                     ? `, ${Math.round(entry.complete * 100)}% complete`
                     : ""
                 }`}
-                className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-4"
+                className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)] items-center gap-x-2 sm:gap-x-4"
                 key={entry.label}
                 style={seriesDim(palette, !dim)}
                 variants={item}
@@ -152,7 +152,7 @@ function GraphGantt({
           })}
         </motion.ul>
         {ticks && ticks.length > 0 ? (
-          <div className="grid grid-cols-[7rem_minmax(0,1fr)] gap-x-4">
+          <div className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)] gap-x-2 sm:gap-x-4">
             <span />
             <div className="flex justify-between text-graph-muted">
               {ticks.map((tick) => (

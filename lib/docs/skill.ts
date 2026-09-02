@@ -188,5 +188,5 @@ If the graph files are missing and the host is React, install them first:
 
 pnpm dlx shadcn@latest add ${host}/r/all.json
 
-Fetch ${host}/llms.txt for the chooser and the MDX ASCII twins. Copy JSX from ${host}/docs/examples when the file can import components.`
+Fetch ${host}/agents for the write and read story. Fetch ${host}/llms.txt for the chooser and the MDX ASCII twins. Copy JSX from ${host}/docs/examples when the file can import components.`
 }

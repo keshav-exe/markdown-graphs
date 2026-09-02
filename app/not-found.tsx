@@ -16,7 +16,7 @@ export default function NotFound() {
           <HomeLink />
         </>
       }
-      body="That URL is not a page. The docs list every graph."
+      body="That URL is not a page. Look next at /docs, /llms.txt, /openapi.json, or /sitemap.xml."
       code="404"
       title="Not found"
     />

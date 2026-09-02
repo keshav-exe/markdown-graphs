@@ -11,7 +11,7 @@ import { installationJsonLd, pageMeta } from "@/lib/seo"
 export const metadata: Metadata = pageMeta({
   title: "Installation",
   description:
-    "Add markdown graphs with the shadcn CLI, or copy the files by hand.",
+    "Copy the source into a shadcn project. Then give the agent the skill.",
   path: "/docs/installation",
 })
 
@@ -48,7 +48,7 @@ import { GraphTable } from "@/registry/default/graph-table/graph-table"
 
 ## Agents
 
-Optional. $ORIGIN/docs/skill is a SKILL.md that picks a graph for a write-up. Same files in Cursor, Claude Code, Codex, OpenCode, or any agent that loads Agent Skills. $ORIGIN/llms.txt is the chooser, recipes, and fenced ASCII twins (plain Markdown) in one file.`
+$ORIGIN/agents is write vs read — JSX in MDX, official ASCII in a README. $ORIGIN/docs/skill is the SKILL.md. Same files in Cursor, Claude Code, Codex, OpenCode, or any agent that loads Agent Skills. $ORIGIN/llms.txt is the chooser, recipes, and fenced ASCII twins in one file.`
 
 export default function InstallationPage() {
   const table = getComponent("graph-table")
@@ -119,23 +119,29 @@ export default function InstallationPage() {
         <section className="flex flex-col gap-4">
           <h2 className="text-xl font-semibold tracking-tight">Agents</h2>
           <p className="text-pretty text-muted-foreground">
-            Optional. A SKILL.md that picks a graph when a write-up would scan
-            faster with a figure. Same files in Cursor, Claude Code, Codex,
-            OpenCode, or any agent that loads Agent Skills.{" "}
+            A skill file so the agent picks a component instead of drawing SVG.
+            JSX in MDX. Official ASCII in a README.{" "}
+            <Link
+              className="text-foreground underline-offset-4 hover:underline"
+              href="/agents"
+            >
+              For agents
+            </Link>{" "}
+            is the write and read story.{" "}
             <Link
               className="text-foreground underline-offset-4 hover:underline"
               href="/docs/skill"
             >
               Skill
-            </Link>
-            .{" "}
+            </Link>{" "}
+            is the install.{" "}
             <Link
               className="text-foreground underline-offset-4 hover:underline"
               href="/llms.txt"
             >
               /llms.txt
             </Link>{" "}
-            is every graph plus the recipes, in one file.
+            is the chooser plus the twins, in one file.
           </p>
         </section>
       </div>

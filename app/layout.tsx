@@ -41,7 +41,14 @@ export const metadata: Metadata = {
     template: `%s · ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
-  applicationName: SITE_NAME_SHORT,
+  applicationName: SITE_NAME,
+  keywords: [
+    "Markdown Graphs",
+    "mdx-graphs",
+    "markdown graphs",
+    "MDX graphs",
+    "ASCII charts",
+  ],
   authors: [{ name: SITE_AUTHOR.name, url: SITE_AUTHOR.url }],
   creator: SITE_AUTHOR.name,
   openGraph: {
@@ -90,10 +97,10 @@ export default async function RootLayout({
           >
             Skip to content
           </a>
-          <div className="isolate flex min-h-dvh flex-col">
+          <div className="isolate flex min-h-dvh min-w-0 flex-col overflow-x-clip">
             <SiteHeader stars={stars} />
             <DesktopHint />
-            <div className="flex-1">{children}</div>
+            <div className="min-w-0 flex-1">{children}</div>
             <SiteFooter />
           </div>
           <SiteToaster />

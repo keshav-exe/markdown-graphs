@@ -10,7 +10,7 @@ export const contentType = ogType
 export default function Image() {
   return new ImageResponse(
     <OgFrame
-      description="Add markdown graphs with the shadcn CLI, or copy the files by hand."
+      description="Copy the source into a shadcn project. Then give the agent the skill."
       kicker="DOCS"
       title="Installation"
     />,

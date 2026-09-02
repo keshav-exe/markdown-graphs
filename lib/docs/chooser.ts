@@ -173,10 +173,36 @@ ${mdx.markdown}`
     .filter(Boolean)
     .join("\n\n")
 
-  return `# markdown graphs
+  return `# Markdown Graphs
 
 ASCII-framed React diagrams for MDX. Source is copied via shadcn registry, not npm.
+Agents write JSX (React / importable MDX) or paste an official fenced twin (README, GitHub, Linear). Do not invent ASCII. Do not draw SVG.
 ${host}
+
+## When to use
+
+Use Markdown Graphs when an agent is writing or editing a file and a figure would scan faster than a wall of bullets.
+
+Reach for it when the writing is a path or a refactor, an incident or postmortem, a tradeoff, a pull request, overlapping work this week, a migration, or a README / RFC / launch list.
+
+How to call it:
+
+1. React or importable MDX: install with \`pnpm dlx shadcn@latest add ${host}/r/<slug>.json\` and copy JSX from ${host}/docs/examples.
+2. Plain Markdown: paste the official fenced twin from ## MDX below. Do not invent ASCII. Do not paste JSX.
+3. Install the skill from ${host}/skill.md so the chooser runs without fetching this file every time.
+
+Do not use it for a one-sentence note, a pie chart, or a drawing that needs SVG. At most two figures, with prose between them.
+
+## Machine-readable
+
+- OpenAPI: ${host}/openapi.json
+- JSON catalog: ${host}/api/v1/components
+- One graph: ${host}/api/v1/components/<slug>
+- Skill: ${host}/skill.md
+- Recipes: ${host}/skill/recipes.md
+- Registry item: ${host}/r/<slug>.json
+- Sitemap: ${host}/sitemap.xml
+- For agents: ${host}/agents
 
 ## Host
 

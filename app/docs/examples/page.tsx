@@ -86,6 +86,13 @@ export default function ExamplesPage() {
         Give this to an agent:{" "}
         <Link
           className="text-foreground underline-offset-4 hover:underline"
+          href="/agents"
+        >
+          For agents
+        </Link>
+        . Install:{" "}
+        <Link
+          className="text-foreground underline-offset-4 hover:underline"
           href="/docs/skill"
         >
           Skill

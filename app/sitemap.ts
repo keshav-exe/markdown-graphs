@@ -6,6 +6,10 @@ import { SITE_URL } from "@/lib/site"
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = [
     "/",
+    "/agents",
+    "/about",
+    "/contact",
+    "/privacy",
     "/sponsor",
     "/docs",
     "/docs/installation",
@@ -14,6 +18,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/llms.txt",
     "/skill.md",
     "/skill/recipes.md",
+    "/openapi.json",
     ...components.map((item) => `/docs/${item.slug}`),
   ]
 

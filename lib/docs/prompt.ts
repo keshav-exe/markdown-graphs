@@ -32,6 +32,7 @@ Chooser
 Host
 - React, or MDX that can import the components → JSX from the examples.
 - Plain Markdown (README, GitHub, Linear, PR comments, .md) → official fenced ASCII twin from /llms.txt ## MDX, or the docs MDX tab. Swap labels, keep the frame. Do not invent ASCII. Do not paste JSX.
+- Reading an existing file: the figure is characters. Edit labels. Do not replace a graph with SVG.
 - No twin: GraphFlow, GraphPlot, GraphActivity, GraphHeatmap, GraphCalendar, GraphTimer, GraphCountdown, GraphFrame. Pick another or skip.
 
 Mood

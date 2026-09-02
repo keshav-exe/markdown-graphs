@@ -79,7 +79,7 @@ function GraphUptime({
   return (
     <Graph title={title} className={className} corner={corner}>
       <GraphBody className="flex flex-col items-center gap-4">
-        <div className="flex w-fit max-w-full flex-col gap-4">
+        <div className="flex scrollbar-graph w-fit max-w-full flex-col gap-4 overflow-x-auto">
           <motion.div
             aria-hidden="true"
             className="flex flex-col gap-1 select-none"

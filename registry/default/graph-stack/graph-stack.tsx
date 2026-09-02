@@ -121,7 +121,7 @@ function GraphStack({
                 aria-label={`${row.label}: ${row.segments
                   .map((segment) => `${segment.label} ${segment.value}`)
                   .join(", ")}`}
-                className="grid grid-cols-[7rem_minmax(0,1fr)] items-center gap-x-4"
+                className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)] items-center gap-x-2 sm:gap-x-4"
                 key={row.label}
                 variants={item}
               >

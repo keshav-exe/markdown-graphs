@@ -15,7 +15,9 @@ import {
 import { JsonLd } from "@/components/seo/json-ld"
 import { AccentPicker } from "@/components/site/accent-picker"
 import { SiteContainer } from "@/components/site/container"
+import { AgentsSection } from "@/components/site/agents-section"
 import { Hero } from "@/components/site/hero"
+import { HomeIntro } from "@/components/site/home-intro"
 import { ShowcaseSection } from "@/components/site/showcase"
 import { pageMeta, websiteJsonLd } from "@/lib/seo"
 import { SITE_DESCRIPTION } from "@/lib/site"
@@ -70,15 +72,18 @@ export default function Page() {
     <main id="main">
       <JsonLd data={websiteJsonLd()} />
       <Hero />
+      <HomeIntro />
+      <AgentsSection />
       <ShowcaseSection />
       <section>
         <SiteContainer className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             <h2 className="max-w-[35ch] text-2xl font-semibold tracking-tight text-balance">
-              Palette and motion
+              React-only figures
             </h2>
             <p className="max-w-[48ch] text-pretty text-muted-foreground">
-              Accent and motion. These figures have no MDX twin.
+              Activity, heatmap, calendar, and timers have no ASCII twin. They
+              stay in the component.
             </p>
           </div>
           <AccentPicker />
@@ -165,9 +170,15 @@ export default function Page() {
           <div className="flex flex-wrap gap-x-6 gap-y-2">
             <Link
               className="text-foreground underline-offset-4 hover:underline"
+              href="/agents"
+            >
+              For agents
+            </Link>
+            <Link
+              className="text-foreground underline-offset-4 hover:underline"
               href="/docs"
             >
-              All components
+              Library
             </Link>
             <Link
               className="text-foreground underline-offset-4 hover:underline"

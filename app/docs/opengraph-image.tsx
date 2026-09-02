@@ -10,7 +10,7 @@ export const contentType = ogType
 export default function Image() {
   return new ImageResponse(
     <OgFrame
-      description="ASCII graph components for MDX. Install with the shadcn CLI or copy the files."
+      description="Framed graphs for MDX. A skill so agents pick a component instead of drawing SVG."
       kicker="DOCS"
       title="Introduction"
     />,

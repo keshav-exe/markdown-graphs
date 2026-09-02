@@ -28,22 +28,23 @@ function Hero() {
           >
             <motion.div className="flex flex-col gap-4" variants={item}>
               <p className="font-mono tracking-wide text-graph-muted uppercase">
-                React · MDX
+                For agents · MDX
               </p>
               <h1 className="max-w-[20ch] text-4xl font-semibold tracking-tight text-balance sm:text-5xl">
                 Markdown graphs
               </h1>
               <p className="max-w-[48ch] text-pretty text-muted-foreground">
-                Monospace charts and tables in a dashed frame. Install with
-                shadcn. Import in MDX, or paste the ASCII twin into a README.
+                Framed graphs an agent can drop next to prose. JSX in MDX.
+                Official ASCII in a README. A skill so it picks a component
+                instead of drawing SVG.
               </p>
             </motion.div>
             <motion.div
               className="flex flex-wrap items-center gap-3"
               variants={item}
             >
-              <Button nativeButton={false} render={<Link href="/docs" />}>
-                Read the docs
+              <Button nativeButton={false} render={<Link href="/agents" />}>
+                For agents
               </Button>
               <Button
                 nativeButton={false}

@@ -15,7 +15,7 @@ import { readSkillFile } from "@/lib/docs/skill-files"
 import { skillJsonLd, pageMeta } from "@/lib/seo"
 
 const description =
-  "A SKILL.md that picks a markdown graph when a write-up would scan faster with a figure. Same files in Cursor, Claude Code, Codex, OpenCode, or any agent that loads Agent Skills."
+  "A SKILL.md that tells the agent which graph to put next to the prose. Same files in Cursor, Claude Code, Codex, OpenCode, or any agent that loads Agent Skills."
 
 export const metadata: Metadata = pageMeta({
   title: "Skill",
@@ -39,7 +39,7 @@ export default async function SkillPage() {
     "",
     "## What it does",
     "",
-    "When the agent is explaining a path, an incident, a tradeoff, or a PR, it puts at most two framed graphs next to the prose. React or importable MDX gets JSX. Plain Markdown (README, GitHub, Linear) gets the official fenced twin from /llms.txt. Titles stay short and uppercase. Labels stay lowercase. No SVG, no homemade ASCII, no extra hues, no dumping every graph it knows.",
+    "When the agent is explaining a path, an incident, a tradeoff, or a PR, it puts at most two framed graphs next to the prose. React or importable MDX gets JSX. Plain Markdown (README, GitHub, Linear) gets the official fenced twin from /llms.txt. Opening the file later, the figure is still characters — the agent can read the labels and edit them. Titles stay short and uppercase. Labels stay lowercase. No SVG, no homemade ASCII, no extra hues, no dumping every graph it knows.",
     "",
     "## Files",
     "",
@@ -59,7 +59,14 @@ export default async function SkillPage() {
         title="Skill"
       >
         <p className="max-w-[56ch] text-pretty text-muted-foreground">
-          The graphs themselves still need to be in the project.{" "}
+          Write vs read, and why this exists:{" "}
+          <Link
+            className="text-foreground underline-offset-4 hover:underline"
+            href="/agents"
+          >
+            For agents
+          </Link>
+          . The graphs themselves still need to be in the project.{" "}
           <Link
             className="text-foreground underline-offset-4 hover:underline"
             href="/docs/installation"

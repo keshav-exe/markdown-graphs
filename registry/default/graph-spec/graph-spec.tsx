@@ -39,7 +39,7 @@ function GraphSpec({ title, rows, corner, className }: GraphSpecProps) {
         >
           {rows.map((row) => (
             <motion.div
-              className="grid grid-cols-[minmax(7rem,11rem)_minmax(0,1fr)] items-baseline gap-x-6"
+              className="grid grid-cols-[minmax(0,11rem)_minmax(0,1fr)] items-baseline gap-x-3 sm:gap-x-6"
               key={row.label}
               variants={item}
             >

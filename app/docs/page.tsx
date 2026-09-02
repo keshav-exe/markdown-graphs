@@ -8,18 +8,18 @@ import { SiteCorners, SiteMark, SiteRule } from "@/components/site/corners"
 import { components, getComponent } from "@/lib/docs/catalog"
 import { isNewSlug } from "@/lib/docs/new"
 import { docsJsonLd, pageMeta } from "@/lib/seo"
+import { DOCS_DESCRIPTION } from "@/lib/site"
 import { cn } from "@/lib/utils"
 import { HugeiconsIcon } from "@hugeicons/react"
 import { ArrowRight02Icon } from "@hugeicons/core-free-icons"
 
 export const metadata: Metadata = pageMeta({
   title: "Introduction",
-  description:
-    "ASCII graph components for MDX. Install with the shadcn CLI or copy the files.",
+  description: DOCS_DESCRIPTION,
   path: "/docs",
 })
 
-const intro = `ASCII-framed graphs you copy into a shadcn project, not an npm package. Each graph sits in a dashed frame with a title on the top edge. Pick one accent color for highlights. Drawing graphs also take palette="duo" or "multi".`
+const intro = `ASCII-framed graphs you copy into a shadcn project. Built so an agent can place them next to prose — JSX in MDX, official fences in a README. One accent. Drawing graphs also take palette="duo" or "multi".`
 
 export default function DocsPage() {
   const extra = [
@@ -47,20 +47,25 @@ export default function DocsPage() {
         <p className="max-w-[56ch] text-pretty text-muted-foreground">
           <Link
             className="text-foreground underline-offset-4 hover:underline"
-            href="/docs/examples"
+            href="/agents"
           >
-            Examples
+            For agents
           </Link>{" "}
-          are short write-ups with two graphs each — a refactor, an incident, a
-          tradeoff.{" "}
+          is the write and read story.{" "}
           <Link
             className="text-foreground underline-offset-4 hover:underline"
             href="/docs/skill"
           >
             Skill
           </Link>{" "}
-          is the SKILL.md that tells an agent to use those instead of drawing
-          SVG.
+          is the SKILL.md.{" "}
+          <Link
+            className="text-foreground underline-offset-4 hover:underline"
+            href="/docs/examples"
+          >
+            Examples
+          </Link>{" "}
+          are short write-ups with two graphs each.
         </p>
       </DocsPageHeader>
 
@@ -95,7 +100,7 @@ export default function DocsPage() {
                 href={`/docs/${item.slug}`}
                 key={item.slug}
                 className={cn(
-                  "group flex flex-col gap-3 justify-between h-full px-4 py-5 sm:px-6",
+                  "group flex h-full flex-col justify-between gap-3 px-4 py-5 sm:px-6",
                   "max-sm:[&:not(:first-child)]:border-t max-sm:[&:not(:first-child)]:border-dashed max-sm:[&:not(:first-child)]:border-site-rail",
                   "sm:[&:nth-child(n+3)]:border-t sm:[&:nth-child(n+3)]:border-dashed sm:[&:nth-child(n+3)]:border-site-rail",
                   "sm:[&:nth-child(odd)]:border-r sm:[&:nth-child(odd)]:border-dashed sm:[&:nth-child(odd)]:border-site-rail"

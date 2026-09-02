@@ -29,7 +29,7 @@ const specs = [
   {
     name: "Audience",
     detail:
-      "People installing shadcn charts into MDX and READMEs. Most sessions continue into the docs after the homepage.",
+      "People who put framed graphs in MDX and READMEs — and the agents that write those files. Most sessions continue into the docs after the homepage.",
   },
   {
     name: "Creative",

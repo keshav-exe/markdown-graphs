@@ -10,12 +10,20 @@ function SiteFooter() {
         className="flex flex-col gap-8"
         corners={["tl", "tr", "bl", "br"]}
       >
-        <div className="flex flex-col gap-8 sm:flex-row sm:items-end sm:justify-between">
+        <div className="flex flex-col gap-8">
           <Link aria-label="Homepage" className="text-foreground" href="/">
             markdown graphs
           </Link>
           <nav aria-label="Footer">
             <ul className="flex flex-wrap gap-6" role="list">
+              <li>
+                <Link
+                  className="font-normal text-muted-foreground hover:text-foreground"
+                  href="/agents"
+                >
+                  For agents
+                </Link>
+              </li>
               <li>
                 <Link
                   className="font-normal text-muted-foreground hover:text-foreground"
@@ -59,9 +67,41 @@ function SiteFooter() {
               <li>
                 <Link
                   className="font-normal text-muted-foreground hover:text-foreground"
+                  href="/about"
+                >
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="font-normal text-muted-foreground hover:text-foreground"
+                  href="/contact"
+                >
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="font-normal text-muted-foreground hover:text-foreground"
+                  href="/privacy"
+                >
+                  Privacy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="font-normal text-muted-foreground hover:text-foreground"
                   href="/llms.txt"
                 >
                   llms.txt
+                </Link>
+              </li>
+              <li>
+                <Link
+                  className="font-normal text-muted-foreground hover:text-foreground"
+                  href="/openapi.json"
+                >
+                  OpenAPI
                 </Link>
               </li>
               <li>
@@ -94,10 +134,20 @@ function SiteFooter() {
             </ul>
           </nav>
         </div>
-        <p className="max-w-[56ch] text-pretty text-muted-foreground">
-          Open source on GitHub. Copy the files into your project when you are
-          ready.
-        </p>
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <p className="text-pretty text-muted-foreground">
+            {new Date().getFullYear()} Markdown Graphs. MIT license.
+          </p>
+          <p className="text-pretty text-muted-foreground">
+            with love{" "}
+            <Link
+              className="text-foreground hover:text-foreground"
+              href="https://x.com/kshvbgde"
+            >
+              keshav
+            </Link>
+          </p>
+        </div>
       </SiteContainer>
     </footer>
   )

@@ -11,6 +11,7 @@ import { SiteSearch } from "@/components/site/search"
 import { ThemeToggle } from "@/components/site/theme-toggle"
 import { GithubStarLink } from "@/components/site/github-star"
 import { SiteCorners, SiteMark, SiteRule } from "@/components/site/corners"
+import { SITE_NAV } from "@/lib/site"
 import { cn } from "@/lib/utils"
 
 function SiteHeader({ stars }: { stars: number | null }) {
@@ -19,7 +20,7 @@ function SiteHeader({ stars }: { stars: number | null }) {
   return (
     <header className="sticky top-0 z-40 bg-background/40 backdrop-blur-sm">
       <SiteRule className="bottom-0 z-20" />
-      <div className="relative isolate mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="relative isolate mx-auto w-full max-w-6xl min-w-0 px-4 sm:px-6 lg:px-8">
         <SiteRule className="left-0 z-20" orientation="y" />
         <SiteRule className="right-0 z-20" orientation="y" />
         <SiteCorners />
@@ -37,22 +38,16 @@ function SiteHeader({ stars }: { stars: number | null }) {
 
           <nav aria-label="Primary" className="max-lg:hidden">
             <ul className="flex items-center gap-6" role="list">
-              <li>
-                <Link
-                  className="text-muted-foreground hover:text-foreground"
-                  href="/docs"
-                >
-                  library
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="text-muted-foreground hover:text-foreground"
-                  href="/docs/examples"
-                >
-                  examples
-                </Link>
-              </li>
+              {SITE_NAV.map((item) => (
+                <li key={item.href}>
+                  <Link
+                    className="text-muted-foreground hover:text-foreground"
+                    href={item.href}
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
 
@@ -100,32 +95,21 @@ function SiteHeader({ stars }: { stars: number | null }) {
                     </Dialog.Close>
                   </div>
                   <ul className="flex flex-col gap-6" role="list">
-                    <li>
-                      <Dialog.Close
-                        nativeButton={false}
-                        render={
-                          <Link
-                            className="text-2xl text-foreground"
-                            href="/docs"
-                          />
-                        }
-                      >
-                        library
-                      </Dialog.Close>
-                    </li>
-                    <li>
-                      <Dialog.Close
-                        nativeButton={false}
-                        render={
-                          <Link
-                            className="text-2xl text-foreground"
-                            href="/docs/examples"
-                          />
-                        }
-                      >
-                        examples
-                      </Dialog.Close>
-                    </li>
+                    {SITE_NAV.map((item) => (
+                      <li key={item.href}>
+                        <Dialog.Close
+                          nativeButton={false}
+                          render={
+                            <Link
+                              className="text-2xl text-foreground"
+                              href={item.href}
+                            />
+                          }
+                        >
+                          {item.label}
+                        </Dialog.Close>
+                      </li>
+                    ))}
 
                     <li>
                       <div className="text-2xl">

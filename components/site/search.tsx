@@ -27,6 +27,42 @@ type Hit = {
 }
 
 const HITS: Hit[] = [
+  {
+    href: "/agents",
+    title: "For agents",
+    detail: "/agents",
+    group: "Get started",
+    haystack:
+      "for agents skill llms.txt cursor claude codex opencode mdx write read ascii twin recipes",
+  },
+  {
+    href: "/about",
+    title: "About",
+    detail: "/about",
+    group: "Get started",
+    haystack: "about markdown graphs keshav bagaade mit open source",
+  },
+  {
+    href: "/contact",
+    title: "Contact",
+    detail: "/contact",
+    group: "Get started",
+    haystack: "contact email hi@kshv.me github issues sponsor",
+  },
+  {
+    href: "/privacy",
+    title: "Privacy",
+    detail: "/privacy",
+    group: "Get started",
+    haystack: "privacy analytics vercel github stars",
+  },
+  {
+    href: "/openapi.json",
+    title: "OpenAPI",
+    detail: "/openapi.json",
+    group: "Get started",
+    haystack: "openapi swagger api json catalog function calling",
+  },
   ...getStarted.map((item) => ({
     href: item.href,
     title: item.label,

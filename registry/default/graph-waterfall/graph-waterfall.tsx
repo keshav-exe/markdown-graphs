@@ -154,7 +154,7 @@ function GraphWaterfall({
               <li className="flex flex-col gap-2" key={segment.label}>
                 {showRule ? <GraphRule /> : null}
                 <motion.div
-                  className="grid grid-cols-[7rem_minmax(0,1fr)_5.5rem] items-center gap-x-4"
+                  className="grid grid-cols-[minmax(0,7rem)_minmax(0,1fr)_minmax(0,5.5rem)] items-center gap-x-2 sm:gap-x-4"
                   variants={item}
                 >
                   <span className="truncate text-foreground">

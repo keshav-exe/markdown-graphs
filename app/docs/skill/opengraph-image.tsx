@@ -10,7 +10,7 @@ export const contentType = ogType
 export default function Image() {
   return new ImageResponse(
     <OgFrame
-      description="A SKILL.md that picks a framed graph instead of drawing SVG."
+      description="A SKILL.md that tells the agent which graph to put next to the prose."
       kicker="DOCS"
       title="Skill"
     />,

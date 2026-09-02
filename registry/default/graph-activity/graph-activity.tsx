@@ -187,69 +187,77 @@ function GraphActivity({
   return (
     <Graph title={title} className={className} corner={corner}>
       <GraphBody className="flex flex-col gap-4">
-        <div className="flex w-full flex-col gap-1">
-          <div className="flex h-[1.25em] w-full">
-            <span className="w-[2ch] shrink-0" />
-            {months.map((month, index) => (
-              <span className="relative min-w-[1ch] flex-1" key={`m-${index}`}>
-                {month ? (
-                  <span className="absolute bottom-0 left-0 whitespace-nowrap text-graph-muted">
-                    {month}
-                  </span>
-                ) : null}
-              </span>
-            ))}
-          </div>
-          <div className="flex w-full">
-            <div className="flex w-[2ch] shrink-0 flex-col">
-              {labels.map((label, index) => (
+        <div className="scrollbar-graph overflow-x-auto">
+          <div
+            className="flex w-full flex-col gap-1 pr-[2ch]"
+            style={{ minWidth: `max(100%, ${weeks.length + 4}ch)` }}
+          >
+            <div className="flex h-[1.25em] w-full">
+              <span className="w-[2ch] shrink-0" />
+              {months.map((month, index) => (
                 <span
-                  className="flex h-[1.15em] items-center text-graph-muted"
-                  key={`d-${index}`}
+                  className="relative min-w-[1ch] flex-1"
+                  key={`m-${index}`}
                 >
-                  {label}
+                  {month ? (
+                    <span className="absolute bottom-0 left-0 whitespace-nowrap text-graph-muted">
+                      {month}
+                    </span>
+                  ) : null}
                 </span>
               ))}
             </div>
-            <motion.div
-              className="flex min-w-0 flex-1"
-              initial={reduce ? false : "hidden"}
-              variants={list}
-              viewport={{ once: true, amount: 0.2 }}
-              whileInView="show"
-            >
-              {weeks.map((week, weekIndex) => (
-                <motion.div
-                  className={cn(
-                    "flex min-w-[1ch] flex-1 flex-col",
-                    !reduce && "will-change-[transform,opacity]"
-                  )}
-                  key={week[0]?.date ?? weekIndex}
-                  variants={item}
-                >
-                  {week.map((cell) => {
-                    const level = cell.inRange
-                      ? intensityLevel(cell.count, peak)
-                      : 0
+            <div className="flex w-full">
+              <div className="flex w-[2ch] shrink-0 flex-col">
+                {labels.map((label, index) => (
+                  <span
+                    className="flex h-[1.15em] items-center text-graph-muted"
+                    key={`d-${index}`}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </div>
+              <motion.div
+                className="flex flex-1"
+                initial={reduce ? false : "hidden"}
+                variants={list}
+                viewport={{ once: true, amount: 0.2 }}
+                whileInView="show"
+              >
+                {weeks.map((week, weekIndex) => (
+                  <motion.div
+                    className={cn(
+                      "flex min-w-[1ch] flex-1 flex-col",
+                      !reduce && "will-change-[transform,opacity]"
+                    )}
+                    key={week[0]?.date ?? weekIndex}
+                    variants={item}
+                  >
+                    {week.map((cell) => {
+                      const level = cell.inRange
+                        ? intensityLevel(cell.count, peak)
+                        : 0
 
-                    return (
-                      <span
-                        aria-hidden="true"
-                        className={cn(
-                          "flex h-[1.15em] w-full items-center justify-center leading-none select-none",
-                          cell.inRange
-                            ? intensityClass(level, palette)
-                            : "text-transparent"
-                        )}
-                        key={cell.date}
-                      >
-                        {cell.inRange ? intensityGlyph(level, set) : quiet}
-                      </span>
-                    )
-                  })}
-                </motion.div>
-              ))}
-            </motion.div>
+                      return (
+                        <span
+                          aria-hidden="true"
+                          className={cn(
+                            "flex h-[1.15em] w-full items-center justify-center leading-none select-none",
+                            cell.inRange
+                              ? intensityClass(level, palette)
+                              : "text-transparent"
+                          )}
+                          key={cell.date}
+                        >
+                          {cell.inRange ? intensityGlyph(level, set) : quiet}
+                        </span>
+                      )
+                    })}
+                  </motion.div>
+                ))}
+              </motion.div>
+            </div>
           </div>
         </div>
         {caption === false && !legend ? null : (
