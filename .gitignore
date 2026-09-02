@@ -2,6 +2,7 @@
 /node_modules
 /.pnp
 .pnp.*
+.pnpm-store/
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -21,6 +22,8 @@
 # misc
 .DS_Store
 *.pem
+.cursor/
+.agents/
 
 # debug
 npm-debug.log*
