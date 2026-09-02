@@ -23,9 +23,9 @@ importers:
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
+      cn:
+        specifier: ^0.2.0
+        version: 0.2.0
       motion:
         specifier: ^13.1.1
         version: 13.1.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -44,9 +44,6 @@ importers:
       shadcn:
         specifier: ^4.19.0
         version: 4.19.0(supports-color@7.2.0)(typescript@5.9.3)
-      tailwind-merge:
-        specifier: ^3.6.0
-        version: 3.6.0
       tw-animate-css:
         specifier: ^1.4.0
         version: 1.4.0
@@ -1528,6 +1525,11 @@ packages:
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
+
+  cn@0.2.0:
+    resolution: {integrity: sha512-V5/cy/bY90vmVLIVl/pmGp2HCpAh9w73dSrs7HpyHsddr6R4SWRJ7I1+gVd+bZRyo9qgBgtW3sh3Y8cpd6DEew==}
+    engines: {node: '>=20'}
+    hasBin: true
 
   code-block-writer@13.0.3:
     resolution: {integrity: sha512-Oofo0pq3IKnsFtuHqSF7TqBfr71aeyZDVJ0HpmqB7FBM2qEigL0iPONSCZSO9pE9dZTAxANe5XHG9Uy0YMv8cg==}
@@ -4862,6 +4864,8 @@ snapshots:
   client-only@0.0.1: {}
 
   clsx@2.1.1: {}
+
+  cn@0.2.0: {}
 
   code-block-writer@13.0.3: {}
 
